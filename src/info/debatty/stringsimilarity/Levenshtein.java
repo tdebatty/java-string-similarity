@@ -1,11 +1,38 @@
 package info.debatty.stringsimilarity;
 
 /**
- *
- * @author tibo
+ * The Levenshtein distance between two words is the minimum number of 
+ * single-character edits (insertions, deletions or substitutions) required to 
+ * change one word into the other.
+ * 
+ * @author Thibault Debatty
  */
-public class Levenshtein {
+public class Levenshtein implements StringSimilarityInterface {
+    
+    public static void main (String[] args) {
+        Levenshtein l = new Levenshtein();
+        
+        System.out.println(l.distanceAbsolute("My string", "My $tring"));
+        System.out.println(l.distance("My string", "My $tring"));
+        System.out.println(l.similarity("My string", "My $tring"));
+    }
 
+    public static int Distance(String s1, String s2) {
+        Levenshtein l = new Levenshtein();
+        return l.distanceAbsolute(s1, s2);
+    }
+
+    @Override
+    public double distance(String s1, String s2) {
+        return ((double) distanceAbsolute(s1, s2)) / Math.max(s1.length(), s2.length());
+        
+    }
+    
+    @Override
+    public double similarity(String s1, String s2) {
+        return 1.0 - distance(s1, s2);
+    }
+    
     /**
      * The Levenshtein distance, or edit distance, between two words is the 
      * minimum number of single-character edits (i.e. insertions, deletions or 
@@ -25,7 +52,7 @@ public class Levenshtein {
      * @param s1
      * @return 
      */
-    public static int Distance(String s0, String s1) {
+    public int distanceAbsolute(String s0, String s1) {
         int len0 = s0.length() + 1;
         int len1 = s1.length() + 1;
 

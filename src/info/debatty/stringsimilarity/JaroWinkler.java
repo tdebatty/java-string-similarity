@@ -6,11 +6,23 @@ import java.util.Arrays;
  *
  * @author tibo
  */
-public class JaroWinkler {
+public class JaroWinkler implements StringSimilarityInterface {
+    
+    
+    public static void main(String[] args) {
+        JaroWinkler jw = new JaroWinkler();
+        
+        System.out.println(jw.distance("My string", "My $tring"));
+        System.out.println(jw.similarity("My string", "My $tring"));
+    }
     
     /**
-     * The Jaro–Winkler distance is in fact a measure of similarity between two
-     * strings: 0 means no similarity and 1 is an exact match.
+     * Jaro-Winkler is string edit distance that was developed in the area of 
+     * record linkage (duplicate detection) (Winkler, 1990). 
+     * 
+     * The Jaro–Winkler distance metric is designed and best suited for short 
+     * strings such as person names, and to detect typos.
+     * 
      * http://en.wikipedia.org/wiki/Jaro-Winkler_distance
      * 
      * @param s0
@@ -19,11 +31,57 @@ public class JaroWinkler {
      */
     public static double Similarity(String s0, String s1) {
         JaroWinkler jw = new JaroWinkler();
-        return jw.sim(s0, s1);
+        return jw.similarity(s0, s1);
     }
 
+    private double threshold = 0.7;
     
-    private float threshold = 0.7f;
+    public JaroWinkler() {
+        
+    }
+    
+    public JaroWinkler(double threshold) {
+        this.setThreshold(threshold);
+    }
+
+    @Override
+    public double similarity(String s1, String s2) {
+        int[] mtp = matches(s1, s2);
+        float m = mtp[0];
+        if (m == 0) {
+            return 0f;
+        }
+        float j = ((m / s1.length() + m / s2.length() + (m - mtp[1]) / m)) / 3;
+        float jw = j < getThreshold() ? j : j + Math.min(0.1f, 1f / mtp[3]) * mtp[2]
+                * (1 - j);
+        return jw;
+    }
+    
+    @Override
+    public double distance(String s1, String s2) {
+        return 1.0 - similarity(s1, s2);
+    }
+
+    /**
+     * Sets the threshold used to determine when Winkler bonus should be used.
+     * Set to a negative value to get the Jaro distance.
+     * Default value is 0.7
+     *
+     * @param threshold the new value of the threshold
+     */
+    public final void setThreshold(double threshold) {
+        this.threshold = threshold;
+    }
+
+    /**
+     * Returns the current value of the threshold used for adding the Winkler
+     * bonus. The default value is 0.7.
+     *
+     * @return the current value of the threshold
+     */
+    public double getThreshold() {
+        return threshold;
+    }
 
     private int[] matches(String s1, String s2) {
         String max, min;
@@ -81,37 +139,4 @@ public class JaroWinkler {
         }
         return new int[]{matches, transpositions / 2, prefix, max.length()};
     }
-
-    public float sim(String s1, String s2) {
-        int[] mtp = matches(s1, s2);
-        float m = mtp[0];
-        if (m == 0) {
-            return 0f;
-        }
-        float j = ((m / s1.length() + m / s2.length() + (m - mtp[1]) / m)) / 3;
-        float jw = j < getThreshold() ? j : j + Math.min(0.1f, 1f / mtp[3]) * mtp[2]
-                * (1 - j);
-        return jw;
-    }
-
-    /**
-     * Sets the threshold used to determine when Winkler bonus should be used.
-     * Set to a negative value to get the Jaro distance.
-     *
-     * @param threshold the new value of the threshold
-     */
-    public void setThreshold(float threshold) {
-        this.threshold = threshold;
-    }
-
-    /**
-     * Returns the current value of the threshold used for adding the Winkler
-     * bonus. The default value is 0.7.
-     *
-     * @return the current value of the threshold
-     */
-    public float getThreshold() {
-        return threshold;
-    }
-
 }

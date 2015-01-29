@@ -15,7 +15,7 @@ See [releases](https://github.com/tdebatty/java-string-similarity/releases).
 The Levenshtein distance between two words is the minimum number of single-character edits (insertions, deletions or substitutions) required to change one word into the other.
 
 ```java
-import info.debatty.stringsimilarity.*;
+import info.debatty.java.stringsimilarity.*;
 
 public class MyApp {
     
@@ -30,10 +30,10 @@ public class MyApp {
 ```
 
 ## Jaro-Winkler
-Jaro-Winkler is string edit distance that was developed in the area of record linkage (duplicate detection) (Winkler, 1990). The Jaro–Winkler distance metric is designed and best suited for short strings such as person names, and to detect typos.
+Jaro-Winkler is a string edit distance that was developed in the area of record linkage (duplicate detection) (Winkler, 1990). The Jaro–Winkler distance metric is designed and best suited for short strings such as person names, and to detect typos.
 
 ```java
-import info.debatty.stringsimilarity.*;
+import info.debatty.java.stringsimilarity.*;
 
 public class MyApp {
     
@@ -63,7 +63,7 @@ LCS distance is equivalent to Levenshtein distance, when only insertion and dele
 This class currently implements the dynamic programming approach, which has a space requirement O(m * n)
 
 ```java
-import info.debatty.stringsimilarity.*;
+import info.debatty.java.stringsimilarity.*;
 
 public class MyApp {
     public static void main(String[] args) {

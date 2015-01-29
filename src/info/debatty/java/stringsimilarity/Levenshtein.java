@@ -1,4 +1,4 @@
-package info.debatty.stringsimilarity;
+package info.debatty.java.stringsimilarity;
 
 /**
  * The Levenshtein distance between two words is the minimum number of 

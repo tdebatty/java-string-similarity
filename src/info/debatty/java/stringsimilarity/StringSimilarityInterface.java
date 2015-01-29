@@ -1,5 +1,5 @@
 
-package info.debatty.stringsimilarity;
+package info.debatty.java.stringsimilarity;
 
 /**
  *

@@ -1,4 +1,4 @@
-package info.debatty.stringsimilarity;
+package info.debatty.java.stringsimilarity;
 
 /**
  * The longest common subsequence (LCS) problem consists in finding the 

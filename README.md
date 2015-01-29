@@ -1,4 +1,4 @@
-#string-similarity
+#java-string-similarity
 
 A library implementing different string similarity algorithms.
 

@@ -1,0 +1,73 @@
+package info.debatty.java.stringsimilarity;
+
+/**
+ * QGram similarity is the relative number of n-grams both strings have in 
+ * common.
+ * 
+ * @author Thibault Debatty
+ */
+public class QGram implements StringSimilarityInterface {
+    
+    public static void main(String[] args) {
+        QGram dig = new QGram(2);
+        
+        // Should be 2: CD and CE
+        System.out.println(dig.absoluteDistance("ABCD", "ABCE"));
+        
+        // Should be 0.5 (2 / 4)
+        System.out.println(dig.distance("ABCD", "ABCE"));
+    }
+    
+    private int n;
+
+    public QGram(int n) {
+        this.n = n;
+    }
+    
+    public QGram() {
+        this.n = 3;
+    }
+    
+    @Override
+    public double similarity(String s1, String s2) {
+        return 1.0 - distance(s1, s2);
+    }
+
+    @Override
+    public double distance(String s1, String s2) {
+        KShingling sh = new KShingling(n);
+        sh.parse(s1);
+        sh.parse(s2);
+        
+        boolean[] b1 = sh.booleanVectorOf(s1);
+        boolean[] b2 = sh.booleanVectorOf(s2);
+        
+        int d = 0;
+        for (int i = 0; i < b1.length; i++) {
+            if (b1[i] != b2[i]) {
+                d++;
+            }
+        }
+        
+        return ((double) d) / sh.size();
+    }
+    
+    public int absoluteDistance(String s1, String s2) {
+        KShingling sh = new KShingling(n);
+        sh.parse(s1);
+        sh.parse(s2);
+        
+        boolean[] b1 = sh.booleanVectorOf(s1);
+        boolean[] b2 = sh.booleanVectorOf(s2);
+        
+        int d = 0;
+        for (int i = 0; i < b1.length; i++) {
+            if (b1[i] != b2[i]) {
+                d++;
+            }
+        }
+        
+        return d;
+    }
+    
+}

@@ -76,5 +76,48 @@ public class MyApp {
 }
 ```
 
+## Q-Gram
+
+Q-Gram edit distance, not to confuse with N-Gram distance defined by Kondrak (below), is the relative number of n-grams both strings have in common.
+
+```java
+import info.debatty.java.stringsimilarity.*;
+
+public class MyApp {
+    
+    public static void main(String[] args) {
+        QGram dig = new QGram(2);
+        
+        // Should be 2: CD and CE
+        System.out.println(dig.absoluteDistance("ABCD", "ABCE"));
+        
+        // Should be 0.5 (2 / 4)
+        System.out.println(dig.distance("ABCD", "ABCE"));
+    }
+}
+```
+
+## N-Gram similarity (Kondrak)
+
+N-Gram Similarity as defined by Kondrak, "N-Gram Similarity and Distance", String Processing and Information Retrieval, Lecture Notes in Computer Science Volume 3772, 2005, pp 115-126.
+
+http://webdocs.cs.ualberta.ca/~kondrak/papers/spire05.pdf
+
+The algorithm uses affixing with special character '\n' two increase the weight of first characters. The normalization is achieved by dividing the total similarity score the original length of the longer word.
+
+```java
+import info.debatty.java.stringsimilarity.*;
+
+public class MyApp {
+
+    public static void main(String[] args) {
+        NGram twogram = new NGram(2);
+
+        // Should be 0.41666
+        System.out.println(twogram.distance("ABCD", "ABTUIO"));
+    }
+}
+```
+
 
 

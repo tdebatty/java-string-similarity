@@ -17,6 +17,11 @@ public class NGram implements StringSimilarityInterface {
         NGram twogram = new NGram(2);
         
         System.out.println(twogram.distance("ABCD", "ABTUIO"));
+        
+        String s1 = " Buy And Download Cheap OemSoftwares! Adobe CreativeSuite 5 Master Collection from cheap 4zp";
+        String s2 = " Buy And Download Cheap OemSoftwares! Adobe CreativeSuite 5 Master Collection from cheap d1x";
+        NGram ngram = new NGram(4);
+        System.out.println(ngram.similarity(s1, s2));
     }
 
     private final int n;

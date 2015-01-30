@@ -35,6 +35,10 @@ public class QGram implements StringSimilarityInterface {
 
     @Override
     public double distance(String s1, String s2) {
+        if (s1.length() < n || s2.length() < n) {
+            return 0;
+        }
+        
         KShingling sh = new KShingling(n);
         sh.parse(s1);
         sh.parse(s2);

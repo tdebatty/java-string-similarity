@@ -78,7 +78,7 @@ public class MyApp {
 
 ## Q-Gram
 
-Q-Gram edit distance, not to confuse with N-Gram distance defined by Kondrak (below), is the relative number of n-grams both strings have in common.
+Q-Gram similarity, not to confuse with N-Gram distance defined by Kondrak (below), is the relative number of n-grams both strings have in common. It is thus the Jaccard index between the strings considered as sets of n-grams. The computed similarity and distance are relative value (between 0 and 1).
 
 ```java
 import info.debatty.java.stringsimilarity.*;

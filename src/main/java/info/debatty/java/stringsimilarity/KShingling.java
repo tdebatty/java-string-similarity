@@ -2,7 +2,9 @@ package info.debatty.java.stringsimilarity;
 
 import java.io.Serializable;
 import java.security.InvalidParameterException;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A k-shingling is a set of unique k-grams, used to measure the similarity of 
@@ -99,6 +101,19 @@ public class KShingling extends HashSet<String> implements Serializable {
         }
         
         return r;
+    }
+    
+    public Set<Integer> integerSetOf(String s) {
+        Set<Integer> set = new HashSet<Integer>();
+        int i = 0;
+        for (String shingle : this) {
+            if (s.contains(shingle)) {
+                set.add(i);
+            }
+            i++;
+        }
+        
+        return set;
     }
     
 }

@@ -37,7 +37,7 @@ public class KShingling extends HashSet<String> implements Serializable {
         }
         System.out.print("\n");
         
-        ks.add("Another shingle?");
+        ks.add("This should trigger an exception!");
     }
     
     protected int k = 5;

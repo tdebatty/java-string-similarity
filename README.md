@@ -6,9 +6,19 @@ Currently implemeted:
 - Levenshtein edit distance;
 - Jaro-Winkler similarity;
 - Longest Common Subsequence edit distance;
-- n-Gram distance.
+- Q-Gram (Jaccard index);
+- n-Gram distance (Kondrak).
 
 ## Download
+Using maven:
+```
+<dependency>
+    <groupId>info.debatty</groupId>
+    <artifactId>java-string-similarity</artifactId>
+    <version>RELEASE</version>
+</dependency>
+```
+
 See [releases](https://github.com/tdebatty/java-string-similarity/releases).
 
 ## Levenshtein
@@ -32,15 +42,17 @@ public class MyApp {
 ## Jaro-Winkler
 Jaro-Winkler is a string edit distance that was developed in the area of record linkage (duplicate detection) (Winkler, 1990). The Jaro–Winkler distance metric is designed and best suited for short strings such as person names, and to detect typos.
 
+It is (roughly) a variation of Levenshtein distance, where the substitution of 2 close characters is considered less important then the substitution of 2 characters that a far from each other.
+
 ```java
 import info.debatty.java.stringsimilarity.*;
 
 public class MyApp {
-    
-    
+
+
     public static void main(String[] args) {
         JaroWinkler jw = new JaroWinkler();
-        
+
         System.out.println(jw.distance("My string", "My $tring"));
         System.out.println(jw.similarity("My string", "My $tring"));
     }

@@ -18,6 +18,14 @@ public class QGram implements StringSimilarityInterface {
         
         // Should be 0.5 (2 / 4)
         System.out.println(dig.distance("ABCD", "ABCE"));
+        
+        // AB BC CD DE BX XB CE
+        // 2 / 7
+        System.out.println(dig.similarity("ABCDE", "ABXBCE"));
+        
+        System.out.println(dig.similarity(
+                "High Qua1ityMedications   Discount On All Reorders = Best Deal Ever! Viagra50/100mg - $1.85 071",
+                "High Qua1ityMedications   Discount On All Reorders = Best Deal Ever! Viagra50/100mg - $1.85 7z3"));
     }
     
     private int n;

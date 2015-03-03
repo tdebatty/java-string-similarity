@@ -61,7 +61,7 @@ public class Main {
                 "Lorem ipsum dolor sit amet, MY BLOCK IS HERE consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, MY BLOCK IS HERE sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."));
         
-        // Semanticly similar
+        // Semantic similar
         pairs.add(new Pair(
                 "Mon automobile est en panne",
                 "Ma voiture est cassée"

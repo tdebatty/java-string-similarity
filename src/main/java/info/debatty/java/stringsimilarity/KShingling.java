@@ -3,6 +3,7 @@ package info.debatty.java.stringsimilarity;
 import java.io.Serializable;
 import java.security.InvalidParameterException;
 import java.util.HashSet;
+import java.util.regex.Pattern;
 
 /**
  * A k-shingling is a set of unique k-grams, used to measure the similarity of 
@@ -71,8 +72,9 @@ public class KShingling extends HashSet<String> implements Serializable {
         this.k = k;
     }
     
+    private static final Pattern spaceReg = Pattern.compile("\\s+");
     public boolean parse(String s) {
-        s = s.replaceAll("\\s+", " ");
+        s = spaceReg.matcher(s).replaceAll(" ");
         for (int i = 0; i < (s.length() - k + 1); i++) {
             this.add(s.substring(i, i+k));
         }

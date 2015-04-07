@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     
     <modelVersion>4.0.0</modelVersion>
     <groupId>info.debatty</groupId>
     <artifactId>java-string-similarity</artifactId>
-    <version>0.5-SNAPSHOT</version>  
+    <version>0.5</version>  
     <packaging>jar</packaging>
   
     <name>${project.artifactId}</name>
@@ -36,7 +34,8 @@
         <connection>scm:git:git@github.com:tdebatty/java-string-similarity.git</connection>
         <developerConnection>scm:git:git@github.com:tdebatty/java-string-similarity.git</developerConnection>
         <url>git@github.com:tdebatty/java-string-similarity.git</url>
-    </scm>
+      <tag>v0.5</tag>
+  </scm>
   
     <distributionManagement>
         <snapshotRepository>

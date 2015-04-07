@@ -5,6 +5,7 @@ import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.regex.Pattern;
+import java.util.Set;
 
 /**
  * A k-shingling is a set of unique k-grams, used to measure the similarity of 

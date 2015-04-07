@@ -7,7 +7,10 @@ Currently implemeted:
 - Jaro-Winkler similarity;
 - Longest Common Subsequence edit distance;
 - Q-Gram (Ukkonen);
-- n-Gram distance (Kondrak).
+- n-Gram distance (Kondrak);
+- Jaccard index;
+- Sorensen-Dice coefficient;
+- Cosine similarity.
 
 ## Download
 Using maven:

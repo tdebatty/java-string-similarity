@@ -61,6 +61,11 @@ public class Main {
                 "Lorem ipsum dolor sit amet, MY BLOCK IS HERE consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, MY BLOCK IS HERE sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."));
         
+        // Small inserts
+        pairs.add(new Pair(
+                "Lorem Xipsum Xdolor Xsit Xamet, Xconsectetur Xadipiscing Xelit, Xsed Xdo Xeiusmod Xtempor Xincididunt Xut Xlabore Xet Xdolore Xmagna Xaliqua.",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."));
+        
         // Semantic similar
         pairs.add(new Pair(
                 "Mon automobile est en panne",
@@ -72,6 +77,9 @@ public class Main {
         
         // completely different...
         pairs.add(new Pair("AZERTYUIOP", "QSDFGHJKLM"));
+        
+        // One empty
+        pairs.add(new Pair("", "QSDFGHJKLM"));
         
         
         for(Pair pair: pairs) {

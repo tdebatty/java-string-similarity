@@ -43,6 +43,33 @@ public class MyApp {
 }
 ```
 
+## Weighted Levenshtein
+An implementation of Levenshtein that allows to define different weights for different character substitutions.
+
+```java
+import info.debatty.java.stringsimilarity.*;
+
+public class MyApp {
+
+    public static void main(String[] args) {
+        WeightedLevenshtein wl = new WeightedLevenshtein(
+      
+                new CharacterSubstitutionInterface() {
+                    public double cost(char c1, char c2) {
+                  
+                        // t and r are next to each other,
+                        // let's assign a lower cost to substitution
+                        if (c1 == 't' && c2 == 'r') {
+                            return 0.5;
+                        }
+                        
+                        return 1.0;
+                    }
+        });
+        System.out.println(wl.distanceAbsolute("String1", "Srring2"));
+    }
+```
+
 ## Damerau-Levenshtein
 Similar to Levenshtein, Damerau-Levenshtein distance is the minimum number of operations needed to transform one string into the other, where an operation is defined as an insertion, deletion, or substitution of a single character, or a **transposition of two adjacent characters**.
 

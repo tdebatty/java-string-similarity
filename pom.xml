@@ -115,7 +115,7 @@
                 </configuration>
             </plugin>
             
-            <!-- To push to Github -->
+            <!-- To create the Github release -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
@@ -123,6 +123,27 @@
 		<configuration>
                     <tagNameFormat>v@{project.version}</tagNameFormat>
                 </configuration>
+            </plugin>
+
+            <!-- To upload code to Github -->
+            <plugin>
+              <groupId>com.github.github</groupId>
+              <artifactId>downloads-maven-plugin</artifactId>
+              <version>0.6</version>
+              <configuration>
+                <description>Release ${project.version}</description>
+                <override>true</override>
+                <includeAttached>true</includeAttached>
+                <server>github.com</server>
+              </configuration>
+              <executions>
+                <execution>
+                  <goals>
+                    <goal>upload</goal>
+                  </goals>
+                  <phase>deploy</phase>
+                </execution>
+              </executions>
             </plugin>
         </plugins>
     </build>

@@ -25,43 +25,50 @@
 package info.debatty.java.stringsimilarity;
 
 /**
+ * Sorensen-Dice coefficien, aka Sørensen index, Dice's coefficient or 
+ * Czekanowski's binary (non-quantitative) index.
+ * 
+ * The strings are first converted to boolean sets of k-shingles (strings of k
+ * characters), then the similarity is computed as 2 |A inter B| / (|A| + |B|).
+ * Attention: Sorensen-Dice distance (and similarity) does not satisfy 
+ * triangle inequality.
  * 
  * @author Thibault Debatty
  */
-public class Jaccard implements StringSimilarityInterface {
+public class SorensenDice implements StringSimilarityInterface {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Jaccard j2 = new Jaccard(2);
+        SorensenDice sd = new SorensenDice(2);
         
-        // AB BC CD DE DF
-        // 1  1  1  1  0
-        // 1  1  1  0  1
-        // => 3 / 5 = 0.6
-        System.out.println(j2.similarity("ABCDE", "ABCDF"));
+        // AB BC CD DE DF FG
+        // 1  1  1  1  0  0
+        // 1  1  1  0  1  1
+        // => 2 x 3 / (4 + 5) = 6/9 = 0.6666
+        System.out.println(sd.similarity("ABCDE", "ABCDFG"));
     }
-    
+
     private final int k;
     
-    /**
-     * The strings are first transformed into sets of k-shingles (sequences of k
-     * characters), then Jaccard index is computed as |A inter B| / |A union B|.
-     * The default value of k is 3.
-     * 
-     * @param k 
-     */
-    public Jaccard(int k) {
+    public SorensenDice(int k) {
         this.k = k;
     }
     
-    public Jaccard() {
+    public SorensenDice() {
         this.k = 3;
     }
-
+    
+    /**
+     * Compute Sorensen-Dice coefficient 2 |A inter B| / (|A| + |B|).
+     * @param s1
+     * @param s2
+     * @return 
+     */
     public double similarity(String s1, String s2) {
         KShingling ks = new KShingling(this.k);
+        
         ks.parse(s1);
         ks.parse(s2);
         
@@ -69,18 +76,22 @@ public class Jaccard implements StringSimilarityInterface {
         boolean[] v2 = ks.booleanVectorOf(s2);
         
         int inter = 0;
-        int union = 0;
+        int sum = 0;
         for (int i = 0; i < v1.length; i++) {
-            if (v1[i] || v2[i]) {
-                union++;
-                
-                if (v1[i] && v2[i]) {
-                    inter++;
-                }
+            if (v1[i] && v2[i]) {
+                inter++;
+            }
+            
+            if (v1[i]) {
+                sum++;
+            }
+            
+            if (v2[i]) {
+                sum++;
             }
         }
         
-        return (double) inter / union;
+        return 2.0 * inter / sum;
         
     }
 

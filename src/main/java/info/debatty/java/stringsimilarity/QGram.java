@@ -31,14 +31,14 @@ public class QGram implements StringSimilarityInterface {
                 "High Qua1ityMedications   Discount On All Reorders = Best Deal Ever! Viagra50/100mg - $1.85 7z3"));
     }
     
-    private int n;
+    private final int k;
 
     public QGram(int n) {
-        this.n = n;
+        this.k = n;
     }
     
     public QGram() {
-        this.n = 3;
+        this.k = 3;
     }
     
     @Override
@@ -56,11 +56,11 @@ public class QGram implements StringSimilarityInterface {
     }
     
     protected double dist(String s1, String s2, boolean abs) {
-        if (s1.length() < n || s2.length() < n) {
+        if (s1.length() < k || s2.length() < k) {
             return 1;
         }
         
-        KShingling sh = new KShingling(n);
+        KShingling sh = new KShingling(k);
         sh.parse(s1);
         sh.parse(s2);
         

@@ -24,6 +24,8 @@ public class QGram implements StringSimilarityInterface {
         // 2 / (3 + 3) = 0.33333
         System.out.println(dig.distance("ABCD", "ABCE"));
         
+        System.out.println(dig.similarity("", "QSDFGHJKLM"));
+        
         System.out.println(dig.similarity(
                 "High Qua1ityMedications   Discount On All Reorders = Best Deal Ever! Viagra50/100mg - $1.85 071",
                 "High Qua1ityMedications   Discount On All Reorders = Best Deal Ever! Viagra50/100mg - $1.85 7z3"));
@@ -55,7 +57,7 @@ public class QGram implements StringSimilarityInterface {
     
     protected double dist(String s1, String s2, boolean abs) {
         if (s1.length() < n || s2.length() < n) {
-            return 0;
+            return 1;
         }
         
         KShingling sh = new KShingling(n);

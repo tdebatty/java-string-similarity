@@ -4,6 +4,7 @@ A library implementing different string similarity algorithms.
 
 Currently implemeted:
 - Levenshtein edit distance;
+- Damerau-Levenshtein distance;
 - Jaro-Winkler similarity;
 - Longest Common Subsequence edit distance;
 - Q-Gram (Ukkonen);
@@ -42,6 +43,43 @@ public class MyApp {
 }
 ```
 
+## Damerau-Levenshtein
+Similar to Levenshtein, Damerau-Levenshtein distance is the minimum number of operations needed to transform one string into the other, where an operation is defined as an insertion, deletion, or substitution of a single character, or a **transposition of two adjacent characters**.
+
+This is not to be confused with the optimal string alignment distance, which is an extension where no substring can be edited more than once.
+
+```java
+import info.debatty.java.stringsimilarity.*;
+
+public class MyApp {
+
+
+    public static void main(String[] args) {
+        Damerau d = new Damerau();
+        
+        // One substitution
+        System.out.println(d.absoluteDistance("ABCDEF", "ABDCEF"));
+
+        // Substitution of 2 characters that are far from each other
+        // => 1 deletion + 1 insertion
+        System.out.println(d.absoluteDistance("ABCDEF", "BCDAEF"));
+
+        // distance and similarity allways produce a result between 0 and 1
+        System.out.println(d.distance("ABCDEF", "GHABCDE"));
+    }
+}
+```
+
+Will produce:
+
+```
+1
+2
+0.23076923076923078
+```
+
+
+
 ## Jaro-Winkler
 Jaro-Winkler is a string edit distance that was developed in the area of record linkage (duplicate detection) (Winkler, 1990). The Jaro–Winkler distance metric is designed and best suited for short strings such as person names, and to detect typos.
 
@@ -61,7 +99,6 @@ public class MyApp {
     }
 }
 ```
-
 
 ## Longest Common Subsequence
 

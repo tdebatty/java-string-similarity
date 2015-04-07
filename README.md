@@ -6,7 +6,7 @@ Currently implemeted:
 - Levenshtein edit distance;
 - Jaro-Winkler similarity;
 - Longest Common Subsequence edit distance;
-- Q-Gram (Jaccard index);
+- Q-Gram (Ukkonen);
 - n-Gram distance (Kondrak).
 
 ## Download
@@ -90,7 +90,10 @@ public class MyApp {
 
 ## Q-Gram
 
-Q-Gram similarity, not to confuse with N-Gram distance defined by Kondrak (below), is the relative number of n-grams both strings have in common. It is thus the Jaccard index between the strings considered as sets of n-grams. The computed similarity and distance are relative value (between 0 and 1).
+A-gram similarity and distance, as defined by Ukkonen in "Approximate string-matching with q-grams and maximal matches"
+http://www.sciencedirect.com/science/article/pii/0304397592901434
+
+The distance between two strings is defined as the L1 norm of the difference of their profiles (the number of occurences of each k-shingle). Q-gram distance is a lower bound on Levenshtein distance, but can be computed in O(|A| + |B|), where Levenshtein requires O(|A|.|B|)
 
 ```java
 import info.debatty.java.stringsimilarity.*;
@@ -99,11 +102,14 @@ public class MyApp {
     
     public static void main(String[] args) {
         QGram dig = new QGram(2);
-        
-        // Should be 2: CD and CE
+
+        // AB BC CD CE
+        // 1  1  1  0
+        // 1  1  0  1
+        // Total: 2
         System.out.println(dig.absoluteDistance("ABCD", "ABCE"));
-        
-        // Should be 0.5 (2 / 4)
+
+        // 2 / (3 + 3) = 0.33333
         System.out.println(dig.distance("ABCD", "ABCE"));
     }
 }

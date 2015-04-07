@@ -1,11 +1,13 @@
 package info.debatty.java.stringsimilarity;
 
 /**
- * QGram similarity is the relative number of n-grams both strings have in 
- * common. It is thus the Jaccard index between strings, considered as sets 
- * of n-grams. The computed similarity and distance are relative value (between 
- * 0 and 1).
- * 
+ * Q-gram similarity and distance.
+ * Defined by Ukkonen in "Approximate string-matching with q-grams and maximal
+ * matches", http://www.sciencedirect.com/science/article/pii/0304397592901434
+ * The distance between two strings is defined as the L1 norm of the difference 
+ * of their profiles (the number of occurences of each k-shingle).
+ * Q-gram distance is a lower bound on Levenshtein distance, but can be computed
+ * in O(|A| + |B|), where Levenshtein requires O(|A|.|B|)
  * @author Thibault Debatty
  */
 public class QGram implements StringSimilarityInterface {
@@ -13,15 +15,14 @@ public class QGram implements StringSimilarityInterface {
     public static void main(String[] args) {
         QGram dig = new QGram(2);
         
-        // Should be 2: CD and CE
+        // AB BC CD CE
+        // 1  1  1  0
+        // 1  1  0  1
+        // Total: 2
         System.out.println(dig.absoluteDistance("ABCD", "ABCE"));
         
-        // Should be 0.5 (2 / 4)
+        // 2 / (3 + 3) = 0.33333
         System.out.println(dig.distance("ABCD", "ABCE"));
-        
-        // AB BC CD DE BX XB CE
-        // 2 / 7
-        System.out.println(dig.similarity("ABCDE", "ABXBCE"));
         
         System.out.println(dig.similarity(
                 "High Qua1ityMedications   Discount On All Reorders = Best Deal Ever! Viagra50/100mg - $1.85 071",
@@ -45,6 +46,14 @@ public class QGram implements StringSimilarityInterface {
 
     @Override
     public double distance(String s1, String s2) {
+        return dist(s1, s2, false);
+    }
+    
+    public int absoluteDistance(String s1, String s2) {
+        return (int) dist(s1, s2, true);
+    }
+    
+    protected double dist(String s1, String s2, boolean abs) {
         if (s1.length() < n || s2.length() < n) {
             return 0;
         }
@@ -53,35 +62,28 @@ public class QGram implements StringSimilarityInterface {
         sh.parse(s1);
         sh.parse(s2);
         
-        boolean[] b1 = sh.booleanVectorOf(s1);
-        boolean[] b2 = sh.booleanVectorOf(s2);
+        int[] p1 = sh.profileOf(s1);
+        int[] p2 = sh.profileOf(s2);
+               
         
         int d = 0;
-        for (int i = 0; i < b1.length; i++) {
-            if (b1[i] != b2[i]) {
-                d++;
-            }
+        for (int i = 0; i < p1.length; i++) {
+            d += Math.abs(p1[i] - p2[i]);
         }
         
-        return ((double) d) / sh.size();
-    }
-    
-    public int absoluteDistance(String s1, String s2) {
-        KShingling sh = new KShingling(n);
-        sh.parse(s1);
-        sh.parse(s2);
-        
-        boolean[] b1 = sh.booleanVectorOf(s1);
-        boolean[] b2 = sh.booleanVectorOf(s2);
-        
-        int d = 0;
-        for (int i = 0; i < b1.length; i++) {
-            if (b1[i] != b2[i]) {
-                d++;
-            }
+        if (abs) {
+            return d;
         }
         
-        return d;
+        int sum = 0;
+        for (int i : p1) {
+            sum += i;
+        }
+        for (int i : p2) {
+            sum += i;
+        }
+        
+        return (double) d / sum;
     }
     
 }

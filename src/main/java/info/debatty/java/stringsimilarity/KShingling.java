@@ -2,7 +2,6 @@ package info.debatty.java.stringsimilarity;
 
 import java.io.Serializable;
 import java.security.InvalidParameterException;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.regex.Pattern;
 import java.util.Set;
@@ -30,17 +29,33 @@ public class KShingling extends HashSet<String> implements Serializable {
         ks.parse(s2);
         System.out.println(ks.toString());
         
-        for (boolean b : ks.booleanVectorOf(s1)) {
-            System.out.print(b ? "1" : "0");
-        }
-        System.out.print("\n");
-        
-        for (boolean b : ks.booleanVectorOf(s2)) {
-            System.out.print(b ? "1" : "0");
-        }
-        System.out.print("\n");
+        printArray(ks.booleanVectorOf(s1));
+        printArray(ks.booleanVectorOf(s2));
+        printArray(ks.profileOf(s1));
         
         ks.add("This should trigger an exception!");
+    }
+    
+    public static int countOccurences(String substring, String str){
+        return (str.length() - str.replace(substring, "").length()) / substring.length();
+    }
+    
+    public static void printArray(boolean[] a) {
+        
+        System.out.print("[");
+        for (boolean b : a) {
+            System.out.print(b ? "1" : "0");
+        }
+        System.out.println("]");
+    }
+    
+    public static void printArray(int[] a) {
+        
+        System.out.print("[");
+        for (int i : a) {
+            System.out.print("" + i + "\t");
+        }
+        System.out.println("]");
     }
     
     protected int k = 5;
@@ -74,7 +89,17 @@ public class KShingling extends HashSet<String> implements Serializable {
         this.k = k;
     }
     
+    /**
+     * Pattern for finding multiple following spaces
+     */
     private static final Pattern spaceReg = Pattern.compile("\\s+");
+    
+    /**
+     * Extract all k-singles from sting s and add them to the list of possible 
+     * shingles
+     * @param s
+     * @return true
+     */
     public boolean parse(String s) {
         s = spaceReg.matcher(s).replaceAll(" ");
         for (int i = 0; i < (s.length() - k + 1); i++) {
@@ -83,6 +108,11 @@ public class KShingling extends HashSet<String> implements Serializable {
         return true;
     }
     
+    /**
+     * Add a k-shingle s to the list of possible shingles
+     * @param s
+     * @return 
+     */
     @Override
     public boolean add(String s) {
         if (s.length() != k) {
@@ -93,6 +123,14 @@ public class KShingling extends HashSet<String> implements Serializable {
         return super.add(s);
     }
     
+    /**
+     * Compute and return the boolean vector representation of string s.
+     * E.g. if this set contains the shingles [AB, BC, CD, DE]
+     * and s is ABCD
+     * This will return [true, true, true, false]
+     * @param s
+     * @return 
+     */
     public boolean[] booleanVectorOf(String s) {
         boolean[] r = new boolean[this.size()];
         
@@ -105,6 +143,15 @@ public class KShingling extends HashSet<String> implements Serializable {
         return r;
     }
     
+    /**
+     * Compute the boolean representation of string s, returned as a set of 
+     * position integers.
+     * E.g. if this set contains the shingles [AB, BC, CD, DE]
+     * and s is ABCD
+     * This will return (0, 1, 2)
+     * @param s
+     * @return 
+     */
     public Set<Integer> integerSetOf(String s) {
         Set<Integer> set = new HashSet<Integer>();
         int i = 0;
@@ -116,6 +163,29 @@ public class KShingling extends HashSet<String> implements Serializable {
         }
         
         return set;
+    }
+    
+    /**
+     * Compute and return the profile of s, as defined by Ukkonen "Approximate
+     * string-matching with q-grams and maximal matches".
+     * https://www.cs.helsinki.fi/u/ukkonen/TCS92.pdf
+     * The profile is the number of occurences of k-shingles, and is used to 
+     * compute q-gram similarity.
+     * E.g. if this set contains the shingles [AB, BC, CD, DE]
+     * and s is ABCDAB
+     * This will return [2, 1, 1, 0]
+     * @param s
+     * @return 
+     */
+    public int[] profileOf(String s) {
+        int[] p = new int[this.size()];
+        int i = 0;
+        for (String shingle : this) {
+            p[i] = countOccurences(shingle, s);
+            i++;
+        }
+        
+        return p;
     }
     
 }

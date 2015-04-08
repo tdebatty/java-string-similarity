@@ -44,14 +44,25 @@ public class Damerau implements StringSimilarityInterface {
     public static void main(String[] args) {
         
         Damerau d = new Damerau();
+        // 1 switch
         System.out.println(d.absoluteDistance("ABCDEF", "ABDCEF"));
+        
+        // 2 switches
         System.out.println(d.absoluteDistance("ABCDEF", "BACDFE"));
+        
+        // 1 deletion
         System.out.println(d.absoluteDistance("ABCDEF", "ABCDE"));
+        
+        // 1 deletion
         System.out.println(d.absoluteDistance("ABCDEF", "BCDEF"));
         System.out.println(d.absoluteDistance("ABCDEF", "ABCGDEF"));
         System.out.println(d.absoluteDistance("ABCDEF", "BCDAEF"));
         
         System.out.println(d.distance("ABCDEF", "GHABCDE"));
+        
+        // All different
+        System.out.println(d.absoluteDistance("ABCDEF", "POIU"));
+        System.out.println(d.similarity("ABCDEF", "POIU"));
     }
 
     public int absoluteDistance(String s1, String s2) {
@@ -89,7 +100,6 @@ public class Damerau implements StringSimilarityInterface {
             
         }
         
-
         // fill in the distance matrix H
         // look at each character in s1
         for (int i = 1; i <= s1.length(); i++) {
@@ -124,7 +134,7 @@ public class Damerau implements StringSimilarityInterface {
     }
 
     public double distance(String s1, String s2) {
-        return (double) absoluteDistance(s1, s2) / (s1.length() + s2.length());
+        return (double) absoluteDistance(s1, s2) / Math.max(s1.length(), s2.length());
     }
     
     protected static int min(int a, int b, int c, int d) {

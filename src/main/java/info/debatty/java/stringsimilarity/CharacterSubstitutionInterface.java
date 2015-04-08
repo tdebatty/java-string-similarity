@@ -31,6 +31,7 @@ package info.debatty.java.stringsimilarity;
  * For example, in an OCR application, cost('o', 'a') could be 0.4
  * In a checkspelling application, cost('u', 'i') could be 0.4 because these are
  * next to each other on the keyboard...
+ * 
  * @author Thibault Debatty
  */
 public interface CharacterSubstitutionInterface {

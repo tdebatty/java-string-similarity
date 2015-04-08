@@ -37,11 +37,15 @@ public class Main {
      */
     public static void main(String[] args) {
         ArrayList<StringSimilarityInterface> similarities = new ArrayList<StringSimilarityInterface>();
+        similarities.add(new Cosine(4));
+        similarities.add(new Damerau());
+        similarities.add(new Jaccard(4));
         similarities.add(new JaroWinkler());
         similarities.add(new Levenshtein());
         similarities.add(new LongestCommonSubsequence());
         similarities.add(new NGram(4));
         similarities.add(new QGram(4));
+        similarities.add(new SorensenDice(4));
         
         ArrayList<Pair> pairs = new ArrayList<Pair>();
         // adjacent letters switch

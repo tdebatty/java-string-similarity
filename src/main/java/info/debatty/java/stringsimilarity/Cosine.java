@@ -74,6 +74,15 @@ public class Cosine implements StringSimilarityInterface {
      * @return Cosine similarity
      */
     public double similarity(String s1, String s2) {
+        if (s1.equals(s2)) {
+            return 1.0;
+        }
+        
+        
+        if (s1.equals("") || s2.equals("")) {
+            return 0.0;
+        }
+        
         KShingling ks = new KShingling(this.k);
         ks.parse(s1);
         ks.parse(s2);

@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>info.debatty</groupId>
     <artifactId>java-string-similarity</artifactId>
-    <version>0.7</version>  
+    <version>0.7-SNAPSHOT</version>  
     <packaging>jar</packaging>
   
     <name>${project.artifactId}</name>

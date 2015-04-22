@@ -24,6 +24,10 @@
 
 package info.debatty.java.stringsimilarity;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Implements Cosine Similarity.
  * The strings are first transformed in vectors of occurences of k-shingles 
@@ -84,14 +88,10 @@ public class Cosine implements StringSimilarityInterface {
         }
         
         KShingling ks = new KShingling(this.k);
-        ks.parse(s1);
-        ks.parse(s2);
+        HashMap<String, Integer> profile1 = ks.getProfile(s1);
+        HashMap<String, Integer> profile2 = ks.getProfile(s2);
         
-        int[] v1 = ks.profileOf(s1);
-        int[] v2 = ks.profileOf(s2);
-        
-        return dotProduct(v1, v2) / (norm(v1) * norm(v2));
-        
+        return dotProduct(profile1, profile2) / (norm(profile1) * norm(profile2));   
     }
 
     public double distance(String s1, String s2) {
@@ -100,24 +100,31 @@ public class Cosine implements StringSimilarityInterface {
     
     /**
      * Compute the norm L2 : sqrt(Sum_i( v_i^2))
-     * @param v
+     * @param profile
      * @return L2 norm
      */
-    protected static double norm(int[] v) {
+    protected static double norm(HashMap<String, Integer> profile) {
         double agg = 0;
         
-        for (int i = 0; i < v.length; i++) {
-            agg += (v[i] * v[i]);
+        for (int v : profile.values()) {
+            agg += v * v;
         }
         
         return Math.sqrt(agg);
     }
     
-    protected static double dotProduct(int[] v1, int[] v2) {
-        double agg = 0;
+    protected static double dotProduct(HashMap<String, Integer> profile1,
+            HashMap<String, Integer> profile2) {
         
-        for (int i = 0; i < v1.length; i++) {
-            agg += (v1[i] * v2[i]);
+        double agg = 0;
+        Set<String> union = new HashSet<String>();
+        union.addAll(profile1.keySet());
+        union.addAll(profile2.keySet());
+        
+        for (String key : union) {
+            int v1 = profile1.containsKey(key) ? profile1.get(key) : 0;
+            int v2 = profile2.containsKey(key) ? profile2.get(key) : 0;
+            agg += v1 * v2;
         }
         
         return agg;

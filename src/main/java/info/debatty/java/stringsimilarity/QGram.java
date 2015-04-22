@@ -1,13 +1,11 @@
 package info.debatty.java.stringsimilarity;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map.Entry;
+import java.util.Set;
+
 /**
- * Q-gram similarity and distance.
- * Defined by Ukkonen in "Approximate string-matching with q-grams and maximal
- * matches", http://www.sciencedirect.com/science/article/pii/0304397592901434
- * The distance between two strings is defined as the L1 norm of the difference 
- * of their profiles (the number of occurences of each k-shingle).
- * Q-gram distance is a lower bound on Levenshtein distance, but can be computed
- * in O(|A| + |B|), where Levenshtein requires O(|A|.|B|)
  * @author Thibault Debatty
  */
 public class QGram implements StringSimilarityInterface {
@@ -32,7 +30,19 @@ public class QGram implements StringSimilarityInterface {
     }
     
     private final int k;
-
+    
+    
+    /**
+     * Q-gram similarity and distance.
+     * Defined by Ukkonen in "Approximate string-matching with q-grams and maximal
+     * matches", http://www.sciencedirect.com/science/article/pii/0304397592901434
+     * The distance between two strings is defined as the L1 norm of the difference 
+     * of their profiles (the number of occurences of each k-shingle).
+     * Q-gram distance is a lower bound on Levenshtein distance, but can be computed
+     * in O(|A| + |B|), where Levenshtein requires O(|A|.|B|)
+     * 
+     * @param n 
+     */
     public QGram(int n) {
         this.k = n;
     }
@@ -61,16 +71,18 @@ public class QGram implements StringSimilarityInterface {
         }
         
         KShingling sh = new KShingling(k);
-        sh.parse(s1);
-        sh.parse(s2);
+        HashMap<String, Integer> profile1 = sh.getProfile(s1);
+        HashMap<String, Integer> profile2 = sh.getProfile(s2);
         
-        int[] p1 = sh.profileOf(s1);
-        int[] p2 = sh.profileOf(s2);
-               
+        Set<String> union = new HashSet<String>();
+        union.addAll(profile1.keySet());
+        union.addAll(profile2.keySet());
         
         int d = 0;
-        for (int i = 0; i < p1.length; i++) {
-            d += Math.abs(p1[i] - p2[i]);
+        for (String key : union) {
+            int v1 = profile1.containsKey(key) ? profile1.get(key) : 0;
+            int v2 = profile2.containsKey(key) ? profile2.get(key) : 0;
+            d += Math.abs(v1 - v2);
         }
         
         if (abs) {
@@ -78,11 +90,11 @@ public class QGram implements StringSimilarityInterface {
         }
         
         int sum = 0;
-        for (int i : p1) {
-            sum += i;
+        for (Entry<String, Integer> e : profile1.entrySet()) {
+            sum += e.getValue();
         }
-        for (int i : p2) {
-            sum += i;
+        for (Entry<String, Integer> e : profile2.entrySet()) {
+            sum += e.getValue();
         }
         
         return (double) d / sum;

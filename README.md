@@ -84,10 +84,10 @@ public class MyApp {
     public static void main(String[] args) {
         Damerau d = new Damerau();
         
-        // One substitution
+        // One transposition
         System.out.println(d.absoluteDistance("ABCDEF", "ABDCEF"));
 
-        // Substitution of 2 characters that are far from each other
+        // Transposition of 2 characters that are far from each other
         // => 1 deletion + 1 insertion
         System.out.println(d.absoluteDistance("ABCDEF", "BCDAEF"));
 
@@ -155,33 +155,6 @@ public class MyApp {
 }
 ```
 
-## Q-Gram
-
-A-gram similarity and distance, as defined by Ukkonen in "Approximate string-matching with q-grams and maximal matches"
-http://www.sciencedirect.com/science/article/pii/0304397592901434
-
-The distance between two strings is defined as the L1 norm of the difference of their profiles (the number of occurences of each k-shingle). Q-gram distance is a lower bound on Levenshtein distance, but can be computed in O(|A| + |B|), where Levenshtein requires O(|A|.|B|)
-
-```java
-import info.debatty.java.stringsimilarity.*;
-
-public class MyApp {
-    
-    public static void main(String[] args) {
-        QGram dig = new QGram(2);
-
-        // AB BC CD CE
-        // 1  1  1  0
-        // 1  1  0  1
-        // Total: 2
-        System.out.println(dig.absoluteDistance("ABCD", "ABCE"));
-
-        // 2 / (3 + 3) = 0.33333
-        System.out.println(dig.distance("ABCD", "ABCE"));
-    }
-}
-```
-
 ## N-Gram similarity (Kondrak)
 
 N-Gram Similarity as defined by Kondrak, "N-Gram Similarity and Distance", String Processing and Information Retrieval, Lecture Notes in Computer Science Volume 3772, 2005, pp 115-126.
@@ -204,5 +177,40 @@ public class MyApp {
 }
 ```
 
+## Q-Gram
+
+A-gram similarity and distance, as defined by Ukkonen in "Approximate string-matching with q-grams and maximal matches"
+http://www.sciencedirect.com/science/article/pii/0304397592901434
+
+The distance between two strings is defined as the L1 norm of the difference of their profiles (the number of occurences of each n-gram). Q-gram distance is a lower bound on Levenshtein distance, but can be computed in O(|A| + |B|), where Levenshtein requires O(|A|.|B|)
+
+```java
+import info.debatty.java.stringsimilarity.*;
+
+public class MyApp {
+    
+    public static void main(String[] args) {
+        QGram dig = new QGram(2);
+
+        // AB BC CD CE
+        // 1  1  1  0
+        // 1  1  0  1
+        // Total: 2
+        System.out.println(dig.absoluteDistance("ABCD", "ABCE"));
+
+        // 2 / (3 + 3) = 0.33333
+        System.out.println(dig.distance("ABCD", "ABCE"));
+    }
+}
+```
+
+## Cosine similarity
+Like Q-Gram similarity, the profile of each input string is first computed (the number of occurences of each n-gram). The two input strings are thus considered as vectors in the space of n-grams. The similarity between the two strings is the cosine of the angle between these two vectors, and is computed as V1 . V2 / (|V1| * |V2|)
+
+## Jaccard index
+Like Q-Gram similarity, the input strings are first converted into sets of n-grams (sequences of n characters, also called k-shingles), but this time the cardinality of each n-gram is not taken into account. Each input string is simply a set of n-grams. The Jaccard index is then computed as |A inter B| / |A union B|.
+
+## Sorensen-Dice coefficient
+Similart to Jaccard index, but this time the similarity is computed as 2 * |A inter B| / (|A| + |B|).
 
 

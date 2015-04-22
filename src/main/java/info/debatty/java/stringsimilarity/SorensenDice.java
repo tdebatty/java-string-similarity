@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2015 tibo.
+ * Copyright 2015 Thibault Debatty.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,14 +24,11 @@
 
 package info.debatty.java.stringsimilarity;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
- * Sorensen-Dice coefficien, aka Sørensen index, Dice's coefficient or 
- * Czekanowski's binary (non-quantitative) index.
- * 
- * The strings are first converted to boolean sets of k-shingles (strings of k
- * characters), then the similarity is computed as 2 |A inter B| / (|A| + |B|).
- * Attention: Sorensen-Dice distance (and similarity) does not satisfy 
- * triangle inequality.
  * 
  * @author Thibault Debatty
  */
@@ -52,6 +49,17 @@ public class SorensenDice implements StringSimilarityInterface {
 
     private final int k;
     
+    /**
+     * Sorensen-Dice coefficient, aka Sørensen index, Dice's coefficient or 
+     * Czekanowski's binary (non-quantitative) index.
+     * 
+     * The strings are first converted to boolean sets of k-shingles (strings of k
+     * characters), then the similarity is computed as 2 * |A inter B| / (|A| + |B|).
+     * Attention: Sorensen-Dice distance (and similarity) does not satisfy 
+     * triangle inequality.
+     * 
+     * @param k 
+     */
     public SorensenDice(int k) {
         this.k = k;
     }
@@ -61,38 +69,20 @@ public class SorensenDice implements StringSimilarityInterface {
     }
     
     /**
-     * Compute Sorensen-Dice coefficient 2 |A inter B| / (|A| + |B|).
+     * Compute Sorensen-Dice coefficient 2 * |A inter B| / (|A| + |B|).
      * @param s1
      * @param s2
      * @return 
      */
     public double similarity(String s1, String s2) {
         KShingling ks = new KShingling(this.k);
+        Set<String> set1 = ks.getProfile(s1).keySet();
+        Set<String> set2 = ks.getProfile(s2).keySet();
         
-        ks.parse(s1);
-        ks.parse(s2);
+        Set inter = new HashSet(set1);
+        inter.retainAll(set2);
         
-        boolean[] v1 = ks.booleanVectorOf(s1);
-        boolean[] v2 = ks.booleanVectorOf(s2);
-        
-        int inter = 0;
-        int sum = 0;
-        for (int i = 0; i < v1.length; i++) {
-            if (v1[i] && v2[i]) {
-                inter++;
-            }
-            
-            if (v1[i]) {
-                sum++;
-            }
-            
-            if (v2[i]) {
-                sum++;
-            }
-        }
-        
-        return 2.0 * inter / sum;
-        
+        return 2.0 * inter.size() / (set1.size() + set2.size());
     }
 
     public double distance(String s1, String s2) {

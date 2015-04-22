@@ -24,6 +24,10 @@
 
 package info.debatty.java.stringsimilarity;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * 
  * @author Thibault Debatty
@@ -62,26 +66,22 @@ public class Jaccard implements StringSimilarityInterface {
 
     public double similarity(String s1, String s2) {
         KShingling ks = new KShingling(this.k);
-        ks.parse(s1);
-        ks.parse(s2);
+        return similarity(ks.getProfile(s1), ks.getProfile(s2));
+    }
+    
+    public double similarity(HashMap<String,Integer> profile1,
+            HashMap<String,Integer> profile2) {
+        Set<String> set1 = profile1.keySet();
+        Set<String> set2 = profile2.keySet();
         
-        boolean[] v1 = ks.booleanVectorOf(s1);
-        boolean[] v2 = ks.booleanVectorOf(s2);
+        Set union = new HashSet();
+        union.addAll(set1);
+        union.addAll(set2);
         
-        int inter = 0;
-        int union = 0;
-        for (int i = 0; i < v1.length; i++) {
-            if (v1[i] || v2[i]) {
-                union++;
-                
-                if (v1[i] && v2[i]) {
-                    inter++;
-                }
-            }
-        }
+        Set inter = new HashSet(set1);
+        inter.retainAll(set2);
         
-        return (double) inter / union;
-        
+        return (double) inter.size() / union.size();
     }
 
     public double distance(String s1, String s2) {

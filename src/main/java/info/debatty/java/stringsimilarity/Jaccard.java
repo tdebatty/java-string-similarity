@@ -69,8 +69,21 @@ public class Jaccard implements StringSimilarityInterface {
         return similarity(ks.getProfile(s1), ks.getProfile(s2));
     }
     
+    /**
+     * Compute and return the Jaccard index similarity between two string profiles.
+     * 
+     * E.g:
+     * ks = new KShingling(4)
+     * profile1 = ks.getProfile("My String")
+     * profile2 = ks.getProfile("My other string")
+     * similarity = jaccard.similarity(profile1, profile2)
+     * 
+     * @param profile1
+     * @param profile2
+     * @return 
+     */
     public double similarity(HashMap<String,Integer> profile1,
-            HashMap<String,Integer> profile2) {
+        HashMap<String,Integer> profile2) {
         Set<String> set1 = profile1.keySet();
         Set<String> set2 = profile2.keySet();
         

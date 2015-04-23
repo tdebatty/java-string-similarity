@@ -1,7 +1,10 @@
 package info.debatty.java.stringsimilarity;
 
 import java.security.InvalidParameterException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.regex.Pattern;
 
 /**
@@ -30,7 +33,8 @@ public class KShingling {
         System.out.println(ks.getProfile("ABCAB"));
     }
 
-    protected int k = 5;
+    protected int k;
+    private HashMap<String, Integer> shingles = new HashMap<String, Integer>();
     
     /**
      * k-shingling is the operation of transforming a string (or text document) into
@@ -42,33 +46,26 @@ public class KShingling {
      * "Mining of Massive Datasets", Cambridge University Press:
      * Multiple subsequent spaces are replaced by a single space, and a k-gram is a 
      * sequence of k characters. 
+     * 
+     * Default value of k is 5 (recommended for emails).
+     * A good rule of thumb is to imagine that there are only 20 characters 
+     * and estimate the number of k-shingles as 20^k. For large documents, 
+     * such as research articles, k = 9 is considered a safe choice.
      */
     public KShingling() {
-        
+        k = 5;
     }
     
     public KShingling(int k) {
-        this.setK(k);
-    }
-    
-    public int getK() {
-        return k;
-    }
-    
-    /**
-     * Set the size of k-grams.
-     * Default value is 5 (recommended for emails).
-     * A good rule of thumb is to imagine that there are only 20 characters 
-     * and estimate the number of k-shingles as 20^k. For large documents, 
-     * such as research articles, choice k = 9 is considered safe.
-     * @param k 
-     */
-    public final void setK(int k) {
         if (k <= 0) {
             throw new InvalidParameterException("k should be positive!");
         }
         
         this.k = k;
+    }
+    
+    public int getK() {
+        return k;
     }
     
     /**
@@ -91,7 +88,32 @@ public class KShingling {
      * @param s
      * @return 
      */
-    public HashMap<String, Integer> getProfile(String s) {
+    public int[] getProfile(String s) {
+        ArrayList<Integer> r = new ArrayList<Integer>(shingles.size());
+        for (int i = 0; i < shingles.size(); i++) {
+            r.add(0);
+        }
+        
+        s = spaceReg.matcher(s).replaceAll(" ");
+        String shingle;
+        for (int i = 0; i < (s.length() - k + 1); i++) {
+            shingle = s.substring(i, i+k);
+            int position;
+            
+            if (shingles.containsKey(shingle)) {
+                position = shingles.get(shingle);
+                r.set(position, r.get(position) + 1);
+                
+            } else {
+                shingles.put(shingle, shingles.size());
+                r.add(1);
+            }
+            
+        }
+        
+        return convertIntegers(r);
+        
+        /*
         HashMap<String, Integer> r = new HashMap<String, Integer>(s.length() / 2);
         s = spaceReg.matcher(s).replaceAll(" ");
         String kgram;
@@ -107,6 +129,15 @@ public class KShingling {
                 r.put(kgram, 1);
             }
         }
-        return r;
+        return r;*/
+    }
+ 
+    public static int[] convertIntegers(List<Integer> integers) {
+        int[] ret = new int[integers.size()];
+        Iterator<Integer> iterator = integers.iterator();
+        for (int i = 0; i < ret.length; i++) {
+            ret[i] = iterator.next().intValue();
+        }
+        return ret;
     }
 }

@@ -24,15 +24,11 @@
 
 package info.debatty.java.stringsimilarity;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * 
  * @author Thibault Debatty
  */
-public class Jaccard implements StringSimilarityInterface {
+public class Jaccard extends SetBasedStringSimilarity {
 
     /**
      * @param args the command line arguments
@@ -47,7 +43,7 @@ public class Jaccard implements StringSimilarityInterface {
         System.out.println(j2.similarity("ABCDE", "ABCDF"));
     }
     
-    private final int k;
+    
     
     /**
      * The strings are first transformed into sets of k-shingles (sequences of k
@@ -57,17 +53,13 @@ public class Jaccard implements StringSimilarityInterface {
      * @param k 
      */
     public Jaccard(int k) {
-        this.k = k;
+        super(k);
     }
     
     public Jaccard() {
-        this.k = 3;
+        super(3);
     }
 
-    public double similarity(String s1, String s2) {
-        KShingling ks = new KShingling(this.k);
-        return similarity(ks.getProfile(s1), ks.getProfile(s2));
-    }
     
     /**
      * Compute and return the Jaccard index similarity between two string profiles.
@@ -82,23 +74,24 @@ public class Jaccard implements StringSimilarityInterface {
      * @param profile2
      * @return 
      */
-    public double similarity(HashMap<String,Integer> profile1,
-        HashMap<String,Integer> profile2) {
-        Set<String> set1 = profile1.keySet();
-        Set<String> set2 = profile2.keySet();
+    public double similarity(int[] profile1, int[] profile2) {
+        int length = Math.max(profile1.length, profile2.length);
+        profile1 = java.util.Arrays.copyOf(profile1, length);
+        profile2 = java.util.Arrays.copyOf(profile2, length);
         
-        Set union = new HashSet();
-        union.addAll(set1);
-        union.addAll(set2);
+        int inter = 0;
+        int union = 0;
         
-        Set inter = new HashSet(set1);
-        inter.retainAll(set2);
-        
-        return (double) inter.size() / union.size();
-    }
-
-    public double distance(String s1, String s2) {
-        return 1.0 - similarity(s1, s2);
-    }
+        for (int i = 0; i < length; i++) {
+            if (profile1[i] > 0 || profile2[i] > 0) {
+                union++;
+                
+                if (profile1[i] > 0 && profile2[i] > 0) {
+                    inter++;
+                }
+            }
+        }
     
+        return (double) inter / union;
+    }
 }

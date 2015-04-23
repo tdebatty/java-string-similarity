@@ -24,14 +24,11 @@
 
 package info.debatty.java.stringsimilarity;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * 
  * @author Thibault Debatty
  */
-public class SorensenDice implements StringSimilarityInterface {
+public class SorensenDice extends SetBasedStringSimilarity {
 
     /**
      * @param args the command line arguments
@@ -46,7 +43,6 @@ public class SorensenDice implements StringSimilarityInterface {
         System.out.println(sd.similarity("ABCDE", "ABCDFG"));
     }
 
-    private final int k;
     
     /**
      * Sorensen-Dice coefficient, aka Sørensen index, Dice's coefficient or 
@@ -60,32 +56,41 @@ public class SorensenDice implements StringSimilarityInterface {
      * @param k 
      */
     public SorensenDice(int k) {
-        this.k = k;
+        super(k);
     }
     
     public SorensenDice() {
-        this.k = 3;
+        super(3);
     }
     
     /**
      * Compute Sorensen-Dice coefficient 2 * |A inter B| / (|A| + |B|).
-     * @param s1
-     * @param s2
+     * @param profile1
+     * @param profile2
      * @return 
      */
-    public double similarity(String s1, String s2) {
-        KShingling ks = new KShingling(this.k);
-        Set<String> set1 = ks.getProfile(s1).keySet();
-        Set<String> set2 = ks.getProfile(s2).keySet();
+    public double similarity(int[] profile1, int[] profile2) {
         
-        Set inter = new HashSet(set1);
-        inter.retainAll(set2);
+        int length = Math.max(profile1.length, profile2.length);
+        profile1 = java.util.Arrays.copyOf(profile1, length);
+        profile2 = java.util.Arrays.copyOf(profile2, length);
         
-        return 2.0 * inter.size() / (set1.size() + set2.size());
+        int inter = 0;
+        int sum = 0;
+        for (int i = 0; i < length; i++) {
+            if (profile1[i] > 0 && profile2[i] > 0) {
+                inter++;
+            }
+            
+            if (profile1[i] > 0) {
+                sum++;
+            }
+            
+            if (profile2[i] > 0) {
+                sum++;
+            }
+        }
+        
+        return 2.0 * inter / sum;
     }
-
-    public double distance(String s1, String s2) {
-        return 1.0 - similarity(s1, s2);
-    }
-    
 }

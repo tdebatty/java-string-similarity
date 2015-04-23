@@ -182,7 +182,7 @@ public class MyApp {
 A-gram similarity and distance, as defined by Ukkonen in "Approximate string-matching with q-grams and maximal matches"
 http://www.sciencedirect.com/science/article/pii/0304397592901434
 
-The distance between two strings is defined as the L1 norm of the difference of their profiles (the number of occurences of each n-gram). Q-gram distance is a lower bound on Levenshtein distance, but can be computed in O(|A| + |B|), where Levenshtein requires O(|A|.|B|)
+The distance between two strings is defined as the L1 norm of the difference of their profiles (the number of occurences of each n-gram): SUM( |Ai - Bi| ). Absolute Q-gram distance is a lower bound on Levenshtein distance, but can be computed in O(|A| + |B|), where Levenshtein requires O(|A|.|B|)
 
 ```java
 import info.debatty.java.stringsimilarity.*;
@@ -195,9 +195,6 @@ public class MyApp {
         // AB BC CD CE
         // 1  1  1  0
         // 1  1  0  1
-        // Total: 2
-        System.out.println(dig.absoluteDistance("ABCD", "ABCE"));
-
         // 2 / (3 + 3) = 0.33333
         System.out.println(dig.distance("ABCD", "ABCE"));
     }

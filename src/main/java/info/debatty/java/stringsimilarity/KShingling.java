@@ -92,7 +92,7 @@ public class KShingling {
      * @return 
      */
     public HashMap<String, Integer> getProfile(String s) {
-        HashMap<String, Integer> r = new HashMap<String, Integer>();
+        HashMap<String, Integer> r = new HashMap<String, Integer>(s.length() / 2);
         s = spaceReg.matcher(s).replaceAll(" ");
         String kgram;
         for (int i = 0; i < (s.length() - k + 1); i++) {

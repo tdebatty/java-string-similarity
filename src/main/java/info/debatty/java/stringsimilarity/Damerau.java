@@ -24,6 +24,7 @@
 package info.debatty.java.stringsimilarity;
 
 import java.util.HashMap;
+import info.debatty.java.stringsimilarity.interfaces.StringDistance;
 
 /**
  * Implementation of Damerau-Levenshtein distance, computed as the 
@@ -34,38 +35,34 @@ import java.util.HashMap;
  * This is not to be confused with the optimal string alignment distance, which 
  * is an extension where no substring can be edited more than once.
  * 
+ * Also, Damerau-Levenshting does not respect triangle inequality, and is thus 
+ * not a metric distance.
+ * 
  * @author Thibault Debatty
  */
-public class Damerau implements StringSimilarityInterface {
+public class Damerau implements StringDistance {
 
-    /**
-     * @param args the command line arguments
-     */
+    
     public static void main(String[] args) {
         
         Damerau d = new Damerau();
-        // 1 switch
-        System.out.println(d.absoluteDistance("ABCDEF", "ABDCEF"));
         
-        // 2 switches
-        System.out.println(d.absoluteDistance("ABCDEF", "BACDFE"));
+        // 1 substitution
+        System.out.println(d.distance("ABCDEF", "ABDCEF"));
         
-        // 1 deletion
-        System.out.println(d.absoluteDistance("ABCDEF", "ABCDE"));
+        // 2 substitutions
+        System.out.println(d.distance("ABCDEF", "BACDFE"));
         
         // 1 deletion
-        System.out.println(d.absoluteDistance("ABCDEF", "BCDEF"));
-        System.out.println(d.absoluteDistance("ABCDEF", "ABCGDEF"));
-        System.out.println(d.absoluteDistance("ABCDEF", "BCDAEF"));
-        
-        System.out.println(d.distance("ABCDEF", "GHABCDE"));
+        System.out.println(d.distance("ABCDEF", "ABCDE"));
+        System.out.println(d.distance("ABCDEF", "BCDEF"));
+        System.out.println(d.distance("ABCDEF", "ABCGDEF"));
         
         // All different
-        System.out.println(d.absoluteDistance("ABCDEF", "POIU"));
-        System.out.println(d.similarity("ABCDEF", "POIU"));
+        System.out.println(d.distance("ABCDEF", "POIU"));
     }
 
-    public int absoluteDistance(String s1, String s2) {
+    public double distance(String s1, String s2) {
 
         // INFinite distance is the max possible distance
         int INF = s1.length() + s2.length();
@@ -127,14 +124,6 @@ public class Damerau implements StringSimilarityInterface {
         }
         
         return H[s1.length() + 1][s2.length() + 1];
-    }
-
-    public double similarity(String s1, String s2) {
-        return 1.0 - distance(s1, s2);
-    }
-
-    public double distance(String s1, String s2) {
-        return (double) absoluteDistance(s1, s2) / Math.max(s1.length(), s2.length());
     }
     
     protected static int min(int a, int b, int c, int d) {

@@ -1,41 +1,27 @@
 package info.debatty.java.stringsimilarity;
 
+import info.debatty.java.stringsimilarity.interfaces.NormalizedStringSimilarity;
+import info.debatty.java.stringsimilarity.interfaces.NormalizedStringDistance;
 import java.util.Arrays;
 
 /**
  *
  * @author tibo
  */
-public class JaroWinkler implements StringSimilarityInterface {
+public class JaroWinkler implements NormalizedStringSimilarity, NormalizedStringDistance {
     
     
     public static void main(String[] args) {
         JaroWinkler jw = new JaroWinkler();
         
-        System.out.println(jw.distance("My string", "My $tring"));
-        System.out.println(jw.similarity("My string", "My $tring"));
+        // substitution of s and t
+        System.out.println(jw.similarity("My string", "My tsring"));
+        
+        // substitution of s and n
+        System.out.println(jw.similarity("My string", "My ntrisg"));
     }
     
-    /**
-     * Jaro-Winkler is string edit distance that was developed in the area of 
-     * record linkage (duplicate detection) (Winkler, 1990). 
-     * 
-     * The Jaro–Winkler distance metric is designed and best suited for short 
-     * strings such as person names, and to detect typos.
-     * 
-     * http://en.wikipedia.org/wiki/Jaro-Winkler_distance
-     * 
-     * @param s0
-     * @param s1
-     * @return 
-     */
-    public static double Similarity(String s0, String s1) {
-        JaroWinkler jw = new JaroWinkler();
-        return jw.similarity(s0, s1);
-    }
 
-    private double threshold = 0.7;
-    
     public JaroWinkler() {
         
     }
@@ -43,25 +29,9 @@ public class JaroWinkler implements StringSimilarityInterface {
     public JaroWinkler(double threshold) {
         this.setThreshold(threshold);
     }
-
-    @Override
-    public double similarity(String s1, String s2) {
-        int[] mtp = matches(s1, s2);
-        float m = mtp[0];
-        if (m == 0) {
-            return 0f;
-        }
-        float j = ((m / s1.length() + m / s2.length() + (m - mtp[1]) / m)) / 3;
-        float jw = j < getThreshold() ? j : j + Math.min(0.1f, 1f / mtp[3]) * mtp[2]
-                * (1 - j);
-        return jw;
-    }
     
-    @Override
-    public double distance(String s1, String s2) {
-        return 1.0 - similarity(s1, s2);
-    }
-
+    private double threshold = 0.7;
+    
     /**
      * Sets the threshold used to determine when Winkler bonus should be used.
      * Set to a negative value to get the Jaro distance.
@@ -82,6 +52,24 @@ public class JaroWinkler implements StringSimilarityInterface {
     public double getThreshold() {
         return threshold;
     }
+
+    public double similarity(String s1, String s2) {
+        int[] mtp = matches(s1, s2);
+        float m = mtp[0];
+        if (m == 0) {
+            return 0f;
+        }
+        float j = ((m / s1.length() + m / s2.length() + (m - mtp[1]) / m)) / 3;
+        float jw = j < getThreshold() ? j : j + Math.min(0.1f, 1f / mtp[3]) * mtp[2]
+                * (1 - j);
+        return jw;
+    }
+    
+    
+    public double distance(String s1, String s2) {
+        return 1.0 - similarity(s1, s2);
+    }
+
 
     private int[] matches(String s1, String s2) {
         String max, min;

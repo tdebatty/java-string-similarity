@@ -1,27 +1,31 @@
 package info.debatty.java.stringsimilarity;
 
+import info.debatty.java.stringsimilarity.interfaces.NormalizedStringDistance;
+
 /**
  * N-Gram Similarity as defined by Kondrak, "N-Gram Similarity and Distance",
  * String Processing and Information Retrieval, Lecture Notes in Computer 
  * Science Volume 3772, 2005, pp 115-126.
  * 
- * The algorithm uses affixing with special character '\n' two increase the 
+ * The algorithm uses affixing with special character '\n' to increase the 
  * weight of first characters. The normalization is achieved by dividing the 
- * total similarity score the original length of the longer word.
+ * total similarity score the original length of the longest word.
  * 
  * http://webdocs.cs.ualberta.ca/~kondrak/papers/spire05.pdf
  */
-public class NGram implements StringSimilarityInterface {
+public class NGram implements NormalizedStringDistance {
     
     public static void main(String[] args) {
-        NGram twogram = new NGram(2);
         
+        // produces 0.416666
+        NGram twogram = new NGram(2);
         System.out.println(twogram.distance("ABCD", "ABTUIO"));
         
-        String s1 = " Buy And Download Cheap OemSoftwares! Adobe CreativeSuite 5 Master Collection from cheap 4zp";
-        String s2 = " Buy And Download Cheap OemSoftwares! Adobe CreativeSuite 5 Master Collection from cheap d1x";
+        // produces 0.97222
+        String s1 = "Adobe CreativeSuite 5 Master Collection from cheap 4zp";
+        String s2 = "Adobe CreativeSuite 5 Master Collection from cheap d1x";
         NGram ngram = new NGram(4);
-        System.out.println(ngram.similarity(s1, s2));
+        System.out.println(ngram.distance(s1, s2));
     }
 
     private final int n;
@@ -34,10 +38,6 @@ public class NGram implements StringSimilarityInterface {
         this.n = 2;
     }
 
-    @Override
-    public double similarity(String s1, String s2) {
-        return distance(s1, s2);
-    }
 
     @Override
     public double distance(String s0, String s1) {

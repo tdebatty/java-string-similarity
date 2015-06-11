@@ -24,14 +24,15 @@
 
 package info.debatty.java.stringsimilarity;
 
+import info.debatty.java.stringsimilarity.interfaces.NormalizedStringSimilarity;
+import info.debatty.java.stringsimilarity.interfaces.NormalizedStringDistance;
+
 /**
  * @author Thibault Debatty
  */
-public class Cosine extends SetBasedStringSimilarity {
+public class Cosine extends ShingleBased implements 
+        NormalizedStringDistance, NormalizedStringSimilarity{
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         Cosine cos = new Cosine(3);
         
@@ -49,10 +50,12 @@ public class Cosine extends SetBasedStringSimilarity {
         // 1  1
         // similarity = .95
         System.out.println(cos.similarity("ABAB", "BAB"));
+        
+        
     }
     
     /**
-     * Implements Cosine Similarity.
+     * Implements Cosine Similarity between strings.
      * The strings are first transformed in vectors of occurrences of k-shingles 
      * (sequences of k characters). In this n-dimensional space, the similarity
      * between the two strings is the cosine of their respective vectors.
@@ -64,19 +67,20 @@ public class Cosine extends SetBasedStringSimilarity {
     }
     
     public Cosine() {
-        super(3);
+        super();
     }
-
-
-    public double similarity(int[] profile1, int[] profile2) {
-        
+    
+    
+    public double similarity(String s1, String s2) {
+        KShingling ks = new KShingling(k);
+        int[] profile1 = ks.getArrayProfile(s1);
+        int[] profile2 = ks.getArrayProfile(s2);
+     
         return dotProduct(profile1, profile2) / (norm(profile1) * norm(profile2));
     }
-
-
     
     /**
-     * Compute the norm L2 : sqrt(Sum_i( v_i^2))
+     * Compute the norm L2 : sqrt(Sum_i( v_i²))
      * @param profile
      * @return L2 norm
      */
@@ -101,4 +105,9 @@ public class Cosine extends SetBasedStringSimilarity {
         }
         return agg;
     }
+
+    public double distance(String s1, String s2) {
+        return 1.0 - similarity(s1, s2);
+    }
+    
 }

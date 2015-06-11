@@ -24,28 +24,36 @@
 
 package info.debatty.java.stringsimilarity;
 
+import info.debatty.java.stringsimilarity.interfaces.StringDistance;
+
 /**
  * Implementation of Levenshtein that allows to define different weights for
  * different character substitutions.
  * 
  * @author Thibault Debatty
  */
-public class WeightedLevenshtein implements StringSimilarityInterface {
+public class WeightedLevenshtein implements StringDistance {
 
-    /**
-     * @param args the command line arguments
-     */
+
     public static void main(String[] args) {
         WeightedLevenshtein wl = new WeightedLevenshtein(
                 new CharacterSubstitutionInterface() {
                     public double cost(char c1, char c2) {
+                        
+                        // The cost for substituting 't' and 'r' is considered
+                        // smaller as these 2 are located next to each other
+                        // on a keyboard
                         if (c1 == 't' && c2 == 'r') {
                             return 0.5;
                         }
+                        
+                        // For most cases, the cost of substituting 2 characters
+                        // is 1.0
                         return 1.0;
                     }
         });
-        System.out.println(wl.distanceAbsolute("String1", "Srring2"));
+        
+        System.out.println(wl.distance("String1", "Srring2"));
     }
     
     private final CharacterSubstitutionInterface charsub;
@@ -54,7 +62,7 @@ public class WeightedLevenshtein implements StringSimilarityInterface {
         this.charsub = charsub;
     }
     
-    public double distanceAbsolute(String s1, String s2) {
+    public double distance(String s1, String s2) {
         if (s1.equals(s2)){
             return 0;
         }
@@ -106,13 +114,5 @@ public class WeightedLevenshtein implements StringSimilarityInterface {
         }
 
         return v0[s2.length()];
-    }
-
-    public double similarity(String s1, String s2) {
-        return 1.0 - distance(s1, s2);
-    }
-
-    public double distance(String s1, String s2) {
-        return (double) distanceAbsolute(s1, s2) / Math.max(s1.length(), s2.length());
     }
 }

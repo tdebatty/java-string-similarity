@@ -1,5 +1,7 @@
 package info.debatty.java.stringsimilarity;
 
+import info.debatty.java.utils.SparseBooleanVector;
+import info.debatty.java.utils.SparseIntegerVector;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,10 +33,12 @@ public class KShingling {
         
         ks = new KShingling(2);
         System.out.println(ks.getProfile("ABCAB"));
+        
+        System.out.println(ks.getArrayProfile("ABCAB"));
     }
 
     protected int k;
-    private HashMap<String, Integer> shingles = new HashMap<String, Integer>();
+    private final HashMap<String, Integer> shingles = new HashMap<String, Integer>();
     
     /**
      * k-shingling is the operation of transforming a string (or text document) into
@@ -80,15 +84,18 @@ public class KShingling {
      * The profile is the number of occurrences of k-shingles, and is used to 
      * compute q-gram similarity, Jaccard index, etc.
      * E.g. if s = ABCAB and k =2
-     * This will return {AB=2, BC=1, CA=1}
+     * The KShingling object will store the dictionary of n-grams:
+     * {AB BC CA}
+     * and the profile will be
+     * [2  1  1]
      * 
      * Attention: the space requirement of a single profile can be as large as
-     * k * n (where n is the size of the string)
+     * 20^k x 4Bytes (sizeof(int))
      * Computation cost is O(n)
      * @param s
      * @return 
      */
-    public int[] getProfile(String s) {
+    int[] getArrayProfile(String s) {
         ArrayList<Integer> r = new ArrayList<Integer>(shingles.size());
         for (int i = 0; i < shingles.size(); i++) {
             r.add(0);
@@ -111,28 +118,10 @@ public class KShingling {
             
         }
         
-        return convertIntegers(r);
-        
-        /*
-        HashMap<String, Integer> r = new HashMap<String, Integer>(s.length() / 2);
-        s = spaceReg.matcher(s).replaceAll(" ");
-        String kgram;
-        for (int i = 0; i < (s.length() - k + 1); i++) {
-            kgram = s.substring(i, i+k);
-            //this.add();
-            
-            if (r.containsKey(kgram)) {
-                r.put(
-                        kgram,
-                        r.get(kgram) + 1);
-            } else {
-                r.put(kgram, 1);
-            }
-        }
-        return r;*/
+        return convertIntegers(r);  
     }
- 
-    public static int[] convertIntegers(List<Integer> integers) {
+
+    private static int[] convertIntegers(List<Integer> integers) {
         int[] ret = new int[integers.size()];
         Iterator<Integer> iterator = integers.iterator();
         for (int i = 0; i < ret.length; i++) {
@@ -140,4 +129,58 @@ public class KShingling {
         }
         return ret;
     }
+    
+    /**
+     * Compute and returns the profile of string s
+     * The profiles of different strings can be used to compute cosine similarity
+     * or qgram distance.
+     * 
+     * @param s
+     * @return 
+     */
+    public StringProfile getProfile(String s) {
+        
+        HashMap<Integer, Integer> hash_profile = getHashProfile(s);
+        
+        // Convert hashmap to sparsearray
+        return new StringProfile(new SparseIntegerVector(hash_profile), this);
+    }
+    
+    public StringSet getSet(String s) {
+        HashMap<Integer, Integer> hash_profile = getHashProfile(s);
+        
+        // Convert hashmap to sparsearray
+        return new StringSet(new SparseBooleanVector(hash_profile), this);
+    }
+
+    private HashMap<Integer, Integer> getHashProfile(String s) {
+        HashMap<Integer, Integer> hash_profile = new HashMap<Integer, Integer>(s.length());
+        
+        s = spaceReg.matcher(s).replaceAll(" ");
+        String shingle;
+        for (int i = 0; i < (s.length() - k + 1); i++) {
+            shingle = s.substring(i, i+k);
+            int position;
+            
+            if (shingles.containsKey(shingle)) {
+                position = shingles.get(shingle);
+                
+            } else {
+                position = shingles.size();
+                shingles.put(shingle, shingles.size());
+                
+            }
+            
+            if (hash_profile.containsKey(position)) {
+                hash_profile.put(position, hash_profile.get(position) + 1);
+                
+            } else {
+                hash_profile.put(position, 1);
+            }
+        }
+        
+        return hash_profile;
+    }
+    
+    
 }

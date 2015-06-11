@@ -1,5 +1,7 @@
 package info.debatty.java.stringsimilarity;
 
+import info.debatty.java.stringsimilarity.interfaces.StringDistance;
+
 /**
  * The longest common subsequence (LCS) problem consists in finding the 
  * longest subsequence common to two (or more) sequences. It differs from 
@@ -20,9 +22,9 @@ package info.debatty.java.stringsimilarity;
  * ! This class currently implements the dynamic programming approach, which
  * has a space requirement O(m * n)!
  * 
- * @author tibo
+ * @author Thibault Debatty
  */
-public class LongestCommonSubsequence implements StringSimilarityInterface {
+public class LongestCommonSubsequence implements StringDistance {
 
     /**
      * @param args the command line arguments
@@ -30,32 +32,19 @@ public class LongestCommonSubsequence implements StringSimilarityInterface {
     public static void main(String[] args) {
         LongestCommonSubsequence lcs = new LongestCommonSubsequence();
         
-        System.out.println(lcs.length("AGCAT", "GAC"));
-        System.out.println(lcs.distanceAbsolute("AGCAT", "GAC"));
+        // Will produce 4.0
         System.out.println(lcs.distance("AGCAT", "GAC"));
+        
+        // Will produce 1.0
+        System.out.println(lcs.distance("AGCAT", "AGCT"));
     }
     
-    public static int Distance(String s1, String s2) {
-        LongestCommonSubsequence lcs = new LongestCommonSubsequence();
-        return lcs.distanceAbsolute(s1, s2);
-    }
-
-    @Override
-    public double similarity(String s1, String s2) {
-        return 1.0 - distance(s1, s2);
-    }
-
-    @Override
+    
     public double distance(String s1, String s2) {
-        return ((double) distanceAbsolute(s1, s2)) / (s1.length() + s2.length());
-    }
-    
-    
-    public int distanceAbsolute(String s1, String s2) {
         return s1.length() + s2.length() - 2 * length(s1, s2);
     }
     
-    public int length(String s1, String s2) {
+    protected int length(String s1, String s2) {
         /* function LCSLength(X[1..m], Y[1..n])
             C = array(0..m, 0..n)
         

@@ -1,5 +1,7 @@
 package info.debatty.java.stringsimilarity;
 
+import info.debatty.java.stringsimilarity.interfaces.MetricStringDistance;
+
 /**
  * The Levenshtein distance between two words is the minimum number of 
  * single-character edits (insertions, deletions or substitutions) required to 
@@ -7,32 +9,16 @@ package info.debatty.java.stringsimilarity;
  * 
  * @author Thibault Debatty
  */
-public class Levenshtein implements StringSimilarityInterface {
+public class Levenshtein implements MetricStringDistance {
     
     public static void main (String[] args) {
         Levenshtein l = new Levenshtein();
         
-        System.out.println(l.distanceAbsolute("My string", "My $tring"));
-        System.out.println(l.distanceAbsolute("My string", "M string2"));
         System.out.println(l.distance("My string", "My $tring"));
-        System.out.println(l.similarity("My string", "My $tring"));
+        System.out.println(l.distance("My string", "M string2"));
+        System.out.println(l.distance("My string", "My $tring"));
     }
 
-    public static int Distance(String s1, String s2) {
-        Levenshtein l = new Levenshtein();
-        return l.distanceAbsolute(s1, s2);
-    }
-
-    @Override
-    public double distance(String s1, String s2) {
-        return (double) distanceAbsolute(s1, s2) / Math.max(s1.length(), s2.length());
-        
-    }
-    
-    @Override
-    public double similarity(String s1, String s2) {
-        return 1.0 - distance(s1, s2);
-    }
     
     /**
      * The Levenshtein distance, or edit distance, between two words is the 
@@ -58,7 +44,7 @@ public class Levenshtein implements StringSimilarityInterface {
      * @param s2
      * @return 
      */
-    public int distanceAbsolute(String s1, String s2) {
+    public double distance(String s1, String s2) {
         if (s1.equals(s2)){
             return 0;
         }

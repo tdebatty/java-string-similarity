@@ -22,35 +22,34 @@
  * THE SOFTWARE.
  */
 
-package info.debatty.java.stringsimilarity;
+package info.debatty.java.stringsimilarity.examples;
+
+import info.debatty.java.stringsimilarity.KShingling;
+import info.debatty.java.stringsimilarity.StringProfile;
 
 /**
  *
  * @author tibo
  */
-public abstract class SetBasedStringSimilarity implements StringSimilarityInterface {
-    protected final int k;
-    
-    public SetBasedStringSimilarity(int k) {
-        this.k = k;
-    }
-    
-    public double similarity(String s1, String s2) {
-        if (s1.equals(s2)) {
-            return 1.0;
-        }
+public class PrecomputedCosine {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) throws Exception {
+        String s1 = "My first string";
+        String s2 = "My other string...";
         
-        if (s1.equals("") || s2.equals("")) {
-            return 0.0;
-        }
+        // Let's work with sequences of 2 characters...
+        KShingling ks = new KShingling(2);
         
-        KShingling ks = new KShingling(this.k);
-        return similarity(ks.getProfile(s1), ks.getProfile(s2));
+        // For cosine similarity I need the profile of strings
+        StringProfile profile1 = ks.getProfile(s1);
+        StringProfile profile2 = ks.getProfile(s2);
+        
+        // Prints 0.516185
+        System.out.println(profile1.cosineSimilarity(profile2));
+        
     }
     
-    public double distance(String s1, String s2) {
-        return 1.0 - similarity(s1, s2);
-    }
-    
-    public abstract double similarity(int[] profile1, int[] profile2);
 }

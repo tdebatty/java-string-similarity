@@ -24,15 +24,17 @@
 
 package info.debatty.java.stringsimilarity;
 
+import info.debatty.java.stringsimilarity.interfaces.MetricStringDistance;
+import info.debatty.java.stringsimilarity.interfaces.NormalizedStringSimilarity;
+import info.debatty.java.stringsimilarity.interfaces.NormalizedStringDistance;
+
 /**
  * 
  * @author Thibault Debatty
  */
-public class Jaccard extends SetBasedStringSimilarity {
+public class Jaccard extends ShingleBased implements 
+        MetricStringDistance, NormalizedStringDistance, NormalizedStringSimilarity {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         Jaccard j2 = new Jaccard(2);
         
@@ -41,9 +43,8 @@ public class Jaccard extends SetBasedStringSimilarity {
         // 1  1  1  0  1
         // => 3 / 5 = 0.6
         System.out.println(j2.similarity("ABCDE", "ABCDF"));
+        
     }
-    
-    
     
     /**
      * The strings are first transformed into sets of k-shingles (sequences of k
@@ -56,25 +57,19 @@ public class Jaccard extends SetBasedStringSimilarity {
         super(k);
     }
     
+    /**
+     * 
+     */
     public Jaccard() {
-        super(3);
+        super();
     }
 
     
-    /**
-     * Compute and return the Jaccard index similarity between two string profiles.
-     * 
-     * E.g:
-     * ks = new KShingling(4)
-     * profile1 = ks.getProfile("My String")
-     * profile2 = ks.getProfile("My other string")
-     * similarity = jaccard.similarity(profile1, profile2)
-     * 
-     * @param profile1
-     * @param profile2
-     * @return 
-     */
-    public double similarity(int[] profile1, int[] profile2) {
+    public double similarity(String s1, String s2) {
+        KShingling ks = new KShingling(k);
+        int[] profile1 = ks.getArrayProfile(s1);
+        int[] profile2 = ks.getArrayProfile(s2);
+    
         int length = Math.max(profile1.length, profile2.length);
         profile1 = java.util.Arrays.copyOf(profile1, length);
         profile2 = java.util.Arrays.copyOf(profile2, length);
@@ -93,5 +88,10 @@ public class Jaccard extends SetBasedStringSimilarity {
         }
     
         return (double) inter / union;
+    }
+    
+
+    public double distance(String s1, String s2) {
+        return 1.0 - similarity(s1, s2);
     }
 }

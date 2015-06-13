@@ -108,8 +108,16 @@ public class SparseIntegerVector {
         return agg;
     }
     
+    public double dotProduct(double[] other) {
+        double agg = 0;
+        for (int i = 0; i < keys.length; i++) {
+            agg += other[keys[i]] * values[i];
+        }
+        return agg;
+    }
+    
     /**
-     * 
+     * Compute and return the L2 norm of the vector
      * @return 
      */
     public double norm() {

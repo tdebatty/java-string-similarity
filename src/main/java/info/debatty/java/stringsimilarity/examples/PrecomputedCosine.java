@@ -28,7 +28,7 @@ import info.debatty.java.stringsimilarity.KShingling;
 import info.debatty.java.stringsimilarity.StringProfile;
 
 /**
- *
+ * Example of computing cosine similarity with pre-computed profiles
  * @author tibo
  */
 public class PrecomputedCosine {
@@ -43,7 +43,7 @@ public class PrecomputedCosine {
         // Let's work with sequences of 2 characters...
         KShingling ks = new KShingling(2);
         
-        // For cosine similarity I need the profile of strings
+        // Pre-compute the profile of strings
         StringProfile profile1 = ks.getProfile(s1);
         StringProfile profile2 = ks.getProfile(s2);
         

@@ -24,6 +24,7 @@
 
 package info.debatty.java.utils;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -32,7 +33,7 @@ import java.util.TreeSet;
  * Sparse vector of int, implemented using two arrays
  * @author Thibault Debatty
  */
-public class SparseIntegerVector {
+public class SparseIntegerVector implements Serializable {
     
     protected int[] keys;
     protected int[] values;
@@ -79,6 +80,29 @@ public class SparseIntegerVector {
                 j++;
             }
         }
+    }
+    
+    public double cosineSimilarity(SparseIntegerVector other) {
+        double den = this.norm() * other.norm();
+        double agg = 0;
+        int i = 0;
+        int j = 0;
+        while (i < this.keys.length  && j < other.keys.length) {
+            int k1 = this.keys[i];
+            int k2 = other.keys[j];
+
+            if (k1 == k2) {
+                agg += this.values[i] * other.values[j] / den;
+                i++;
+                j++;
+
+            } else if (k1 < k2) {
+                i++;
+            } else {
+                j++;
+            }
+        }
+        return agg;
     }
     
     /**

@@ -81,6 +81,20 @@ public class SparseIntegerVectorTest {
         double result = instance.dotProduct(other);
         assertEquals(expResult, result, 0.0);
     }
+    
+    
+    /**
+     * Test of cosineSimilarity method, of class SparseIntegerVector.
+     */
+    @Test
+    public void testCosineSimilarity() {
+        System.out.println("cosineSimilarity");
+        SparseIntegerVector other = new SparseIntegerVector(new int[]{0, 1, 2, 3});
+        SparseIntegerVector instance = new SparseIntegerVector(new int[]{1, 2, 0, 0});
+        double expResult = instance.dotProduct(other) / (instance.norm() * other.norm());
+        double result = instance.cosineSimilarity(other);
+        assertEquals(expResult, result, 0.0);
+    }
 
     /**
      * Test of norm method, of class SparseIntegerVector.

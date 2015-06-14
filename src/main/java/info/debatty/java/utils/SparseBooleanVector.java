@@ -24,6 +24,7 @@
 
 package info.debatty.java.utils;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -32,7 +33,7 @@ import java.util.TreeSet;
  *
  * @author tibo
  */
-public class SparseBooleanVector {
+public class SparseBooleanVector implements Serializable {
     
     /** 
      * Indicates the positions that hold the value "true"

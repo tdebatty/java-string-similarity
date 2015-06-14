@@ -51,7 +51,7 @@ public class StringProfile {
             throw new Exception("Profiles were not created using the same kshingling object!");
         }
         
-        return this.vector.dotProduct(other.vector) / (this.vector.norm() * other.vector.norm());
+        return this.vector.cosineSimilarity(other.vector);
     }
     
     /**

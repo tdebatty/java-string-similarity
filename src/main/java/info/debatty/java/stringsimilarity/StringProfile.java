@@ -67,4 +67,8 @@ public class StringProfile {
         
         return this.vector.qgram(other.vector);
     }
+    
+    public SparseIntegerVector getSparseVector() {
+        return this.vector;
+    }
 }

@@ -152,6 +152,15 @@ public class KShingling {
         // Convert hashmap to sparsearray
         return new StringSet(new SparseBooleanVector(hash_profile), this);
     }
+    
+    /**
+     * Return the number of different n-grams (k-shingles) found by this 
+     * k-shingling instance.
+     * @return 
+     */
+    public int getDimension() {
+        return this.shingles.size();
+    }
 
     private HashMap<Integer, Integer> getHashProfile(String s) {
         HashMap<Integer, Integer> hash_profile = new HashMap<Integer, Integer>(s.length());
@@ -181,6 +190,8 @@ public class KShingling {
         
         return hash_profile;
     }
+    
+    
     
     
 }

@@ -30,9 +30,10 @@ Using maven:
 See [releases](https://github.com/tdebatty/java-string-similarity/releases).
 
 ## Interfaces
+Although the topic might seem simple, a lot of different algorithms exist to measure text similarity or distance. Therefore the library defines some interfaces to categorize them.
 
 ### (Normalized) similarity and distance
-Although the topic might seem simple, a lot of different algorithms exist to measure text similarity or distance. Therefore the library defines some interfaces to categorize them:
+
 - StringSimilarity : Implementing algorithms define a similarity between strings (0 means strings are completely different).
 - NormalizedStringSimilarity : Implementing algorithms define a similarity between 0.0 and 1.0, like Jaro-Winkler for example.
 - StringDistance : Implementing algorithms define a distance between strings (0 means strings are identical), like Levenshtein for example. The maximum distance value depends on the algorithm.

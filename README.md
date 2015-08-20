@@ -53,22 +53,22 @@ For these algorithms, another use case is possible when dealing with large datas
 
 ## Summary
 
-The main characteristics of each implemented algorithm are presented below:
+The main characteristics of each implemented algorithm are presented below. The "cost" column givs an estimation of the computational cost to compute te similarity between two strings of length m and n respectively.
 
-|  									|  						| Normalized? 	| Metric?	| Type    |
-|--------							|-------				|-------------	|----------	| ------	|
-| Levenshtein 						|distance 				| No 			| Yes 		| |
-| Normalized Levenshtein 			|distance<br>similarity	| Yes 			| No 		| 	|
-| Weighted Levenshtein 				|distance 				| No 			| No 		| 	|
-| Damerau-Levenshtein 				|distance 				| No 			| No 		| 	|
-| Jaro-Winkler 						|similarity<br>distance	| Yes  			| No 		| 	|
-| Longest Common Subsequence 		|distance 				| No 			| No 		| 	|
-| Metric Longest Common Subsequence |distance   			| Yes 			| No  		| 	|
-| N-Gram (Kondrak)		 			|distance				| Yes  			| No 		| 	|
-| Q-Gram 							|distance  			 	| No  			| No 		| Profile	|
-| Cosine 							|similarity<br>distance | Yes  			| No  		| Profile	|
-| Jaccard 							|similarity<br>distance | Yes  			| Yes  		| Set	|
-| Sorensen-Dice 					|similarity<br>distance | Yes 			| No 		| Set	|
+|  									|  						| Normalized? 	| Metric?	| Type    | Cost |
+|--------							|-------				|-------------	|----------	| ------  | ---- |
+| Levenshtein 						|distance 				| No 			| Yes 		|         | O(m.n) |
+| Normalized Levenshtein 			|distance<br>similarity	| Yes 			| No 		| 	      | O(m.n) |
+| Weighted Levenshtein 				|distance 				| No 			| No 		| 	      | O(m.n) |
+| Damerau-Levenshtein 				|distance 				| No 			| No 		| 	      | O(m.n) |
+| Jaro-Winkler 						|similarity<br>distance	| Yes  			| No 		| 	      | O(m.n) |
+| Longest Common Subsequence 		|distance 				| No 			| No 		| 	      | O(m.n) |
+| Metric Longest Common Subsequence |distance   			| Yes 			| No  		| 	      | O(m.n) |
+| N-Gram (Kondrak)		 			|distance				| Yes  			| No 		| 	      | O(m.n) |
+| Q-Gram 							|distance  			 	| No  			| No 		| Profile | O(m+n) |
+| Cosine 							|similarity<br>distance | Yes  			| No  		| Profile | O(m+n) |
+| Jaccard 							|similarity<br>distance | Yes  			| Yes  		| Set	  | O(m+n) |
+| Sorensen-Dice 					|similarity<br>distance | Yes 			| No 		| Set	  | O(m+n) |
 
 ## Levenshtein
 The Levenshtein distance between two words is the minimum number of single-character edits (insertions, deletions or substitutions) required to change one word into the other.

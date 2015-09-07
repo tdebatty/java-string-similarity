@@ -249,10 +249,33 @@ public class MyApp {
 }
 ```
 
-## Metric Longest Common Subsequence
-tbd
-
+## Metric LCS (Longest Common Subsequence)
+Distance metric based on Longest Common Subsequence, from the notes "An LCS-based string metric" by Daniel Bakkelund.
 http://heim.ifi.uio.no/~danielry/StringMetric.pdf
+
+The distance is computed as 1 - |LCS(s1, s2)| / max(|s1|, |s2|)
+```java
+public class MyApp {
+
+        public static void main(String[] args) {
+
+        info.debatty.java.stringsimilarity.MetricLCS lcs = 
+                new info.debatty.java.stringsimilarity.MetricLCS();
+
+        String s1 = "ABCDEFG";   
+        String s2 = "ABCDEFHJKL";
+        // LCS: ABCDEF => length = 6
+        // longest = s2 => length = 10
+        // => 1 - 6/10 = 0.4
+        System.out.println(lcs.distance(s1, s2));
+
+        // LCS: ABDF => length = 4
+        // longest = ABDEF => length = 5
+        // => 1 - 4 / 5 = 0.2
+        System.out.println(lcs.distance("ABDEF", "ABDIF"));
+    }
+}
+```
 
 ## N-Gram distance (Kondrak)
 

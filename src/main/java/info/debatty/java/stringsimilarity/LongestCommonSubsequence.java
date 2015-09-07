@@ -40,10 +40,24 @@ public class LongestCommonSubsequence implements StringDistance {
     }
     
     
+    /**
+     * Return the LCS distance between strings s1 and s2, 
+     * computed as |s1| + |s2| - 2 * |LCS(s1, s2)|
+     * @param s1
+     * @param s2
+     * @return 
+     */
     public double distance(String s1, String s2) {
         return s1.length() + s2.length() - 2 * length(s1, s2);
     }
     
+    /**
+     * Return the length of Longest Common Subsequence (LCS) between strings s1
+     * and s2.
+     * @param s1
+     * @param s2
+     * @return 
+     */
     protected int length(String s1, String s2) {
         /* function LCSLength(X[1..m], Y[1..n])
             C = array(0..m, 0..n)

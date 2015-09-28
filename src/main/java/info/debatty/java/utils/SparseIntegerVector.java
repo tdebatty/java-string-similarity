@@ -262,4 +262,12 @@ public class SparseIntegerVector implements Serializable {
     public int size() {
         return this.size;
     }
+
+    public int getKey(int i) {
+        return this.keys[i];
+    }
+
+    public int getValue(int i) {
+        return this.values[i];
+    }
 }

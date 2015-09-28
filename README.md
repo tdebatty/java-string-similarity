@@ -25,7 +25,7 @@ Using maven:
 </dependency>
 ```
 
-See [releases](https://github.com/tdebatty/java-string-similarity/releases).
+Or check the [releases](https://github.com/tdebatty/java-string-similarity/releases).
 
 ## Interfaces
 Although the topic might seem simple, a lot of different algorithms exist to measure text similarity or distance. Therefore the library defines some interfaces to categorize them.
@@ -41,6 +41,8 @@ Generally, algorithms that implement NormalizedStringSimilarity also implement N
 
 ### Metric distances
 The MetricStringDistance interface : A few of the distances are actually metric distances, which means that verify the triangle inequality d(x, y) <= d(x,z) + d(z,y). For example, Levenshtein is a metric distance, but NormalizedLevenshtein is not.
+
+[Read Javadoc for details](http://api123.web-d.be/api/java-string-similarity/head/index.html)
 
 ## Shingles (n-gram) based similarity and distance
 A few algorithms work by converting strings into sets of n-grams (sequences of n characters, also sometimes called k-shingles). The similarity or distance between the strings is then the similarity or distance between the sets.

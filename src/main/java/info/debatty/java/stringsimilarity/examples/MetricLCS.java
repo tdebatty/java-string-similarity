@@ -46,6 +46,5 @@ public class MetricLCS {
         // longest = ABDEF => length = 5
         // => 1 - 4 / 5 = 0.2
         System.out.println(lcs.distance("ABDEF", "ABDIF"));
-    }
-    
+    } 
 }

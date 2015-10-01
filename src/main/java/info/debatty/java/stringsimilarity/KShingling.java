@@ -94,7 +94,7 @@ public class KShingling {
      * 20^k x 4Bytes (sizeof(int))
      * Computation cost is O(n)
      * @param s
-     * @return 
+     * @return the profile of this string as an array of integers
      */
     int[] getArrayProfile(String s) {
         ArrayList<Integer> r = new ArrayList<Integer>(shingles.size());
@@ -137,7 +137,7 @@ public class KShingling {
      * or qgram distance.
      * 
      * @param s
-     * @return 
+     * @return the profile of this string, as a StringProfile object
      */
     public StringProfile getProfile(String s) {
         
@@ -157,7 +157,7 @@ public class KShingling {
     /**
      * Return the number of different n-grams (k-shingles) found by this 
      * k-shingling instance.
-     * @return 
+     * @return the total number of different n-grams found by this k-shingling instance
      */
     public int getDimension() {
         return this.shingles.size();

@@ -27,7 +27,8 @@ package info.debatty.java.stringsimilarity;
 import info.debatty.java.utils.SparseIntegerVector;
 
 /**
- * Profile of a string, computed using shingling.
+ * Profile of a string (number of occurences of each shingle/n-gram), computed 
+ * using shingling.
  * 
  * @author Thibault Debatty
  */
@@ -59,7 +60,7 @@ public class StringProfile {
     /**
      *
      * @param other
-     * @return
+     * @return cosine similarity between this string and the other
      * @throws java.lang.Exception
      */
     public double cosineSimilarity(StringProfile other) throws Exception {
@@ -73,7 +74,7 @@ public class StringProfile {
     /**
      * 
      * @param other
-     * @return
+     * @return qgram distance between this string and the other
      * @throws Exception 
      */
     public double qgramDistance(StringProfile other) throws Exception {
@@ -113,13 +114,9 @@ public class StringProfile {
                         smallest_frequency = frequencies[j];
                     }
                 }
-                
             }
             
         }
-        
         return strings;
-
-        
     }
 }

@@ -64,13 +64,15 @@ The main characteristics of each implemented algorithm are presented below. The 
 | Weighted Levenshtein 				|distance 				| No 			| No 		| 	      | O(m.n) |
 | Damerau-Levenshtein 				|distance 				| No 			| No 		| 	      | O(m.n) |
 | Jaro-Winkler 						|similarity<br>distance	| Yes  			| No 		| 	      | O(m.n) |
-| Longest Common Subsequence 		|distance 				| No 			| No 		| 	      | O(m.n) |
+| Longest Common Subsequence 		|distance 				| No 			| No 		| 	      | O(m.n)* |
 | Metric Longest Common Subsequence |distance   			| Yes 			| No  		| 	      | O(m.n) |
 | N-Gram (Kondrak)		 			|distance				| Yes  			| No 		| 	      | O(m.n) |
 | Q-Gram 							|distance  			 	| No  			| No 		| Profile | O(m+n) |
 | Cosine 							|similarity<br>distance | Yes  			| No  		| Profile | O(m+n) |
 | Jaccard 							|similarity<br>distance | Yes  			| Yes  		| Set	  | O(m+n) |
 | Sorensen-Dice 					|similarity<br>distance | Yes 			| No 		| Set	  | O(m+n) |
+
+\* In "Length of Maximal Common Subsequences", K.S. Larsen proposed an algorithm that computes the length of LCS in time O(log(m).log(n)). But the algorithm has a memory requirement O(m.n²) and was thus not implemented here.
 
 ## Levenshtein
 The Levenshtein distance between two words is the minimum number of single-character edits (insertions, deletions or substitutions) required to change one word into the other.
@@ -233,7 +235,9 @@ max = n + m
 
 LCS distance is equivalent to Levenshtein distance when only insertion and deletion is allowed (no substitution), or when the cost of the substitution is the double of the cost of an insertion or deletion.
 
-This class currently implements the dynamic programming approach, which has a space requirement O(m.n), and computation cost O (m.n)
+This class implements the dynamic programming approach, which has a space requirement O(m.n), and computation cost O(m.n).
+
+In "Length of Maximal Common Subsequences", K.S. Larsen proposed an algorithm that computes the length of LCS in time O(log(m).log(n)). But the algorithm has a memory requirement O(m.n²) and was thus not implemented here.
 
 ```java
 import info.debatty.java.stringsimilarity.*;

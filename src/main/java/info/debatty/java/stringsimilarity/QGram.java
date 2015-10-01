@@ -2,9 +2,14 @@ package info.debatty.java.stringsimilarity;
 
 
 import info.debatty.java.stringsimilarity.interfaces.StringDistance;
-import info.debatty.java.utils.SparseIntegerVector;
 
 /**
+ * Q-gram distance, as defined by Ukkonen in "Approximate string-matching with 
+ * q-grams and maximal matches". The distance between two strings is defined as 
+ * the L1 norm of the difference of their profiles (the number of occurences of 
+ * each n-gram): SUM( |V1_i - V2_i| ). Q-gram distance is a lower bound on 
+ * Levenshtein distance, but can be computed in O(m + n), where Levenshtein 
+ * requires O(m.n).
  * @author Thibault Debatty
  */
 public class QGram extends ShingleBased implements StringDistance {

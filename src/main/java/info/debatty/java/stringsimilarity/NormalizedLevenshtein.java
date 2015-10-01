@@ -28,7 +28,10 @@ import info.debatty.java.stringsimilarity.interfaces.NormalizedStringSimilarity;
 import info.debatty.java.stringsimilarity.interfaces.NormalizedStringDistance;
 
 /**
- *
+ * This distance is computed as levenshtein distance divided by the length of 
+ * the longest string. The resulting value is always in the interval [0.0 1.0] 
+ * but it is not a metric anymore!
+ * The similarity is computed as 1 - normalized distance.
  * @author Thibault Debatty
  */
 public class NormalizedLevenshtein implements NormalizedStringDistance, NormalizedStringSimilarity {

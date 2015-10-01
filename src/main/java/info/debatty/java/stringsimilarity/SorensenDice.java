@@ -28,7 +28,9 @@ import info.debatty.java.stringsimilarity.interfaces.NormalizedStringSimilarity;
 import info.debatty.java.stringsimilarity.interfaces.NormalizedStringDistance;
 
 /**
- * 
+ * Similar to Jaccard index, but this time the similarity is computed as 
+ * 2 * |V1 inter V2| / (|V1| + |V2|).
+ * Distance is computed as 1 - cosine similarity.
  * @author Thibault Debatty
  */
 public class SorensenDice extends ShingleBased implements 

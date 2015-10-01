@@ -29,7 +29,13 @@ import info.debatty.java.stringsimilarity.interfaces.NormalizedStringSimilarity;
 import info.debatty.java.stringsimilarity.interfaces.NormalizedStringDistance;
 
 /**
- * 
+ * Each input string is converted into a set of n-grams, the Jaccard index is 
+ * then computed as |V1 inter V2| / |V1 union V2|.
+ * Like Q-Gram distance, the input strings are first converted into sets of 
+ * n-grams (sequences of n characters, also called k-shingles), but this time 
+ * the cardinality of each n-gram is not taken into account. 
+ * Distance is computed as 1 - cosine similarity.
+ * Jaccard index is a metric distance.
  * @author Thibault Debatty
  */
 public class Jaccard extends ShingleBased implements 

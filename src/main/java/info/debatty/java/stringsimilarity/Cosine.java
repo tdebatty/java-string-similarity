@@ -28,6 +28,9 @@ import info.debatty.java.stringsimilarity.interfaces.NormalizedStringSimilarity;
 import info.debatty.java.stringsimilarity.interfaces.NormalizedStringDistance;
 
 /**
+ * The similarity between the two strings is the cosine of the angle between 
+ * these two vectors representation. It is computed as V1 . V2 / (|V1| * |V2|)
+ * The cosine distance is computed as 1 - cosine similarity.
  * @author Thibault Debatty
  */
 public class Cosine extends ShingleBased implements 

@@ -3,7 +3,7 @@
 
 A library implementing different string similarity and distance algorithms.
 
-Currently implemeted:
+Currently implemented:
 - Levenshtein edit distance;
 - Damerau-Levenshtein distance;
 - Jaro-Winkler similarity;
@@ -65,7 +65,7 @@ The main characteristics of each implemented algorithm are presented below. The 
 | Damerau-Levenshtein 				|distance 				| No 			| No 		| 	      | O(m.n) |
 | Jaro-Winkler 						|similarity<br>distance	| Yes  			| No 		| 	      | O(m.n) |
 | Longest Common Subsequence 		|distance 				| No 			| No 		| 	      | O(m.n)* |
-| Metric Longest Common Subsequence |distance   			| Yes 			| No  		| 	      | O(m.n) |
+| Metric Longest Common Subsequence |distance   			| Yes 			| No  		| 	      | O(m.n)* |
 | N-Gram (Kondrak)		 			|distance				| Yes  			| No 		| 	      | O(m.n) |
 | Q-Gram 							|distance  			 	| No  			| No 		| Profile | O(m+n) |
 | Cosine 							|similarity<br>distance | Yes  			| No  		| Profile | O(m+n) |

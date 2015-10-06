@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>info.debatty</groupId>
     <artifactId>java-string-similarity</artifactId>
-    <version>0.13</version>  
+    <version>0.14-SNAPSHOT</version>  
     <packaging>jar</packaging>
   
     <name>${project.artifactId}</name>
@@ -34,7 +34,7 @@
         <connection>scm:git:git@github.com:tdebatty/java-string-similarity.git</connection>
         <developerConnection>scm:git:git@github.com:tdebatty/java-string-similarity.git</developerConnection>
         <url>git@github.com:tdebatty/java-string-similarity.git</url>
-      <tag>v0.13</tag>
+      <tag>v0.7</tag>
   </scm>
   
     <distributionManagement>

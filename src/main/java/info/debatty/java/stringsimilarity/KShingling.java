@@ -25,19 +25,6 @@ import java.util.regex.Pattern;
  */
 public class KShingling {
     
-    public static void main(String[] args) {
-        String s1 = "my string,  \n  my song";
-        String s2 = "another string, from a song";
-        KShingling ks = new KShingling(4);
-        System.out.println(ks.getProfile(s1));
-        System.out.println(ks.getProfile(s2));
-        
-        ks = new KShingling(2);
-        System.out.println(ks.getProfile("ABCAB"));
-        
-        System.out.println(ks.getArrayProfile("ABCAB"));
-    }
-
     protected int k;
     private final HashMap<String, Integer> shingles = new HashMap<String, Integer>();
     
@@ -96,7 +83,7 @@ public class KShingling {
      * @param s
      * @return the profile of this string as an array of integers
      */
-    int[] getArrayProfile(String s) {
+    protected int[] getArrayProfile(String s) {
         ArrayList<Integer> r = new ArrayList<Integer>(shingles.size());
         for (int i = 0; i < shingles.size(); i++) {
             r.add(0);

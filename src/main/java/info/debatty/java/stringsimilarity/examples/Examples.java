@@ -28,6 +28,7 @@ import info.debatty.java.stringsimilarity.Cosine;
 import info.debatty.java.stringsimilarity.Damerau;
 import info.debatty.java.stringsimilarity.Jaccard;
 import info.debatty.java.stringsimilarity.JaroWinkler;
+import info.debatty.java.stringsimilarity.KShingling;
 import info.debatty.java.stringsimilarity.Levenshtein;
 import info.debatty.java.stringsimilarity.LongestCommonSubsequence;
 import info.debatty.java.stringsimilarity.NGram;
@@ -185,6 +186,17 @@ public class Examples {
                 });
 
         System.out.println(wl.distance("String1", "Srring2"));
+        
+        // K-Shingling
+        s1 = "my string,  \n  my song";
+        s2 = "another string, from a song";
+        KShingling ks = new KShingling(4);
+        System.out.println(ks.getProfile(s1));
+        System.out.println(ks.getProfile(s2));
+        
+        ks = new KShingling(2);
+        System.out.println(ks.getProfile("ABCAB"));
+        
     }
 
 }

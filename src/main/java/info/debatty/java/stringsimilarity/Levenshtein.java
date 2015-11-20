@@ -5,20 +5,11 @@ import info.debatty.java.stringsimilarity.interfaces.MetricStringDistance;
 /**
  * The Levenshtein distance between two words is the minimum number of 
  * single-character edits (insertions, deletions or substitutions) required to 
- * change one word into the other.
+ * change one string into the other.
  * 
  * @author Thibault Debatty
  */
 public class Levenshtein implements MetricStringDistance {
-    
-    public static void main (String[] args) {
-        Levenshtein l = new Levenshtein();
-        
-        System.out.println(l.distance("My string", "My $tring"));
-        System.out.println(l.distance("My string", "M string2"));
-        System.out.println(l.distance("My string", "My $tring"));
-    }
-
     
     /**
      * The Levenshtein distance, or edit distance, between two words is the 

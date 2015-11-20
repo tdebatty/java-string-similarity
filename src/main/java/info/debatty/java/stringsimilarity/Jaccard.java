@@ -40,17 +40,6 @@ import info.debatty.java.stringsimilarity.interfaces.NormalizedStringDistance;
  */
 public class Jaccard extends ShingleBased implements 
         MetricStringDistance, NormalizedStringDistance, NormalizedStringSimilarity {
-
-    public static void main(String[] args) {
-        Jaccard j2 = new Jaccard(2);
-        
-        // AB BC CD DE DF
-        // 1  1  1  1  0
-        // 1  1  1  0  1
-        // => 3 / 5 = 0.6
-        System.out.println(j2.similarity("ABCDE", "ABCDF"));
-        
-    }
     
     /**
      * The strings are first transformed into sets of k-shingles (sequences of k

@@ -22,34 +22,68 @@
  * THE SOFTWARE.
  */
 
-package info.debatty.java.stringsimilarity.examples;
+package info.debatty.java.stringsimilarity;
 
-import info.debatty.java.stringsimilarity.Jaccard;
-import info.debatty.java.stringsimilarity.Levenshtein;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  *
  * @author Thibault Debatty
  */
-public class Examples {
+public class JaccardTest {
+    
+    public JaccardTest() {
+    }
+    
+    @BeforeClass
+    public static void setUpClass() {
+    }
+    
+    @AfterClass
+    public static void tearDownClass() {
+    }
+    
+    @Before
+    public void setUp() {
+    }
+    
+    @After
+    public void tearDown() {
+    }
 
     /**
-     * @param args the command line arguments
+     * Test of similarity method, of class Jaccard.
      */
-    public static void main(String[] args) {
-        Levenshtein levenshtein = new Levenshtein();
-        
-        System.out.println(levenshtein.distance("My string", "My $tring"));
-        System.out.println(levenshtein.distance("My string", "M string2"));
-        System.out.println(levenshtein.distance("My string", "My $tring"));
-        
-        Jaccard j2 = new Jaccard(2);
+    @Test
+    public void testSimilarity() {
+        System.out.println("similarity");
+        Jaccard instance = new Jaccard(2);
         
         // AB BC CD DE DF
         // 1  1  1  1  0
         // 1  1  1  0  1
         // => 3 / 5 = 0.6
-        System.out.println(j2.similarity("ABCDE", "ABCDF"));
+        double result = instance.similarity("ABCDE", "ABCDF");
+        assertEquals(0.6, result, 0.0);
+    }
+
+    /**
+     * Test of distance method, of class Jaccard.
+     */
+    @Test
+    public void testDistance() {
+        System.out.println("distance");
+        String s1 = "";
+        String s2 = "";
+        Jaccard instance = new Jaccard(2);
+        double expResult = 0.4;
+        double result = instance.distance("ABCDE", "ABCDF");
+        assertEquals(expResult, result, 0.0);
     }
     
 }

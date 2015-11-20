@@ -154,7 +154,10 @@ public class SparseDoubleVector implements Serializable {
     }
     
     /**
-     * 
+     * Return the number of non-zero values these two vectors have in common, 
+     * |A inter B|.
+     * E.g: A = {0 1 2 3} and B = {1 2 3 0}
+     * have non-zero values at positions 1 and 2, hence A.intersection(B) = 2
      * @param other
      * @return 
      */
@@ -187,7 +190,6 @@ public class SparseDoubleVector implements Serializable {
         for (int i = 0; i < size; i++) {
             r += keys[i] + ":" + values[i] + " ";
         }
-        
         return r;
     }
 
@@ -235,7 +237,7 @@ public class SparseDoubleVector implements Serializable {
     }
 
     /**
-     * Return the number of (non-zero) elements in this vector.
+     * Return the number of non-zero elements in this vector.
      * @return 
      */
     public int size() {
@@ -260,7 +262,8 @@ public class SparseDoubleVector implements Serializable {
     }
     
     /**
-     * 
+     * Return the cosine similarity between the vectors.
+     * Similarity = cos(theta) = A . B / (|A|.|B|)
      * @param other
      * @return 
      */
@@ -340,6 +343,11 @@ public class SparseDoubleVector implements Serializable {
         }
     }
     
+    /**
+     * Return the array corresponding to this sparse vector.
+     * @param size
+     * @return 
+     */
     public double[] toArray(int size) {
         
         double[] array = new double[size];

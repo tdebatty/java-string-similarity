@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2015 tibo.
+ * Copyright 2015 Thibault Debatty.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,23 +21,49 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package info.debatty.java.stringsimilarity.examples;
 
-import info.debatty.java.stringsimilarity.KShingling;
-import info.debatty.java.stringsimilarity.StringProfile;
+package info.debatty.java.stringsimilarity;
+
+import info.debatty.java.utils.SparseIntegerVector;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
- * Example of computing cosine similarity with pre-computed profiles
  *
- * @author tibo
+ * @author Thibault Debatty
  */
-public class PrecomputedCosine {
+public class StringProfileTest {
+    
+    public StringProfileTest() {
+    }
+    
+    @BeforeClass
+    public static void setUpClass() {
+    }
+    
+    @AfterClass
+    public static void tearDownClass() {
+    }
+    
+    @Before
+    public void setUp() {
+    }
+    
+    @After
+    public void tearDown() {
+    }
 
     /**
-     * @param args the command line arguments
+     * Test of cosineSimilarity method, of class StringProfile.
      * @throws java.lang.Exception
      */
-    public static void main(String[] args) throws Exception {
+    @Test
+    public void testCosineSimilarity() throws Exception {
+        System.out.println("cosineSimilarity");
         String s1 = "My first string";
         String s2 = "My other string...";
 
@@ -49,8 +75,8 @@ public class PrecomputedCosine {
         StringProfile profile2 = ks.getProfile(s2);
 
         // Prints 0.516185
-        System.out.println(profile1.cosineSimilarity(profile2));
-
+        assertEquals(0.516185, profile1.cosineSimilarity(profile2), 0.0001);
     }
 
+    
 }

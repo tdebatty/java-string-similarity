@@ -21,87 +21,66 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package info.debatty.java.stringsimilarity;
 
 import info.debatty.java.stringsimilarity.interfaces.NormalizedStringSimilarity;
 import info.debatty.java.stringsimilarity.interfaces.NormalizedStringDistance;
 
 /**
- * The similarity between the two strings is the cosine of the angle between 
+ * The similarity between the two strings is the cosine of the angle between
  * these two vectors representation. It is computed as V1 . V2 / (|V1| * |V2|)
  * The cosine distance is computed as 1 - cosine similarity.
+ *
  * @author Thibault Debatty
  */
-public class Cosine extends ShingleBased implements 
-        NormalizedStringDistance, NormalizedStringSimilarity{
+public class Cosine extends ShingleBased implements
+        NormalizedStringDistance, NormalizedStringSimilarity {
 
-    public static void main(String[] args) {
-        Cosine cos = new Cosine(3);
-        
-        // ABC BCE
-        // 1  0
-        // 1  1
-        // angle = 45°
-        // => similarity = .71
-        
-        System.out.println(cos.similarity("ABC", "ABCE"));
-        
-        cos = new Cosine(2);
-        // AB BA
-        // 2  1
-        // 1  1
-        // similarity = .95
-        System.out.println(cos.similarity("ABAB", "BAB"));
-        
-        
-    }
-    
     /**
-     * Implements Cosine Similarity between strings.
-     * The strings are first transformed in vectors of occurrences of k-shingles 
-     * (sequences of k characters). In this n-dimensional space, the similarity
-     * between the two strings is the cosine of their respective vectors.
-     * 
-     * @param k 
+     * Implements Cosine Similarity between strings. The strings are first
+     * transformed in vectors of occurrences of k-shingles (sequences of k
+     * characters). In this n-dimensional space, the similarity between the two
+     * strings is the cosine of their respective vectors.
+     *
+     * @param k
      */
     public Cosine(int k) {
         super(k);
     }
-    
+
     public Cosine() {
         super();
     }
-    
-    
+
     public double similarity(String s1, String s2) {
         KShingling ks = new KShingling(k);
         int[] profile1 = ks.getArrayProfile(s1);
         int[] profile2 = ks.getArrayProfile(s2);
-     
+
         return dotProduct(profile1, profile2) / (norm(profile1) * norm(profile2));
     }
-    
+
     /**
      * Compute the norm L2 : sqrt(Sum_i( v_i²))
+     *
      * @param profile
      * @return L2 norm
      */
     protected static double norm(int[] profile) {
         double agg = 0;
-        
+
         for (int v : profile) {
             agg += v * v;
         }
-        
+
         return Math.sqrt(agg);
     }
-    
+
     protected static double dotProduct(int[] profile1, int[] profile2) {
         int length = Math.max(profile1.length, profile2.length);
         profile1 = java.util.Arrays.copyOf(profile1, length);
         profile2 = java.util.Arrays.copyOf(profile2, length);
-        
+
         double agg = 0;
         for (int i = 0; i < length; i++) {
             agg += profile1[i] * profile2[i];
@@ -112,5 +91,5 @@ public class Cosine extends ShingleBased implements
     public double distance(String s1, String s2) {
         return 1.0 - similarity(s1, s2);
     }
-    
+
 }

@@ -24,9 +24,12 @@
 
 package info.debatty.java.stringsimilarity.examples;
 
+import info.debatty.java.stringsimilarity.Cosine;
+import info.debatty.java.stringsimilarity.Damerau;
 import info.debatty.java.stringsimilarity.Jaccard;
 import info.debatty.java.stringsimilarity.JaroWinkler;
 import info.debatty.java.stringsimilarity.Levenshtein;
+import info.debatty.java.stringsimilarity.LongestCommonSubsequence;
 
 /**
  *
@@ -65,6 +68,55 @@ public class Examples {
         
         // substitution of s and n : 0.8962963223457336
         System.out.println(jw.similarity("My string", "My ntrisg"));
+        
+        
+        // Cosine
+        // ======
+        Cosine cos = new Cosine(3);
+        
+        // ABC BCE
+        // 1  0
+        // 1  1
+        // angle = 45°
+        // => similarity = .71
+        
+        System.out.println(cos.similarity("ABC", "ABCE"));
+        
+        cos = new Cosine(2);
+        // AB BA
+        // 2  1
+        // 1  1
+        // similarity = .95
+        System.out.println(cos.similarity("ABAB", "BAB"));
+        
+        // Damerau
+        // =======
+        Damerau damerau = new Damerau();
+        
+        // 1 substitution
+        System.out.println(damerau.distance("ABCDEF", "ABDCEF"));
+        
+        // 2 substitutions
+        System.out.println(damerau.distance("ABCDEF", "BACDFE"));
+        
+        // 1 deletion
+        System.out.println(damerau.distance("ABCDEF", "ABCDE"));
+        System.out.println(damerau.distance("ABCDEF", "BCDEF"));
+        
+        System.out.println(damerau.distance("ABCDEF", "ABCGDEF"));
+        
+        // All different
+        System.out.println(damerau.distance("ABCDEF", "POIU"));
+        
+        // Longest Common Subsequence
+        // ==========================
+        LongestCommonSubsequence lcs = new LongestCommonSubsequence();
+        
+        // Will produce 4.0
+        System.out.println(lcs.distance("AGCAT", "GAC"));
+        
+        // Will produce 1.0
+        System.out.println(lcs.distance("AGCAT", "AGCT"));
     }
     
 }

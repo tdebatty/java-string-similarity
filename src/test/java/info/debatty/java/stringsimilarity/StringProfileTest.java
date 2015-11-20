@@ -74,7 +74,6 @@ public class StringProfileTest {
         StringProfile profile1 = ks.getProfile(s1);
         StringProfile profile2 = ks.getProfile(s2);
 
-        // Prints 0.516185
         assertEquals(0.516185, profile1.cosineSimilarity(profile2), 0.0001);
     }
 

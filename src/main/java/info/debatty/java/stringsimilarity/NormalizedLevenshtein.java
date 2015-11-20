@@ -21,30 +21,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package info.debatty.java.stringsimilarity;
 
 import info.debatty.java.stringsimilarity.interfaces.NormalizedStringSimilarity;
 import info.debatty.java.stringsimilarity.interfaces.NormalizedStringDistance;
 
 /**
- * This distance is computed as levenshtein distance divided by the length of 
- * the longest string. The resulting value is always in the interval [0.0 1.0] 
- * but it is not a metric anymore!
- * The similarity is computed as 1 - normalized distance.
+ * This distance is computed as levenshtein distance divided by the length of
+ * the longest string. The resulting value is always in the interval [0.0 1.0]
+ * but it is not a metric anymore! The similarity is computed as 1 - normalized
+ * distance.
+ *
  * @author Thibault Debatty
  */
-public class NormalizedLevenshtein implements NormalizedStringDistance, NormalizedStringSimilarity {
+public class NormalizedLevenshtein implements 
+        NormalizedStringDistance, NormalizedStringSimilarity {
 
-
-    public static void main(String[] args) {
-        NormalizedLevenshtein l = new NormalizedLevenshtein();
-        
-        System.out.println(l.distance("My string", "My $tring"));
-        System.out.println(l.distance("My string", "M string2"));
-        System.out.println(l.distance("My string", "abcd"));
-    }
-    
     private final Levenshtein l = new Levenshtein();
 
     public double distance(String s1, String s2) {
@@ -54,5 +46,5 @@ public class NormalizedLevenshtein implements NormalizedStringDistance, Normaliz
     public double similarity(String s1, String s2) {
         return 1.0 - distance(s1, s2);
     }
-    
+
 }

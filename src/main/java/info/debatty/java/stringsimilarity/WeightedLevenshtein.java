@@ -21,7 +21,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package info.debatty.java.stringsimilarity;
 
 import info.debatty.java.stringsimilarity.interfaces.StringDistance;
@@ -29,48 +28,26 @@ import info.debatty.java.stringsimilarity.interfaces.StringDistance;
 /**
  * Implementation of Levenshtein that allows to define different weights for
  * different character substitutions.
- * 
+ *
  * @author Thibault Debatty
  */
 public class WeightedLevenshtein implements StringDistance {
 
-
-    public static void main(String[] args) {
-        WeightedLevenshtein wl = new WeightedLevenshtein(
-                new CharacterSubstitutionInterface() {
-                    public double cost(char c1, char c2) {
-                        
-                        // The cost for substituting 't' and 'r' is considered
-                        // smaller as these 2 are located next to each other
-                        // on a keyboard
-                        if (c1 == 't' && c2 == 'r') {
-                            return 0.5;
-                        }
-                        
-                        // For most cases, the cost of substituting 2 characters
-                        // is 1.0
-                        return 1.0;
-                    }
-        });
-        
-        System.out.println(wl.distance("String1", "Srring2"));
-    }
-    
     private final CharacterSubstitutionInterface charsub;
-    
+
     public WeightedLevenshtein(CharacterSubstitutionInterface charsub) {
         this.charsub = charsub;
     }
-    
+
     public double distance(String s1, String s2) {
-        if (s1.equals(s2)){
+        if (s1.equals(s2)) {
             return 0;
         }
-        
+
         if (s1.length() == 0) {
             return s2.length();
         }
-        
+
         if (s2.length() == 0) {
             return s1.length();
         }
@@ -86,7 +63,7 @@ public class WeightedLevenshtein implements StringDistance {
         for (int i = 0; i < v0.length; i++) {
             v0[i] = i;
         }
-        
+
         for (int i = 0; i < s1.length(); i++) {
             // calculate v1 (current row distances) from the previous row v0
             // first element of v1 is A[i+1][0]
@@ -97,20 +74,19 @@ public class WeightedLevenshtein implements StringDistance {
             for (int j = 0; j < s2.length(); j++) {
                 double cost = (s1.charAt(i) == s2.charAt(j)) ? 0 : charsub.cost(s1.charAt(i), s2.charAt(j));
                 v1[j + 1] = Math.min(
-                        v1[j] + 1,              // Cost of insertion
+                        v1[j] + 1, // Cost of insertion
                         Math.min(
-                                v0[j + 1] + 1,  // Cost of remove
+                                v0[j + 1] + 1, // Cost of remove
                                 v0[j] + cost)); // Cost of substitution
             }
-            
+
             // copy v1 (current row) to v0 (previous row) for next iteration
             //System.arraycopy(v1, 0, v0, 0, v0.length);
-            
             // Flip references to current and previous row
             vtemp = v0;
             v0 = v1;
             v1 = vtemp;
-                
+
         }
 
         return v0[s2.length()];

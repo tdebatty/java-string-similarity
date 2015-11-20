@@ -21,81 +21,64 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package info.debatty.java.stringsimilarity;
 
 import info.debatty.java.stringsimilarity.interfaces.NormalizedStringSimilarity;
 import info.debatty.java.stringsimilarity.interfaces.NormalizedStringDistance;
 
 /**
- * Similar to Jaccard index, but this time the similarity is computed as 
- * 2 * |V1 inter V2| / (|V1| + |V2|).
- * Distance is computed as 1 - cosine similarity.
+ * Similar to Jaccard index, but this time the similarity is computed as 2 * |V1
+ * inter V2| / (|V1| + |V2|). Distance is computed as 1 - cosine similarity.
+ *
  * @author Thibault Debatty
  */
-public class SorensenDice extends ShingleBased implements 
+public class SorensenDice extends ShingleBased implements
         NormalizedStringDistance, NormalizedStringSimilarity {
 
     /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        SorensenDice sd = new SorensenDice(2);
-        
-        // AB BC CD DE DF FG
-        // 1  1  1  1  0  0
-        // 1  1  1  0  1  1
-        // => 2 x 3 / (4 + 5) = 6/9 = 0.6666
-        System.out.println(sd.similarity("ABCDE", "ABCDFG"));
-    }
-
-    
-    /**
-     * Sorensen-Dice coefficient, aka Sørensen index, Dice's coefficient or 
+     * Sorensen-Dice coefficient, aka Sørensen index, Dice's coefficient or
      * Czekanowski's binary (non-quantitative) index.
-     * 
-     * The strings are first converted to boolean sets of k-shingles (sequences 
-     * of k characters), then the similarity is computed as 
-     * 2 * |A inter B| / (|A| + |B|).
-     * Attention: Sorensen-Dice distance (and similarity) does not satisfy 
-     * triangle inequality.
-     * 
-     * @param k 
+     *
+     * The strings are first converted to boolean sets of k-shingles (sequences
+     * of k characters), then the similarity is computed as 2 * |A inter B| /
+     * (|A| + |B|). Attention: Sorensen-Dice distance (and similarity) does not
+     * satisfy triangle inequality.
+     *
+     * @param k
      */
     public SorensenDice(int k) {
         super(k);
     }
-    
+
     public SorensenDice() {
         super(3);
     }
-    
 
     public double similarity(String s1, String s2) {
         KShingling ks = new KShingling(k);
         int[] profile1 = ks.getArrayProfile(s1);
         int[] profile2 = ks.getArrayProfile(s2);
-        
+
         int length = Math.max(profile1.length, profile2.length);
         profile1 = java.util.Arrays.copyOf(profile1, length);
         profile2 = java.util.Arrays.copyOf(profile2, length);
-        
+
         int inter = 0;
         int sum = 0;
         for (int i = 0; i < length; i++) {
             if (profile1[i] > 0 && profile2[i] > 0) {
                 inter++;
             }
-            
+
             if (profile1[i] > 0) {
                 sum++;
             }
-            
+
             if (profile2[i] > 0) {
                 sum++;
             }
         }
-        
+
         return 2.0 * inter / sum;
     }
 

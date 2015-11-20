@@ -17,17 +17,6 @@ import java.util.Arrays;
  */
 public class JaroWinkler implements NormalizedStringSimilarity, NormalizedStringDistance {
     
-    
-    public static void main(String[] args) {
-        JaroWinkler jw = new JaroWinkler();
-        
-        // substitution of s and t
-        System.out.println(jw.similarity("My string", "My tsring"));
-        
-        // substitution of s and n
-        System.out.println(jw.similarity("My string", "My ntrisg"));
-    }
-    
 
     public JaroWinkler() {
         

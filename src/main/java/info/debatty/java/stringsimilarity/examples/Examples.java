@@ -25,6 +25,7 @@
 package info.debatty.java.stringsimilarity.examples;
 
 import info.debatty.java.stringsimilarity.Jaccard;
+import info.debatty.java.stringsimilarity.JaroWinkler;
 import info.debatty.java.stringsimilarity.Levenshtein;
 
 /**
@@ -37,19 +38,33 @@ public class Examples {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        // Levenshtein
+        // ===========
         Levenshtein levenshtein = new Levenshtein();
-        
         System.out.println(levenshtein.distance("My string", "My $tring"));
         System.out.println(levenshtein.distance("My string", "M string2"));
         System.out.println(levenshtein.distance("My string", "My $tring"));
         
-        Jaccard j2 = new Jaccard(2);
         
+        // Jaccard index
+        // =============
+        Jaccard j2 = new Jaccard(2);
         // AB BC CD DE DF
         // 1  1  1  1  0
         // 1  1  1  0  1
         // => 3 / 5 = 0.6
         System.out.println(j2.similarity("ABCDE", "ABCDF"));
+        
+        
+        // Jaro-Winkler
+        // ============
+        JaroWinkler jw = new JaroWinkler();
+        
+        // substitution of s and t : 0.9740740656852722
+        System.out.println(jw.similarity("My string", "My tsring"));
+        
+        // substitution of s and n : 0.8962963223457336
+        System.out.println(jw.similarity("My string", "My ntrisg"));
     }
     
 }

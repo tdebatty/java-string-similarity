@@ -48,6 +48,5 @@ public class QGram extends ShingleBased implements StringDistance {
         }
 
         return d;
-
     }
 }

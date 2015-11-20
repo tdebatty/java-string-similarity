@@ -135,6 +135,7 @@ public class MyApp {
         
         System.out.println(wl.distance("String1", "Srring2"));
     }
+}
 ```
 
 ## Damerau-Levenshtein

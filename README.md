@@ -1,5 +1,5 @@
 #java-string-similarity
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/info.debatty/java-string-similarity/badge.svg)](https://maven-badges.herokuapp.com/maven-central/info.debatty/java-string-similarity) [![Build Status](https://travis-ci.org/tdebatty/java-string-similarity.svg?branch=master)](https://travis-ci.org/tdebatty/java-string-similarity) [![API Documentation](http://api123.web-d.be/api123-head.svg)](http://api123.web-d.be/api/java-string-similarity/head/index.html)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/info.debatty/java-string-similarity/badge.svg)](https://maven-badges.herokuapp.com/maven-central/info.debatty/java-string-similarity) [![Build Status](https://travis-ci.org/tdebatty/java-string-similarity.svg?branch=master)](https://travis-ci.org/tdebatty/java-string-similarity) [![Coverage Status](https://coveralls.io/repos/tdebatty/java-string-similarity/badge.svg?branch=master&service=github)](https://coveralls.io/github/tdebatty/java-string-similarity?branch=master) [![API Documentation](http://api123.web-d.be/api123-head.svg)](http://api123.web-d.be/api/java-string-similarity/head/index.html)
 
 A library implementing different string similarity and distance measures. A dozen of algorithms (including Levenshtein edit distance and sibblings, Jaro-Winkler, Longest Common Subsequence, cosine similarity etc.) are currently implemented. Check the summary table below for the complete list...
 
@@ -15,6 +15,31 @@ Using maven:
 ```
 
 Or check the [releases](https://github.com/tdebatty/java-string-similarity/releases).
+
+## Summary
+
+The main characteristics of each implemented algorithm are presented below. The "cost" column gives an estimation of the computational cost to compute te similarity between two strings of length m and n respectively.
+
+|  									|  						| Normalized? 	| Metric?	| Type    | Cost |
+|--------							|-------				|-------------	|----------	| ------  | ---- |
+| Levenshtein 						|distance 				| No 			| Yes 		|         | O(m.n) <sup>1</sup> |
+| Normalized Levenshtein 			|distance<br>similarity	| Yes 			| No 		| 	      | O(m.n) <sup>1</sup> |
+| Weighted Levenshtein 				|distance 				| No 			| No 		| 	      | O(m.n) <sup>1</sup> |
+| Damerau-Levenshtein 				|distance 				| No 			| No 		| 	      | O(m.n) <sup>1</sup> |
+| Jaro-Winkler 						|similarity<br>distance	| Yes  			| No 		| 	      | O(m.n) |
+| Longest Common Subsequence 		|distance 				| No 			| No 		| 	      | O(m.n) <sup>1,2</sup> |
+| Metric Longest Common Subsequence |distance   			| Yes 			| Yes  		| 	      | O(m.n) <sup>1,2</sup> |
+| N-Gram (Kondrak)		 			|distance				| Yes  			| No 		| 	      | O(m.n) |
+| Q-Gram 							|distance  			 	| No  			| No 		| Profile | O(m+n) |
+| Cosine 							|similarity<br>distance | Yes  			| No  		| Profile | O(m+n) |
+| Jaccard 							|similarity<br>distance | Yes  			| Yes  		| Set	  | O(m+n) |
+| Sorensen-Dice 					|similarity<br>distance | Yes 			| No 		| Set	  | O(m+n) |
+
+<sup>1</sup> In this library, Levenshtein edit distance, LCS distance and their sibblings are computed using the **dynamic programming** method, which has a cost O(m.n). For Levenshtein distance, the algorithm is sometimes called **Wagner-Fischer algorithm** ("The string-to-string correction problem", 1974). The original algorithm uses a matrix of size m x n to store the Levenshtein distance between string prefixes.
+
+If the alphabet is finite, it is possible to use the **method of four russians** (Arlazarov et al. "On economic construction of the transitive closure of a directed graph", 1970) to speedup computation. This was published by Masek in 1980 ("A Faster Algorithm Computing String Edit Distances"). This method splits the matrix in blocks of size t x t. Each possible block is precomputed to produce a lookup table. This lookup table can then be used to compute the string similarity (or distance) in O(nm/t). Usually, t is choosen as log(m) if m > n. The resulting computation cost is thus O(mn/log(m)). This method has not been implemented (yet).
+
+<sup>2</sup> In "Length of Maximal Common Subsequences", K.S. Larsen proposed an algorithm that computes the length of LCS in time O(log(m).log(n)). But the algorithm has a memory requirement O(m.n²) and was thus not implemented here.
 
 ## Normalized, metric, similarity and distance
 Although the topic might seem simple, a lot of different algorithms exist to measure text similarity or distance. Therefore the library defines some interfaces to categorize them.
@@ -41,31 +66,6 @@ Some ot them, like jaccard, consider strings as sets of shingles, and don't cons
 For these algorithms, another use case is possible when dealing with large datasets:
 1. compute the set or profile representation of all the strings
 2. compute the similarity between sets or profiles
-
-## Summary
-
-The main characteristics of each implemented algorithm are presented below. The "cost" column gives an estimation of the computational cost to compute te similarity between two strings of length m and n respectively.
-
-|  									|  						| Normalized? 	| Metric?	| Type    | Cost |
-|--------							|-------				|-------------	|----------	| ------  | ---- |
-| Levenshtein 						|distance 				| No 			| Yes 		|         | O(m.n) <sup>1</sup> |
-| Normalized Levenshtein 			|distance<br>similarity	| Yes 			| No 		| 	      | O(m.n) <sup>1</sup> |
-| Weighted Levenshtein 				|distance 				| No 			| No 		| 	      | O(m.n) <sup>1</sup> |
-| Damerau-Levenshtein 				|distance 				| No 			| No 		| 	      | O(m.n) <sup>1</sup> |
-| Jaro-Winkler 						|similarity<br>distance	| Yes  			| No 		| 	      | O(m.n) |
-| Longest Common Subsequence 		|distance 				| No 			| No 		| 	      | O(m.n) <sup>1,2</sup> |
-| Metric Longest Common Subsequence |distance   			| Yes 			| Yes  		| 	      | O(m.n) <sup>1,2</sup> |
-| N-Gram (Kondrak)		 			|distance				| Yes  			| No 		| 	      | O(m.n) |
-| Q-Gram 							|distance  			 	| No  			| No 		| Profile | O(m+n) |
-| Cosine 							|similarity<br>distance | Yes  			| No  		| Profile | O(m+n) |
-| Jaccard 							|similarity<br>distance | Yes  			| Yes  		| Set	  | O(m+n) |
-| Sorensen-Dice 					|similarity<br>distance | Yes 			| No 		| Set	  | O(m+n) |
-
-<sup>1</sup> In this library, Levenshtein edit distance, LCS distance and their sibblings are computed using the **dynamic programming** method, which has a cost O(m.n). For Levenshtein distance, the algorithm is sometimes called **Wagner-Fischer algorithm** ("The string-to-string correction problem", 1974). The original algorithm uses a matrix of size m x n to store the Levenshtein distance between string prefixes.
-
-If the alphabet is finite, it is possible to use the **method of four russians** (Arlazarov et al. "On economic construction of the transitive closure of a directed graph", 1970) to speedup computation. This was published by Masek in 1980 ("A Faster Algorithm Computing String Edit Distances"). This method splits the matrix in blocks of size t x t. Each possible block is precomputed to produce a lookup table. This lookup table can then be used to compute the string similarity (or distance) in O(nm/t). Usually, t is choosen as log(m) if m > n. The resulting computation cost is thus O(mn/log(m)). This method has not been implemented (yet).
-
-<sup>2</sup> In "Length of Maximal Common Subsequences", K.S. Larsen proposed an algorithm that computes the length of LCS in time O(log(m).log(n)). But the algorithm has a memory requirement O(m.n²) and was thus not implemented here.
 
 ## Levenshtein
 The Levenshtein distance between two words is the minimum number of single-character edits (insertions, deletions or substitutions) required to change one word into the other.

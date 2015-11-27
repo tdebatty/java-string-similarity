@@ -140,16 +140,16 @@
                 <version>2.7</version>
                 <configuration>
                     <formats>
-				        <format>html</format>
-				        <format>xml</format>
-			        </formats>
+                        <format>html</format>
+                        <format>xml</format>
+                    </formats>
                     <maxmem>256m</maxmem>
                     <!-- aggregated reports for multi-module projects -->
                     <!-- <aggregate>true</aggregate> -->
 
                     <instrumentation>
-                      <excludes>
-                          <exclude>info/debatty/java/stringsimilarity/examples/**/*.class</exclude>
+                        <excludes>
+                            <exclude>info/debatty/java/stringsimilarity/examples/**/*.class</exclude>
                         </excludes>
                     </instrumentation>
                 </configuration>

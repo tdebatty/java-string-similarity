@@ -22,19 +22,19 @@ The main characteristics of each implemented algorithm are presented below. The 
 
 |  									|  						| Normalized? 	| Metric?	| Type    | Cost |
 |--------							|-------				|-------------	|----------	| ------  | ---- |
-| Levenshtein 						|distance 				| No 			| Yes 		|         | O(m.n) <sup>1</sup> |
-| Normalized Levenshtein 			|distance<br>similarity	| Yes 			| No 		| 	      | O(m.n) <sup>1</sup> |
-| Weighted Levenshtein 				|distance 				| No 			| No 		| 	      | O(m.n) <sup>1</sup> |
-| Damerau-Levenshtein <sup>3</sup> 	|distance 				| No 			| Yes 		| 	      | O(m.n) <sup>1</sup> |
+| [Levenshtein](#levenshtein)		|distance 				| No 			| Yes 		|         | O(m.n) <sup>1</sup> |
+| [Normalized Levenshtein](#normalized-levenshtein)	|distance<br>similarity	| Yes 			| No 		| 	      | O(m.n) <sup>1</sup> |
+| [Weighted Levenshtein](#weighted-levenshtein)		|distance 				| No 			| No 		| 	      | O(m.n) <sup>1</sup> |
+| [Damerau-Levenshtein](#damerau-levenshtein) <sup>3</sup> 	|distance 				| No 			| Yes 		| 	      | O(m.n) <sup>1</sup> |
 | Optimal String Alignment <sup>3</sup> |not implemented yet | No 			| No 		| 	      | O(m.n) <sup>1</sup> |
-| Jaro-Winkler 						|similarity<br>distance	| Yes  			| No 		| 	      | O(m.n) |
-| Longest Common Subsequence 		|distance 				| No 			| No 		| 	      | O(m.n) <sup>1,2</sup> |
-| Metric Longest Common Subsequence |distance   			| Yes 			| Yes  		| 	      | O(m.n) <sup>1,2</sup> |
-| N-Gram (Kondrak)		 			|distance				| Yes  			| No 		| 	      | O(m.n) |
-| Q-Gram 							|distance  			 	| No  			| No 		| Profile | O(m+n) |
-| Cosine 							|similarity<br>distance | Yes  			| No  		| Profile | O(m+n) |
-| Jaccard 							|similarity<br>distance | Yes  			| Yes  		| Set	  | O(m+n) |
-| Sorensen-Dice 					|similarity<br>distance | Yes 			| No 		| Set	  | O(m+n) |
+| [Jaro-Winkler](#jaro-winkler) 		|similarity<br>distance	| Yes  			| No 		| 	      | O(m.n) |
+| [Longest Common Subsequence](#longest-common-subsequence) 		|distance 				| No 			| No 		| 	      | O(m.n) <sup>1,2</sup> |
+| [Metric Longest Common Subsequence](#metric-longest-common-subsequence) |distance   			| Yes 			| Yes  		| 	      | O(m.n) <sup>1,2</sup> |
+| [N-Gram](#n-gram)	 				|distance				| Yes  			| No 		| 	      | O(m.n) |
+| [Q-Gram](#q-gram) 				|distance  			 	| No  			| No 		| Profile | O(m+n) |
+| [Cosine similarity](#cosine-similarity) 				|similarity<br>distance | Yes  			| No  		| Profile | O(m+n) |
+| [Jaccard index](#jaccard-index)				|similarity<br>distance | Yes  			| Yes  		| Set	  | O(m+n) |
+| [Sorensen-Dice coefficient](#sorensen-dice-coefficient) 	|similarity<br>distance | Yes 			| No 		| Set	  | O(m+n) |
 
 [1] In this library, Levenshtein edit distance, LCS distance and their sibblings are computed using the **dynamic programming** method, which has a cost O(m.n). For Levenshtein distance, the algorithm is sometimes called **Wagner-Fischer algorithm** ("The string-to-string correction problem", 1974). The original algorithm uses a matrix of size m x n to store the Levenshtein distance between string prefixes.
 
@@ -252,7 +252,7 @@ public class MyApp {
 }
 ```
 
-## Metric LCS (Longest Common Subsequence)
+## Metric Longest Common Subsequence
 Distance metric based on Longest Common Subsequence, from the notes "An LCS-based string metric" by Daniel Bakkelund.
 http://heim.ifi.uio.no/~danielry/StringMetric.pdf
 
@@ -280,7 +280,7 @@ public class MyApp {
 }
 ```
 
-## N-Gram distance (Kondrak)
+## N-Gram
 
 Normalized N-Gram distance as defined by Kondrak, "N-Gram Similarity and Distance", String Processing and Information Retrieval, Lecture Notes in Computer Science Volume 3772, 2005, pp 115-126.
 

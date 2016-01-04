@@ -25,7 +25,8 @@ The main characteristics of each implemented algorithm are presented below. The 
 | Levenshtein 						|distance 				| No 			| Yes 		|         | O(m.n) <sup>1</sup> |
 | Normalized Levenshtein 			|distance<br>similarity	| Yes 			| No 		| 	      | O(m.n) <sup>1</sup> |
 | Weighted Levenshtein 				|distance 				| No 			| No 		| 	      | O(m.n) <sup>1</sup> |
-| Damerau-Levenshtein 				|distance 				| No 			| No 		| 	      | O(m.n) <sup>1</sup> |
+| Damerau-Levenshtein <sup>3</sup> 	|distance 				| No 			| Yes 		| 	      | O(m.n) <sup>1</sup> |
+| Optimal String Alignment <sup>3</sup> |not implemented yet | No 			| No 		| 	      | O(m.n) <sup>1</sup> |
 | Jaro-Winkler 						|similarity<br>distance	| Yes  			| No 		| 	      | O(m.n) |
 | Longest Common Subsequence 		|distance 				| No 			| No 		| 	      | O(m.n) <sup>1,2</sup> |
 | Metric Longest Common Subsequence |distance   			| Yes 			| Yes  		| 	      | O(m.n) <sup>1,2</sup> |
@@ -35,11 +36,13 @@ The main characteristics of each implemented algorithm are presented below. The 
 | Jaccard 							|similarity<br>distance | Yes  			| Yes  		| Set	  | O(m+n) |
 | Sorensen-Dice 					|similarity<br>distance | Yes 			| No 		| Set	  | O(m+n) |
 
-<sup>1</sup> In this library, Levenshtein edit distance, LCS distance and their sibblings are computed using the **dynamic programming** method, which has a cost O(m.n). For Levenshtein distance, the algorithm is sometimes called **Wagner-Fischer algorithm** ("The string-to-string correction problem", 1974). The original algorithm uses a matrix of size m x n to store the Levenshtein distance between string prefixes.
+[1] In this library, Levenshtein edit distance, LCS distance and their sibblings are computed using the **dynamic programming** method, which has a cost O(m.n). For Levenshtein distance, the algorithm is sometimes called **Wagner-Fischer algorithm** ("The string-to-string correction problem", 1974). The original algorithm uses a matrix of size m x n to store the Levenshtein distance between string prefixes.
 
 If the alphabet is finite, it is possible to use the **method of four russians** (Arlazarov et al. "On economic construction of the transitive closure of a directed graph", 1970) to speedup computation. This was published by Masek in 1980 ("A Faster Algorithm Computing String Edit Distances"). This method splits the matrix in blocks of size t x t. Each possible block is precomputed to produce a lookup table. This lookup table can then be used to compute the string similarity (or distance) in O(nm/t). Usually, t is choosen as log(m) if m > n. The resulting computation cost is thus O(mn/log(m)). This method has not been implemented (yet).
 
-<sup>2</sup> In "Length of Maximal Common Subsequences", K.S. Larsen proposed an algorithm that computes the length of LCS in time O(log(m).log(n)). But the algorithm has a memory requirement O(m.n²) and was thus not implemented here.
+[2] In "Length of Maximal Common Subsequences", K.S. Larsen proposed an algorithm that computes the length of LCS in time O(log(m).log(n)). But the algorithm has a memory requirement O(m.n²) and was thus not implemented here.
+
+[3] There are two variants of Damerau-Levenshtein string distance: Damerau-Levenshtein with adjacent transpositions (also sometimes called unrestricted Damerau–Levenshtein distance) and Optimal String Alignment (also sometimes called restricted edit distance). For Optimal String Alignment, no substring can be edited more than once.
 
 ## Normalized, metric, similarity and distance
 Although the topic might seem simple, a lot of different algorithms exist to measure text similarity or distance. Therefore the library defines some interfaces to categorize them.

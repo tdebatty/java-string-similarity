@@ -23,24 +23,25 @@
  */
 package info.debatty.java.stringsimilarity;
 
+import info.debatty.java.stringsimilarity.interfaces.MetricStringDistance;
 import java.util.HashMap;
 import info.debatty.java.stringsimilarity.interfaces.StringDistance;
 
 /**
- * Implementation of Damerau-Levenshtein distance, computed as the minimum
- * number of operations needed to transform one string into the other, where an
- * operation is defined as an insertion, deletion, or substitution of a single
- * character, or a transposition of two adjacent characters.
+ * Implementation of Damerau-Levenshtein distance with transposition (also 
+ * sometimes calls unrestricted Damerau-Levenshtein distance).
+ * It is the minimum number of operations needed to transform one string into 
+ * the other, where an operation is defined as an insertion, deletion, or 
+ * substitution of a single character, or a transposition of two adjacent 
+ * characters.
+ * It does respect triangle inequality, and is thus a metric distance.
  *
  * This is not to be confused with the optimal string alignment distance, which
  * is an extension where no substring can be edited more than once.
  *
- * Also, Damerau-Levenshting does not respect triangle inequality, and is thus
- * not a metric distance.
- *
  * @author Thibault Debatty
  */
-public class Damerau implements StringDistance {
+public class Damerau implements StringDistance, MetricStringDistance {
 
     public double distance(String s1, String s2) {
 

@@ -142,11 +142,11 @@ public class MyApp {
 ```
 
 ## Damerau-Levenshtein
-Similar to Levenshtein, Damerau-Levenshtein distance is the minimum number of operations needed to transform one string into the other, where an operation is defined as an insertion, deletion, or substitution of a single character, or a **transposition of two adjacent characters**.
+Similar to Levenshtein, Damerau-Levenshtein distance with transposition (also sometimes calls unrestricted Damerau-Levenshtein distance) is the minimum number of operations needed to transform one string into the other, where an operation is defined as an insertion, deletion, or substitution of a single character, or a **transposition of two adjacent characters**.
+
+It does respect triangle inequality, and is thus a metric distance.
 
 This is not to be confused with the optimal string alignment distance, which is an extension where no substring can be edited more than once.
-
-Also, Damerau-Levenshting does not respect triangle inequality, and is thus not a metric distance.
 
 ```java
 import info.debatty.java.stringsimilarity.*;

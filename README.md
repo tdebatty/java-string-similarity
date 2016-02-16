@@ -18,7 +18,7 @@ Or check the [releases](https://github.com/tdebatty/java-string-similarity/relea
 
 ## Summary
 
-The main characteristics of each implemented algorithm are presented below. The "cost" column gives an estimation of the computational cost to compute te similarity between two strings of length m and n respectively.
+The main characteristics of each implemented algorithm are presented below. The "cost" column gives an estimation of the computational cost to compute the similarity between two strings of length m and n respectively.
 
 |  									|  						| Normalized? 	| Metric?	| Type    | Cost |
 |--------							|-------				|-------------	|----------	| ------  | ---- |

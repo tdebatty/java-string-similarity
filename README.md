@@ -18,7 +18,7 @@ Or check the [releases](https://github.com/tdebatty/java-string-similarity/relea
 
 ## Summary
 
-The main characteristics of each implemented algorithm are presented below. The "cost" column gives an estimation of the computational cost to compute te similarity between two strings of length m and n respectively.
+The main characteristics of each implemented algorithm are presented below. The "cost" column gives an estimation of the computational cost to compute the similarity between two strings of length m and n respectively.
 
 |  									|  						| Normalized? 	| Metric?	| Type    | Cost |
 |--------							|-------				|-------------	|----------	| ------  | ---- |
@@ -112,6 +112,10 @@ public class MyApp {
 
 ## Weighted Levenshtein
 An implementation of Levenshtein that allows to define different weights for different character substitutions.
+
+This algorithm is usually used for optical character recognition (OCR) applications. For OCR, the cost of substituting P and R is lower then the cost of substituting P and M for example because because from and OCR point of view P is similar to R.
+
+It can also be used for keyboard typing auto-correction. Here the cost of substituting E and R is lower for example because these are located next to each other on an AZERTY or QWERTY keyboard. Hence the probability that the user mistyped the characters is higher.
 
 ```java
 import info.debatty.java.stringsimilarity.*;

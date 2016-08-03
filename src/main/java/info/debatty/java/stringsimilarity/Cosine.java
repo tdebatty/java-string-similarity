@@ -44,15 +44,22 @@ public class Cosine extends ShingleBased implements
      *
      * @param k
      */
-    public Cosine(int k) {
+    public Cosine(final int k) {
         super(k);
     }
 
+    /**
+     * 
+     */
     public Cosine() {
         super();
     }
 
     public double similarity(String s1, String s2) {
+
+        if (s1.length() < k || s2.length() < k) {
+            return 0;
+        }
         KShingling ks = new KShingling(k);
         int[] profile1 = ks.getArrayProfile(s1);
         int[] profile2 = ks.getArrayProfile(s2);
@@ -61,7 +68,7 @@ public class Cosine extends ShingleBased implements
     }
 
     /**
-     * Compute the norm L2 : sqrt(Sum_i( v_i²))
+     * Compute the norm L2 : sqrt(Sum_i( v_i²)).
      *
      * @param profile
      * @return L2 norm

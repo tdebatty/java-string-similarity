@@ -10,7 +10,7 @@
   
     <name>${project.artifactId}</name>
     <url>https://github.com/tdebatty/java-string-similarity</url>
-    <description>Implementation of various string similarity and distance algorithms: Levenshtein, Jaro, Jaro-winkler, n-Gram, Q-Gram (Jaccard index), Longest Common Subsequence edit distance,...</description>
+    <description>Implementation of various string similarity and distance algorithms: Levenshtein, Jaro-winkler, n-Gram, Q-Gram, Jaccard index, Longest Common Subsequence edit distance, cosine similarity...</description>
   
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -34,8 +34,8 @@
         <connection>scm:git:git@github.com:tdebatty/java-string-similarity.git</connection>
         <developerConnection>scm:git:git@github.com:tdebatty/java-string-similarity.git</developerConnection>
         <url>git@github.com:tdebatty/java-string-similarity.git</url>
-      <tag>v0.7</tag>
-  </scm>
+        <tag>v0.7</tag>
+    </scm>
   
     <distributionManagement>
         <snapshotRepository>
@@ -120,7 +120,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
                 <version>2.5.1</version>
-		        <configuration>
+                <configuration>
                     <tagNameFormat>v@{project.version}</tagNameFormat>
                 </configuration>
             </plugin>
@@ -154,9 +154,9 @@
                     </instrumentation>
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
+    
     <dependencies>
         <dependency>
             <groupId>junit</groupId>

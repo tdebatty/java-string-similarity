@@ -24,10 +24,6 @@
 
 package info.debatty.java.stringsimilarity;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -36,34 +32,26 @@ import static org.junit.Assert.*;
  * @author Thibault Debatty
  */
 public class CosineTest {
-    
-    public CosineTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
 
     /**
      * Test of similarity method, of class Cosine.
      */
     @Test
-    public void testSimilarity() {
+    public final void testSimilarity() {
         System.out.println("similarity");
         Cosine instance = new Cosine();
         double result = instance.similarity("ABC", "ABCE");
         assertEquals(0.71, result, 0.01);
+    }
+
+    /**
+     * If one of the strings is smaller than k, the similarity should be 0.
+     */
+    @Test
+    public final void testSmallString() {
+        System.out.println("test small string");
+        Cosine instance = new Cosine(3);
+        double result = instance.similarity("AB", "ABCE");
+        assertEquals(0.0, result, 0.00001);
     }
 }

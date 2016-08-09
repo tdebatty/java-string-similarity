@@ -1,0 +1,116 @@
+diff --git a/org.eclipse.egit.ui.test/src/org/eclipse/egit/ui/test/team/actions/CommitActionStagingViewTest.java b/org.eclipse.egit.ui.test/src/org/eclipse/egit/ui/test/team/actions/CommitActionStagingViewTest.java
+new file mode 100644
+index 0000000..ad9d3e7
+--- /dev/null
++++ b/org.eclipse.egit.ui.test/src/org/eclipse/egit/ui/test/team/actions/CommitActionStagingViewTest.java
+@@ -0,0 +1,110 @@
++/*******************************************************************************
++ * Copyright (c) 2016 Thomas Wolf <thomas.wolf@paranor.ch>
++ * All rights reserved. This program and the accompanying materials
++ * are made available under the terms of the Eclipse Public License v1.0
++ * which accompanies this distribution, and is available at
++ * http://www.eclipse.org/legal/epl-v10.html
++ *******************************************************************************/
++package org.eclipse.egit.ui.test.team.actions;
++
++import static org.junit.Assert.assertEquals;
++import static org.junit.Assert.assertNotNull;
++import static org.junit.Assert.assertTrue;
++
++import java.io.File;
++
++import org.eclipse.core.resources.IProject;
++import org.eclipse.core.resources.ResourcesPlugin;
++import org.eclipse.egit.ui.Activator;
++import org.eclipse.egit.ui.UIPreferences;
++import org.eclipse.egit.ui.common.LocalRepositoryTestCase;
++import org.eclipse.egit.ui.internal.staging.StagingView;
++import org.eclipse.egit.ui.test.ContextMenuHelper;
++import org.eclipse.egit.ui.test.TestUtil;
++import org.eclipse.jgit.lib.Repository;
++import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
++import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
++import org.eclipse.ui.PartInitException;
++import org.eclipse.ui.PlatformUI;
++import org.junit.After;
++import org.junit.Before;
++import org.junit.Test;
++import org.junit.runner.RunWith;
++
++/**
++ * Tests for the Team->Commit action
++ */
++@RunWith(SWTBotJunit4ClassRunner.class)
++public class CommitActionStagingViewTest extends LocalRepositoryTestCase {
++	private File repositoryFile;
++
++	private boolean initialLinkWithSelection;
++
++	private boolean initialUseStagingView;
++
++	@Before
++	public void setup() throws Exception {
++		initialUseStagingView = Activator.getDefault().getPreferenceStore()
++				.getBoolean(UIPreferences.ALWAYS_USE_STAGING_VIEW);
++		initialLinkWithSelection = Activator.getDefault().getPreferenceStore()
++				.getBoolean(UIPreferences.STAGING_VIEW_SYNC_SELECTION);
++		Activator.getDefault().getPreferenceStore()
++				.setValue(UIPreferences.ALWAYS_USE_STAGING_VIEW, true);
++		Activator.getDefault().getPreferenceStore()
++				.setDefault(UIPreferences.STAGING_VIEW_SYNC_SELECTION, false);
++		Activator.getDefault().getPreferenceStore()
++				.setValue(UIPreferences.STAGING_VIEW_SYNC_SELECTION, false);
++		repositoryFile = createProjectAndCommitToRepository();
++		Repository repo = lookupRepository(repositoryFile);
++		TestUtil.configureTestCommitterAsUser(repo);
++		// TODO delete the second project for the time being (.gitignore is
++		// currently not hiding the .project file from commit)
++		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(PROJ2);
++		File dotProject = new File(project.getLocation().toOSString(), ".project");
++		project.delete(false, false, null);
++		assertTrue(dotProject.delete());
++		TestUtil.hideView(StagingView.VIEW_ID);
++	}
++
++	@After
++	public void tearDown() {
++		Activator.getDefault().getPreferenceStore().setValue(
++				UIPreferences.ALWAYS_USE_STAGING_VIEW, initialUseStagingView);
++		Activator.getDefault().getPreferenceStore()
++				.setDefault(UIPreferences.STAGING_VIEW_SYNC_SELECTION, true);
++		Activator.getDefault().getPreferenceStore().setValue(
++				UIPreferences.STAGING_VIEW_SYNC_SELECTION,
++				initialLinkWithSelection);
++	}
++
++	@Test
++	public void testOpenStagingViewNoLinkWithSelection() throws Exception {
++		setTestFileContent("I have changed this");
++		SWTBotTree projectExplorerTree = TestUtil.getExplorerTree();
++		util.getProjectItems(projectExplorerTree, PROJ1)[0].select();
++		String menuString = util.getPluginLocalizedValue("CommitAction_label");
++		ContextMenuHelper.clickContextMenu(projectExplorerTree, "Team",
++				menuString);
++		TestUtil.waitUntilViewWithGivenIdShows(StagingView.VIEW_ID);
++		final Repository[] repo = { null };
++		PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
++
++			@Override
++			public void run() {
++				StagingView view;
++				try {
++					view = (StagingView) PlatformUI.getWorkbench()
++							.getActiveWorkbenchWindow().getActivePage()
++							.showView(StagingView.VIEW_ID);
++					repo[0] = view.getCurrentRepository();
++				} catch (PartInitException e) {
++					// Ignore, repo[0] remains null
++				}
++			}
++		});
++		Repository repository = lookupRepository(repositoryFile);
++		assertNotNull("No repository found", repository);
++		assertEquals("Repository mismatch", repository, repo[0]);
++	}
++
++}

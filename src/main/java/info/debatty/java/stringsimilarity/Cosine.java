@@ -49,13 +49,19 @@ public class Cosine extends ShingleBased implements
     }
 
     /**
-     * 
+     *
      */
     public Cosine() {
         super();
     }
 
-    public double similarity(String s1, String s2) {
+    /**
+     * Compute the cosine similarity between strings.
+     * @param s1
+     * @param s2
+     * @return
+     */
+    public final double similarity(final String s1, final String s2) {
 
         if (s1.length() < k || s2.length() < k) {
             return 0;
@@ -64,7 +70,8 @@ public class Cosine extends ShingleBased implements
         int[] profile1 = ks.getArrayProfile(s1);
         int[] profile2 = ks.getArrayProfile(s2);
 
-        return dotProduct(profile1, profile2) / (norm(profile1) * norm(profile2));
+        return dotProduct(profile1, profile2)
+                / (norm(profile1) * norm(profile2));
     }
 
     /**
@@ -73,29 +80,39 @@ public class Cosine extends ShingleBased implements
      * @param profile
      * @return L2 norm
      */
-    protected static double norm(int[] profile) {
+    protected static double norm(final int[] profile) {
         double agg = 0;
 
         for (int v : profile) {
-            agg += v * v;
+            agg += 1.0 * v * v;
         }
 
         return Math.sqrt(agg);
     }
 
-    protected static double dotProduct(int[] profile1, int[] profile2) {
+    protected static double dotProduct(
+            final int[] profile1, final int[] profile2) {
+
+        // Make a copy to ensure both profiles have the same size
+        // this is actually quite dirty and should be corrected!
         int length = Math.max(profile1.length, profile2.length);
-        profile1 = java.util.Arrays.copyOf(profile1, length);
-        profile2 = java.util.Arrays.copyOf(profile2, length);
+        int[] copy1 = java.util.Arrays.copyOf(profile1, length);
+        int[] copy2 = java.util.Arrays.copyOf(profile2, length);
 
         double agg = 0;
         for (int i = 0; i < length; i++) {
-            agg += profile1[i] * profile2[i];
+            agg += 1.0 * copy1[i] * copy2[i];
         }
         return agg;
     }
 
-    public double distance(String s1, String s2) {
+    /**
+     * Return 1.0 - similarity.
+     * @param s1
+     * @param s2
+     * @return
+     */
+    public double distance(final String s1, final String s2) {
         return 1.0 - similarity(s1, s2);
     }
 

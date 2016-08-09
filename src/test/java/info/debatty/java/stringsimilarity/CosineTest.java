@@ -24,6 +24,12 @@
 
 package info.debatty.java.stringsimilarity;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -53,5 +59,39 @@ public class CosineTest {
         Cosine instance = new Cosine(3);
         double result = instance.similarity("AB", "ABCE");
         assertEquals(0.0, result, 0.00001);
+    }
+
+    @Test
+    public final void testLargeString() throws IOException {
+
+        System.out.println("Test with large strings");
+        Cosine cos = new Cosine();
+
+        // read from 2 text files
+        String string1 = readResourceFile("71816-2.txt");
+        String string2 = readResourceFile("11328-1.txt");
+        double similarity = cos.similarity(string1, string2);
+
+        assertEquals(0.8115, similarity, 0.001);
+    }
+
+    private static String readResourceFile(String file) throws IOException {
+
+        InputStream stream = Thread.currentThread()
+                .getContextClassLoader()
+                .getResourceAsStream(file);
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+        StringBuilder string_builder = new StringBuilder();
+        String ls = System.getProperty("line.separator");
+        String line = null;
+
+        while (( line = reader.readLine() ) != null ) {
+            string_builder.append(line);
+            string_builder.append(ls);
+        }
+
+        string_builder.deleteCharAt(string_builder.length() - 1);
+        return string_builder.toString();
     }
 }

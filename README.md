@@ -23,14 +23,14 @@ The main characteristics of each implemented algorithm are presented below. The 
 |  									|  						| Normalized? 	| Metric?	| Type    | Cost |
 |--------							|-------				|-------------	|----------	| ------  | ---- |
 | [Levenshtein](#levenshtein)		|distance 				| No 			| Yes 		|         | O(m.n) <sup>1</sup> |
-| [Normalized Levenshtein](#normalized-levenshtein)	|distance<br>similarity	| Yes 			| No 		| 	      | O(m.n) <sup>1</sup> |
-| [Weighted Levenshtein](#weighted-levenshtein)		|distance 				| No 			| No 		| 	      | O(m.n) <sup>1</sup> |
-| [Damerau-Levenshtein](#damerau-levenshtein) <sup>3</sup> 	|distance 				| No 			| Yes 		| 	      | O(m.n) <sup>1</sup> |
-| Optimal String Alignment <sup>3</sup> |not implemented yet | No 			| No 		| 	      | O(m.n) <sup>1</sup> |
-| [Jaro-Winkler](#jaro-winkler) 		|similarity<br>distance	| Yes  			| No 		| 	      | O(m.n) |
-| [Longest Common Subsequence](#longest-common-subsequence) 		|distance 				| No 			| No 		| 	      | O(m.n) <sup>1,2</sup> |
-| [Metric Longest Common Subsequence](#metric-longest-common-subsequence) |distance   			| Yes 			| Yes  		| 	      | O(m.n) <sup>1,2</sup> |
-| [N-Gram](#n-gram)	 				|distance				| Yes  			| No 		| 	      | O(m.n) |
+| [Normalized Levenshtein](#normalized-levenshtein)	|distance<br>similarity	| Yes 			| No 		| 	      | O(m*n) <sup>1</sup> |
+| [Weighted Levenshtein](#weighted-levenshtein)		|distance 				| No 			| No 		| 	      | O(m*n) <sup>1</sup> |
+| [Damerau-Levenshtein](#damerau-levenshtein) <sup>3</sup> 	|distance 				| No 			| Yes 		| 	      | O(m*n) <sup>1</sup> |
+| Optimal String Alignment <sup>3</sup> |not implemented yet | No 			| No 		| 	      | O(m*n) <sup>1</sup> |
+| [Jaro-Winkler](#jaro-winkler) 		|similarity<br>distance	| Yes  			| No 		| 	      | O(m*n) |
+| [Longest Common Subsequence](#longest-common-subsequence) 		|distance 				| No 			| No 		| 	      | O(m*n) <sup>1,2</sup> |
+| [Metric Longest Common Subsequence](#metric-longest-common-subsequence) |distance   			| Yes 			| Yes  		| 	      | O(m*n) <sup>1,2</sup> |
+| [N-Gram](#n-gram)	 				|distance				| Yes  			| No 		| 	      | O(m*n) |
 | [Q-Gram](#q-gram) 				|distance  			 	| No  			| No 		| Profile | O(m+n) |
 | [Cosine similarity](#cosine-similarity) 				|similarity<br>distance | Yes  			| No  		| Profile | O(m+n) |
 | [Jaccard index](#jaccard-index)				|similarity<br>distance | Yes  			| Yes  		| Set	  | O(m+n) |
@@ -52,12 +52,14 @@ Although the topic might seem simple, a lot of different algorithms exist to mea
 - StringSimilarity : Implementing algorithms define a similarity between strings (0 means strings are completely different).
 - NormalizedStringSimilarity : Implementing algorithms define a similarity between 0.0 and 1.0, like Jaro-Winkler for example.
 - StringDistance : Implementing algorithms define a distance between strings (0 means strings are identical), like Levenshtein for example. The maximum distance value depends on the algorithm.
-- NormalizedStringDistance : This interface extends StringDistance. For implementing classes, the computed distance value is between 0.0 and 1.0. NormalizedLevenshtein is an example of NormalizedLevenshtein.
+- NormalizedStringDistance : This interface extends StringDistance. For implementing classes, the computed distance value is between 0.0 and 1.0. NormalizedLevenshtein is an example of NormalizedStringDistance.
 
 Generally, algorithms that implement NormalizedStringSimilarity also implement NormalizedStringDistance, and similarity = 1 - distance. But there are a few exceptions, like N-Gram similarity and distance (Kondrak)...
 
 ### Metric distances
 The MetricStringDistance interface : A few of the distances are actually metric distances, which means that verify the triangle inequality d(x, y) <= d(x,z) + d(z,y). For example, Levenshtein is a metric distance, but NormalizedLevenshtein is not.
+
+A lot of nearest-neighbor search algorithms and indexing structures rely on the triangle inequality. You can check "Similarity Search, The Metric Space Approach" by Zezula et al. for a survey. These cannot be used with non metric similarity measures.
 
 [Read Javadoc for a detailed description](http://api123.web-d.be/api/java-string-similarity/head/index.html)
 

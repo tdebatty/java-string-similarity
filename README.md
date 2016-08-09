@@ -22,7 +22,7 @@ The main characteristics of each implemented algorithm are presented below. The 
 
 |  									|  						| Normalized? 	| Metric?	| Type    | Cost |
 |--------							|-------				|-------------	|----------	| ------  | ---- |
-| [Levenshtein](#levenshtein)		|distance 				| No 			| Yes 		|         | O(m.n) <sup>1</sup> |
+| [Levenshtein](#levenshtein)		|distance 				| No 			| Yes 		|         | O(m*n) <sup>1</sup> |
 | [Normalized Levenshtein](#normalized-levenshtein)	|distance<br>similarity	| Yes 			| No 		| 	      | O(m*n) <sup>1</sup> |
 | [Weighted Levenshtein](#weighted-levenshtein)		|distance 				| No 			| No 		| 	      | O(m*n) <sup>1</sup> |
 | [Damerau-Levenshtein](#damerau-levenshtein) <sup>3</sup> 	|distance 				| No 			| Yes 		| 	      | O(m*n) <sup>1</sup> |

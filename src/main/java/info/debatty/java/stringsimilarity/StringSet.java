@@ -54,6 +54,6 @@ public class StringSet {
             throw new Exception("Profiles were not created using the same kshingling object!");
         }
         
-        return 2 * this.vector.intersection(other.vector) / (this.vector.size() + other.vector.size());
+        return 2.0 * this.vector.intersection(other.vector) / (this.vector.size() + other.vector.size());
     }
 }

@@ -30,25 +30,39 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 /**
- * Sparse vector of int, implemented using two arrays
+ * Sparse vector of int, implemented using two arrays.
  * @author Thibault Debatty
  */
 public class SparseIntegerVector implements Serializable {
-    
-    protected int[] keys;
-    protected int[] values;
-    protected int size = 0;
 
-    public SparseIntegerVector(int size) {
+    private int[] keys;
+    private int[] values;
+    private int size = 0;
+
+    private static final int DEFAULT_SIZE = 20;
+
+    /**
+     * Sparse vector of int, implemented using two arrays.
+     * @param size number of non zero elements in the vector
+     */
+    public SparseIntegerVector(final int size) {
         keys = new int[size];
         values = new int[size];
     }
-    
+
+    /**
+     * Sparse vector of int, implemented using two arrays.
+     * Default size is 20.
+     */
     public SparseIntegerVector() {
-        this(20);
+        this(DEFAULT_SIZE);
     }
-    
-    public SparseIntegerVector(HashMap<Integer, Integer> hashmap) {
+
+    /**
+     * Sparse vector of int, implemented using two arrays.
+     * @param hashmap
+     */
+    public SparseIntegerVector(final HashMap<Integer, Integer> hashmap) {
         this(hashmap.size());
         SortedSet<Integer> sorted_keys = new TreeSet<Integer>(hashmap.keySet());
         for (int key : sorted_keys) {
@@ -59,17 +73,17 @@ public class SparseIntegerVector implements Serializable {
     }
 
     /**
-     * 
-     * @param array 
+     * Sparse vector of int, implemented using two arrays.
+     * @param array
      */
-    public SparseIntegerVector(int[] array) {
-        
+    public SparseIntegerVector(final int[] array) {
+
         for (int i = 0; i < array.length; i++) {
             if (array[i] != 0) {
                 size++;
             }
         }
-        
+
         keys = new int[size];
         values = new int[size];
         int j = 0;
@@ -81,8 +95,14 @@ public class SparseIntegerVector implements Serializable {
             }
         }
     }
-    
-    public double cosineSimilarity(SparseIntegerVector other) {
+
+    /**
+     * Compute and return the cosine similarity (cosine of angle between both
+     * vectors).
+     * @param other
+     * @return
+     */
+    public final double cosineSimilarity(final SparseIntegerVector other) {
         double den = this.norm() * other.norm();
         double agg = 0;
         int i = 0;
@@ -92,7 +112,7 @@ public class SparseIntegerVector implements Serializable {
             int k2 = other.keys[j];
 
             if (k1 == k2) {
-                agg += this.values[i] * other.values[j] / den;
+                agg += 1.0 * this.values[i] * other.values[j] / den;
                 i++;
                 j++;
 
@@ -104,13 +124,13 @@ public class SparseIntegerVector implements Serializable {
         }
         return agg;
     }
-    
+
     /**
-     * 
+     * Compute and return the dot product.
      * @param other
-     * @return 
+     * @return
      */
-    public double dotProduct(SparseIntegerVector other) {
+    public final double dotProduct(final SparseIntegerVector other) {
         double agg = 0;
         int i = 0;
         int j = 0;
@@ -119,7 +139,7 @@ public class SparseIntegerVector implements Serializable {
             int k2 = other.keys[j];
 
             if (k1 == k2) {
-                agg += this.values[i] * other.values[j];
+                agg += 1.0 * this.values[i] * other.values[j];
                 i++;
                 j++;
 
@@ -131,55 +151,61 @@ public class SparseIntegerVector implements Serializable {
         }
         return agg;
     }
-    
-    public double dotProduct(double[] other) {
+
+    /**
+     * Compute and return the dot product.
+     * @param other
+     * @return
+     */
+    public final double dotProduct(final double[] other) {
         double agg = 0;
         for (int i = 0; i < keys.length; i++) {
-            agg += other[keys[i]] * values[i];
+            agg += 1.0 * other[keys[i]] * values[i];
         }
         return agg;
     }
-    
+
     /**
-     * Compute and return the L2 norm of the vector
-     * @return 
+     * Compute and return the L2 norm of the vector.
+     * @return
      */
-    public double norm() {
+    public final double norm() {
         double agg = 0;
         for (int i = 0; i < values.length; i++) {
-            agg += values[i] * values[i];
+            agg += 1.0 * values[i] * values[i];
         }
         return Math.sqrt(agg);
     }
-    
+
     /**
      * Computes and return the Jaccard index with other SparseVector.
      * |A inter B| / |A union B|
      * It is actually computed as |A inter B| / (|A| +|B| - | A inter B|)
      * using a single loop over A and B
      * @param other
-     * @return 
+     * @return
      */
-    public double jaccard(SparseIntegerVector other) {
+    public final double jaccard(final SparseIntegerVector other) {
         int intersection = this.intersection(other);
         return (double) intersection / (this.size + other.size - intersection);
     }
-    
+
     /**
-     * 
+     * Compute the size of the union of these two vectors.
      * @param other
-     * @return 
+     * @return
      */
-    public int union(SparseIntegerVector other) {
+    public final int union(final SparseIntegerVector other) {
         return this.size + other.size - this.intersection(other);
     }
-    
+
     /**
-     * 
+     * Compute the number of values that are present in both vectors (used to
+     * compute jaccard index).
      * @param other
-     * @return 
+     * @return
      */
-    public int intersection(SparseIntegerVector other) {
+    public final int intersection(final SparseIntegerVector other) {
         int agg = 0;
         int i = 0;
         int j = 0;
@@ -194,21 +220,21 @@ public class SparseIntegerVector implements Serializable {
 
             } else if (k1 < k2) {
                 i++;
-                
+
             } else {
                 j++;
             }
         }
         return agg;
     }
-    
+
     @Override
-    public String toString() {
+    public final String toString() {
         String r = "";
         for (int i = 0; i < size; i++) {
             r += keys[i] + ":" + values[i] + " ";
         }
-        
+
         return r;
     }
 
@@ -216,13 +242,13 @@ public class SparseIntegerVector implements Serializable {
      * Compute and return the qgram similarity with other vector.
      * Sum(|a_i - b_i|)
      * @param other
-     * @return 
+     * @return
      */
-    public double qgram(SparseIntegerVector other) {
+    public final double qgram(final SparseIntegerVector other) {
         double agg = 0;
         int i = 0, j = 0;
         int k1, k2;
-        
+
         while (i < this.keys.length  && j < other.keys.length) {
             k1 = this.keys[i];
             k2 = other.keys[j];
@@ -235,19 +261,19 @@ public class SparseIntegerVector implements Serializable {
             } else if (k1 < k2) {
                 agg += Math.abs(this.values[i]);
                 i++;
-                
+
             } else {
                 agg += Math.abs(other.values[j]);
                 j++;
             }
         }
-        
+
         // Maybe one of the two vectors was not completely walked...
         while (i < this.keys.length) {
             agg += Math.abs(this.values[i]);
             i++;
         }
-        
+
         while (j < other.keys.length) {
             agg += Math.abs(other.values[j]);
             j++;
@@ -257,17 +283,27 @@ public class SparseIntegerVector implements Serializable {
 
     /**
      * Return the number of (non-zero) elements in this vector.
-     * @return 
+     * @return
      */
-    public int size() {
+    public final int size() {
         return this.size;
     }
 
-    public int getKey(int i) {
+    /**
+     * Get the key at position i.
+     * @param i
+     * @return
+     */
+    public final int getKey(final int i) {
         return this.keys[i];
     }
 
-    public int getValue(int i) {
+    /**
+     * Get the value of position i.
+     * @param i
+     * @return
+     */
+    public final int getValue(final int i) {
         return this.values[i];
     }
 }

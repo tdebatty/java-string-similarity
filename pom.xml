@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    
+
     <modelVersion>4.0.0</modelVersion>
     <groupId>info.debatty</groupId>
     <artifactId>java-string-similarity</artifactId>
-    <version>0.16-SNAPSHOT</version>  
+    <version>0.16-SNAPSHOT</version>
     <packaging>jar</packaging>
-  
+
     <name>${project.artifactId}</name>
     <url>https://github.com/tdebatty/java-string-similarity</url>
     <description>Implementation of various string similarity and distance algorithms: Levenshtein, Jaro-winkler, n-Gram, Q-Gram, Jaccard index, Longest Common Subsequence edit distance, cosine similarity...</description>
-  
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>  
-  
+    </properties>
+
     <licenses>
         <license>
             <name>MIT License</name>
@@ -36,7 +36,7 @@
         <url>git@github.com:tdebatty/java-string-similarity.git</url>
         <tag>v0.7</tag>
     </scm>
-  
+
     <distributionManagement>
         <snapshotRepository>
             <id>ossrh</id>
@@ -61,7 +61,7 @@
                     <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
             </plugin>
-      
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
@@ -75,7 +75,7 @@
                     </execution>
                 </executions>
             </plugin>
-            
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -89,7 +89,7 @@
                     </execution>
                 </executions>
             </plugin>
-            
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
@@ -104,7 +104,7 @@
                     </execution>
                 </executions>
             </plugin>
-            
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -114,7 +114,7 @@
                     <target>1.5</target>
                 </configuration>
             </plugin>
-            
+
             <!-- To create the Github release -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -156,13 +156,18 @@
             </plugin>
         </plugins>
     </build>
-    
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.10</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.jcip</groupId>
+            <artifactId>jcip-annotations</artifactId>
+            <version>1.0</version>
         </dependency>
     </dependencies>
 </project>

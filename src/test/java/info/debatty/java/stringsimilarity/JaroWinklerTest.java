@@ -24,10 +24,6 @@
 
 package info.debatty.java.stringsimilarity;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -42,10 +38,17 @@ public class JaroWinklerTest {
      * Test of similarity method, of class JaroWinkler.
      */
     @Test
-    public void testSimilarity() {
+    public final void testSimilarity() {
         System.out.println("similarity");
         JaroWinkler instance = new JaroWinkler();
-        assertEquals(0.9740740656852722, instance.similarity("My string", "My tsring"), 0.0);
-        assertEquals(0.8962963223457336, instance.similarity("My string", "My ntrisg"), 0.0);
+        assertEquals(
+                0.974074,
+                instance.similarity("My string", "My tsring"),
+                0.000001);
+
+        assertEquals(
+                0.896296,
+                instance.similarity("My string", "My ntrisg"),
+                0.000001);
     }
 }

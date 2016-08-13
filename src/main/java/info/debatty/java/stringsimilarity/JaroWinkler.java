@@ -3,39 +3,43 @@ package info.debatty.java.stringsimilarity;
 import info.debatty.java.stringsimilarity.interfaces.NormalizedStringSimilarity;
 import info.debatty.java.stringsimilarity.interfaces.NormalizedStringDistance;
 import java.util.Arrays;
+import net.jcip.annotations.Immutable;
 
 /**
- * The Jaro–Winkler distance metric is designed and best suited for short 
- * strings such as person names, and to detect typos; it is (roughly) a 
- * variation of Damerau-Levenshtein, where the substitution of 2 close 
+ * The Jaro–Winkler distance metric is designed and best suited for short
+ * strings such as person names, and to detect typos; it is (roughly) a
+ * variation of Damerau-Levenshtein, where the substitution of 2 close
  * characters is considered less important then the substitution of 2 characters
  * that a far from each other.
- * Jaro-Winkler was developed in the area of record linkage (duplicate 
+ * Jaro-Winkler was developed in the area of record linkage (duplicate
  * detection) (Winkler, 1990). It returns a value in the interval [0.0, 1.0].
  * The distance is computed as 1 - Jaro-Winkler similarity.
  * @author Thibault Debatty
  */
-public class JaroWinkler implements NormalizedStringSimilarity, NormalizedStringDistance {
-    
+@Immutable
+public class JaroWinkler
+        implements NormalizedStringSimilarity, NormalizedStringDistance {
 
-    public JaroWinkler() {
-        
-    }
-    
-    public JaroWinkler(double threshold) {
-        this.setThreshold(threshold);
-    }
-    
-    private double threshold = 0.7;
-    
+    private static final double DEFAULT_THRESHOLD = 0.7;
+    private static final int THREE = 3;
+    private static final double JW_COEF = 0.1;
+    private final double threshold;
+
     /**
-     * Sets the threshold used to determine when Winkler bonus should be used.
-     * Set to a negative value to get the Jaro distance.
-     * Default value is 0.7
+     * Instantiate with default threshold (0.7).
      *
-     * @param threshold the new value of the threshold
      */
-    public final void setThreshold(double threshold) {
+    public JaroWinkler() {
+        this.threshold = DEFAULT_THRESHOLD;
+    }
+
+    /**
+     * Instantiate with given threshold to determine when Winkler bonus should
+     * be used.
+     * Set threshold to a negative value to get the Jaro distance.
+     * @param threshold
+     */
+    public JaroWinkler(final double threshold) {
         this.threshold = threshold;
     }
 
@@ -45,29 +49,44 @@ public class JaroWinkler implements NormalizedStringSimilarity, NormalizedString
      *
      * @return the current value of the threshold
      */
-    public double getThreshold() {
+    public final double getThreshold() {
         return threshold;
     }
 
-    public double similarity(String s1, String s2) {
+    /**
+     * Compute JW similarity.
+     * @param s1
+     * @param s2
+     * @return
+     */
+    public final double similarity(final String s1, final String s2) {
         int[] mtp = matches(s1, s2);
         float m = mtp[0];
         if (m == 0) {
             return 0f;
         }
-        float j = ((m / s1.length() + m / s2.length() + (m - mtp[1]) / m)) / 3;
-        float jw = j < getThreshold() ? j : j + Math.min(0.1f, 1f / mtp[3]) * mtp[2]
-                * (1 - j);
+        double j = ((m / s1.length() + m / s2.length() + (m - mtp[1]) / m))
+                / THREE;
+        double jw = j;
+
+        if (j > getThreshold()) {
+            jw = j + Math.min(JW_COEF, 1.0 / mtp[THREE]) * mtp[2] * (1 - j);
+        }
         return jw;
     }
-    
-    
-    public double distance(String s1, String s2) {
+
+
+    /**
+     * Return 1 - similarity.
+     * @param s1
+     * @param s2
+     * @return
+     */
+    public final double distance(final String s1, final String s2) {
         return 1.0 - similarity(s1, s2);
     }
 
-
-    private int[] matches(String s1, String s2) {
+    private int[] matches(final String s1, final String s2) {
         String max, min;
         if (s1.length() > s2.length()) {
             max = s1;

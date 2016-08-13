@@ -24,6 +24,7 @@
 package info.debatty.java.stringsimilarity;
 
 import info.debatty.java.stringsimilarity.interfaces.StringDistance;
+import net.jcip.annotations.Immutable;
 
 /**
  * Implementation of Levenshtein that allows to define different weights for
@@ -31,15 +32,26 @@ import info.debatty.java.stringsimilarity.interfaces.StringDistance;
  *
  * @author Thibault Debatty
  */
+@Immutable
 public class WeightedLevenshtein implements StringDistance {
 
     private final CharacterSubstitutionInterface charsub;
 
-    public WeightedLevenshtein(CharacterSubstitutionInterface charsub) {
+    /**
+     * Instatiate with provided character substitution.
+     * @param charsub
+     */
+    public WeightedLevenshtein(final CharacterSubstitutionInterface charsub) {
         this.charsub = charsub;
     }
 
-    public double distance(String s1, String s2) {
+    /**
+     * Compute Levenshtein distance using provided weights for substitution.
+     * @param s1
+     * @param s2
+     * @return
+     */
+    public final double distance(final String s1, final String s2) {
         if (s1.equals(s2)) {
             return 0;
         }
@@ -72,7 +84,10 @@ public class WeightedLevenshtein implements StringDistance {
 
             // use formula to fill in the rest of the row
             for (int j = 0; j < s2.length(); j++) {
-                double cost = (s1.charAt(i) == s2.charAt(j)) ? 0 : charsub.cost(s1.charAt(i), s2.charAt(j));
+                double cost = 0;
+                if (s1.charAt(i) != s2.charAt(j)) {
+                    cost = charsub.cost(s1.charAt(i), s2.charAt(j));
+                }
                 v1[j + 1] = Math.min(
                         v1[j] + 1, // Cost of insertion
                         Math.min(

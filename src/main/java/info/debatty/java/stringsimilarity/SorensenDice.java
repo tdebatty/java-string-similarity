@@ -25,6 +25,7 @@ package info.debatty.java.stringsimilarity;
 
 import info.debatty.java.stringsimilarity.interfaces.NormalizedStringSimilarity;
 import info.debatty.java.stringsimilarity.interfaces.NormalizedStringDistance;
+import net.jcip.annotations.Immutable;
 
 /**
  * Similar to Jaccard index, but this time the similarity is computed as 2 * |V1
@@ -32,6 +33,7 @@ import info.debatty.java.stringsimilarity.interfaces.NormalizedStringDistance;
  *
  * @author Thibault Debatty
  */
+@Immutable
 public class SorensenDice extends ShingleBased implements
         NormalizedStringDistance, NormalizedStringSimilarity {
 
@@ -46,16 +48,32 @@ public class SorensenDice extends ShingleBased implements
      *
      * @param k
      */
-    public SorensenDice(int k) {
+    public SorensenDice(final int k) {
         super(k);
     }
 
+    /**
+     * Sorensen-Dice coefficient, aka Sørensen index, Dice's coefficient or
+     * Czekanowski's binary (non-quantitative) index.
+     *
+     * The strings are first converted to boolean sets of k-shingles (sequences
+     * of k characters), then the similarity is computed as 2 * |A inter B| /
+     * (|A| + |B|). Attention: Sorensen-Dice distance (and similarity) does not
+     * satisfy triangle inequality.
+     * Default k is 3.
+     */
     public SorensenDice() {
-        super(3);
+        super();
     }
 
-    public double similarity(String s1, String s2) {
-        KShingling ks = new KShingling(k);
+    /**
+     * Similarity is computed as 2 * |A inter B| / (|A| + |B|).
+     * @param s1
+     * @param s2
+     * @return
+     */
+    public final double similarity(final String s1, final String s2) {
+        KShingling ks = new KShingling(getK());
         int[] profile1 = ks.getArrayProfile(s1);
         int[] profile2 = ks.getArrayProfile(s2);
 

@@ -24,35 +24,39 @@
 
 package info.debatty.java.stringsimilarity;
 
+import net.jcip.annotations.Immutable;
 
 /**
- * Abstract class for string similarities that rely on set operations (like 
+ * Abstract class for string similarities that rely on set operations (like
  * cosine similarity or jaccard index). This abstract base class cares for
  * converting input strings into sets of n-grams (aka k-shingles).
- * 
+ *
  * @author Thibault Debatty
  */
+@Immutable
 abstract class ShingleBased {
-    protected final int k;
-    
+    private static final int DEFAULT_K = 3;
+
+    private final int k;
+
     /**
-     * 
-     * @param k 
+     *
+     * @param k
      */
-    public ShingleBased(int k) {
+    ShingleBased(final int k) {
         this.k = k;
     }
-    
+
     /**
-     * 
+     *
      */
-    public ShingleBased() {
-        this(3);
+    ShingleBased() {
+        this(DEFAULT_K);
     }
-    
+
     /**
-     * Return k, the length of k-shingles (aka n-grams)
-     * @return 
+     * Return k, the length of k-shingles (aka n-grams).
+     * @return
      */
     public int getK() {
         return k;

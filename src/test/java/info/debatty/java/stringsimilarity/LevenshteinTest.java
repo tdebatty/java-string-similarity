@@ -24,48 +24,25 @@
 
 package info.debatty.java.stringsimilarity;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  *
  * @author Thibault Debatty
  */
 public class LevenshteinTest {
-    
-    public LevenshteinTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
 
     /**
      * Test of distance method, of class Levenshtein.
      */
     @Test
-    public void testDistance() {
+    public final void testDistance() {
         System.out.println("distance");
         Levenshtein instance = new Levenshtein();
         assertEquals(1.0, instance.distance("My string", "My tring"), 0.0);
         assertEquals(2.0, instance.distance("My string", "M string2"), 0.0);
         assertEquals(1.0, instance.distance("My string", "My $tring"), 0.0);
     }
-    
+
 }

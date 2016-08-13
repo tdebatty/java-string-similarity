@@ -24,48 +24,24 @@
 
 package info.debatty.java.stringsimilarity;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  *
  * @author Thibault Debatty
  */
 public class DamerauTest {
-    
-    public DamerauTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
 
     /**
      * Test of distance method, of class Damerau.
      */
     @Test
-    public void testDistance() {
+    public final void testDistance() {
         System.out.println("distance");
         Damerau instance = new Damerau();
         assertEquals(1.0, instance.distance("ABCDEF", "ABDCEF"), 0.0);
         assertEquals(2.0, instance.distance("ABCDEF", "BACDFE"), 0.0);
         assertEquals(1.0, instance.distance("ABCDEF", "ABCDE"), 0.0);
     }
-    
 }

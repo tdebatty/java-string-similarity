@@ -25,6 +25,7 @@ package info.debatty.java.stringsimilarity;
 
 import info.debatty.java.stringsimilarity.interfaces.NormalizedStringSimilarity;
 import info.debatty.java.stringsimilarity.interfaces.NormalizedStringDistance;
+import net.jcip.annotations.Immutable;
 
 /**
  * The similarity between the two strings is the cosine of the angle between
@@ -33,6 +34,7 @@ import info.debatty.java.stringsimilarity.interfaces.NormalizedStringDistance;
  *
  * @author Thibault Debatty
  */
+@Immutable
 public class Cosine extends ShingleBased implements
         NormalizedStringDistance, NormalizedStringSimilarity {
 
@@ -49,7 +51,11 @@ public class Cosine extends ShingleBased implements
     }
 
     /**
-     *
+     * Implements Cosine Similarity between strings. The strings are first
+     * transformed in vectors of occurrences of k-shingles (sequences of k
+     * characters). In this n-dimensional space, the similarity between the two
+     * strings is the cosine of their respective vectors.
+     * Default k is 3.
      */
     public Cosine() {
         super();
@@ -63,10 +69,10 @@ public class Cosine extends ShingleBased implements
      */
     public final double similarity(final String s1, final String s2) {
 
-        if (s1.length() < k || s2.length() < k) {
+        if (s1.length() < getK() || s2.length() < getK()) {
             return 0;
         }
-        KShingling ks = new KShingling(k);
+        KShingling ks = new KShingling(getK());
         int[] profile1 = ks.getArrayProfile(s1);
         int[] profile2 = ks.getArrayProfile(s2);
 
@@ -80,7 +86,7 @@ public class Cosine extends ShingleBased implements
      * @param profile
      * @return L2 norm
      */
-    protected static double norm(final int[] profile) {
+    private static double norm(final int[] profile) {
         double agg = 0;
 
         for (int v : profile) {
@@ -90,7 +96,7 @@ public class Cosine extends ShingleBased implements
         return Math.sqrt(agg);
     }
 
-    protected static double dotProduct(
+    private static double dotProduct(
             final int[] profile1, final int[] profile2) {
 
         // profiles may not have the same length

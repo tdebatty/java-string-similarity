@@ -1,6 +1,7 @@
 package info.debatty.java.stringsimilarity;
 
 import info.debatty.java.stringsimilarity.interfaces.NormalizedStringDistance;
+import net.jcip.annotations.Immutable;
 
 /**
  * N-Gram Similarity as defined by Kondrak, "N-Gram Similarity and Distance",
@@ -13,20 +14,34 @@ import info.debatty.java.stringsimilarity.interfaces.NormalizedStringDistance;
  *
  * http://webdocs.cs.ualberta.ca/~kondrak/papers/spire05.pdf
  */
+@Immutable
 public class NGram implements NormalizedStringDistance {
 
+    private static final int DEFAULT_N = 2;
     private final int n;
 
-    public NGram(int n) {
+    /**
+     * Instantiate with given value for n-gram length.
+     * @param n
+     */
+    public NGram(final int n) {
         this.n = n;
     }
 
+    /**
+     * Instantiate with default value for n-gram length (2).
+     */
     public NGram() {
-        this.n = 2;
+        this.n = DEFAULT_N;
     }
 
-    @Override
-    public double distance(String s0, String s1) {
+    /**
+     * Compute n-gram distance.
+     * @param s0
+     * @param s1
+     * @return
+     */
+    public final double distance(final String s0, final String s1) {
         final char special = '\n';
         final int sl = s0.length();
         final int tl = s1.length();
@@ -50,9 +65,9 @@ public class NGram implements NormalizedStringDistance {
         }
 
         char[] sa = new char[sl + n - 1];
-        float p[]; //'previous' cost array, horizontally
-        float d[]; // cost array, horizontally
-        float _d[]; //placeholder to assist in swapping p and d
+        float[] p; //'previous' cost array, horizontally
+        float[] d; // cost array, horizontally
+        float[] d2; //placeholder to assist in swapping p and d
 
         //construct sa with prefix
         for (int i = 0; i < sa.length; i++) {
@@ -76,7 +91,7 @@ public class NGram implements NormalizedStringDistance {
         }
 
         for (j = 1; j <= tl; j++) {
-            //construct t_j n-gram 
+            //construct t_j n-gram
             if (j < n) {
                 for (int ti = 0; ti < n - j; ti++) {
                     t_j[ti] = special; //add prefix
@@ -95,18 +110,21 @@ public class NGram implements NormalizedStringDistance {
                 for (int ni = 0; ni < n; ni++) {
                     if (sa[i - 1 + ni] != t_j[ni]) {
                         cost++;
-                    } else if (sa[i - 1 + ni] == special) { //discount matches on prefix
+                    } else if (sa[i - 1 + ni] == special) {
+                        //discount matches on prefix
                         tn--;
                     }
                 }
                 float ec = (float) cost / tn;
-                // minimum of cell to the left+1, to the top+1, diagonally left and up +cost
-                d[i] = Math.min(Math.min(d[i - 1] + 1, p[i] + 1), p[i - 1] + ec);
+                // minimum of cell to the left+1, to the top+1,
+                // diagonally left and up +cost
+                d[i] = Math.min(
+                        Math.min(d[i - 1] + 1, p[i] + 1), p[i - 1] + ec);
             }
             // copy current distance counts to 'previous row' distance counts
-            _d = p;
+            d2 = p;
             p = d;
-            d = _d;
+            d = d2;
         }
 
         // our last action in the above loop was to switch d and p, so p now

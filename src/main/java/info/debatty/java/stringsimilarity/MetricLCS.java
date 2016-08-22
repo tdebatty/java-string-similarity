@@ -47,9 +47,13 @@ public class MetricLCS
      * @return
      */
     public final double distance(final String s1, final String s2) {
+	int mLen = Math.max(s1.length(), s2.length());
+	if (mLen == 0) {
+	    return 0;
+	}
         return 1.0
                 - (1.0 * lcs.length(s1, s2))
-                / Math.max(s1.length(), s2.length());
+                / mLen;
 
     }
 

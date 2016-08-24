@@ -16,6 +16,10 @@ A library implementing different string similarity and distance measures. A doze
 * [Metric Longest Common Subsequence](#metric-longest-common-subsequence)
 * [N-Gram](#n-gram)
 * [Shingle (n-gram) based algorithms](#shingle-n-gram-based-algorithms)
+  * [Q-Gram](#shingle-n-gram-based-algorithms)
+  * [Cosine similarity](#shingle-n-gram-based-algorithms)
+  * [Jaccard index](#shingle-n-gram-based-algorithms)
+  * [Sorensen-Dice coefficient](#shingle-n-gram-based-algorithms)
 
 
 ## Download

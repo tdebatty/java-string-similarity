@@ -20,6 +20,7 @@ A library implementing different string similarity and distance measures. A doze
   * [Cosine similarity](#shingle-n-gram-based-algorithms)
   * [Jaccard index](#shingle-n-gram-based-algorithms)
   * [Sorensen-Dice coefficient](#shingle-n-gram-based-algorithms)
+* [Users](#users)
 
 
 ## Download

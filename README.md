@@ -415,3 +415,8 @@ Jaccard index is a metric distance.
 Similar to Jaccard index, but this time the similarity is computed as 2 * |V1 inter V2| / (|V1| + |V2|).
 
 Distance is computed as 1 - cosine similarity.
+
+## Users
+* [StringSimilarity.NET](https://github.com/feature23/StringSimilarity.NET) a .NET port of java-string-similarity
+
+Use java-string-similarity in your project and want it to be mentioned here? Don't hesitate to drop me a line!

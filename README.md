@@ -3,6 +3,20 @@
 
 A library implementing different string similarity and distance measures. A dozen of algorithms (including Levenshtein edit distance and sibblings, Jaro-Winkler, Longest Common Subsequence, cosine similarity etc.) are currently implemented. Check the summary table below for the complete list...
 
+* [Download](#download)
+* [Overview](#overview)
+* [Normalized, metric, similarity and distance](#normalized-metric-similarity-and-distance)
+* [Shingles (n-gram) based similarity and distance](#shingles-n-gram-based-similarity-and-distance)
+* [Levenshtein](#levenshtein)
+* [Normalized Levenshtein](#normalized-levenshtein)
+* [Weighted Levenshtein](#weighted-levenshtein)
+* [Damerau-Levenshtein](#damerau-levenshtein)
+* [Jaro-Winkler](#jaro-winkler)
+* [Longest Common Subsequence](#longest-common-subsequence)
+* [Metric Longest Common Subsequence](#metric-longest-common-subsequence)
+* [N-Gram](#n-gram)
+* [Shingle (n-gram) based algorithms](#shingle-n-gram-based-algorithms)
+
 
 ## Download
 Using maven:
@@ -16,7 +30,7 @@ Using maven:
 
 Or check the [releases](https://github.com/tdebatty/java-string-similarity/releases).
 
-## Summary
+## Overview
 
 The main characteristics of each implemented algorithm are presented below. The "cost" column gives an estimation of the computational cost to compute the similarity between two strings of length m and n respectively.
 

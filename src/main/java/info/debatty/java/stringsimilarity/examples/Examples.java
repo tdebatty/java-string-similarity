@@ -50,6 +50,7 @@ public class Examples {
     public static void main(String[] args) {
         // Levenshtein
         // ===========
+        System.out.println("\nLevenshtein");
         Levenshtein levenshtein = new Levenshtein();
         System.out.println(levenshtein.distance("My string", "My $tring"));
         System.out.println(levenshtein.distance("My string", "M string2"));
@@ -57,6 +58,7 @@ public class Examples {
 
         // Jaccard index
         // =============
+        System.out.println("\nJaccard");
         Jaccard j2 = new Jaccard(2);
         // AB BC CD DE DF
         // 1  1  1  1  0
@@ -66,6 +68,7 @@ public class Examples {
 
         // Jaro-Winkler
         // ============
+        System.out.println("\nJaro-Winkler");
         JaroWinkler jw = new JaroWinkler();
 
         // substitution of s and t : 0.9740740656852722
@@ -76,6 +79,7 @@ public class Examples {
 
         // Cosine
         // ======
+        System.out.println("\nCosine");
         Cosine cos = new Cosine(3);
 
         // ABC BCE
@@ -94,6 +98,7 @@ public class Examples {
 
         // Damerau
         // =======
+        System.out.println("\nDamerau");
         Damerau damerau = new Damerau();
 
         // 1 substitution
@@ -111,8 +116,10 @@ public class Examples {
         // All different
         System.out.println(damerau.distance("ABCDEF", "POIU"));
         
-        // OptimalStringAlignment
+        
+        // Optimal String Alignment
         // =======
+        System.out.println("\nOptimal String Alignment");
         OptimalStringAlignment osa = new OptimalStringAlignment();
 
         // 1 substitution
@@ -132,6 +139,7 @@ public class Examples {
 
         // Longest Common Subsequence
         // ==========================
+        System.out.println("\nLongest Common Subsequence");
         LongestCommonSubsequence lcs = new LongestCommonSubsequence();
 
         // Will produce 4.0
@@ -143,6 +151,7 @@ public class Examples {
         // NGram
         // =====
         // produces 0.416666
+        System.out.println("\nNGram");
         NGram twogram = new NGram(2);
         System.out.println(twogram.distance("ABCD", "ABTUIO"));
 
@@ -154,6 +163,7 @@ public class Examples {
 
         // Normalized Levenshtein
         // ======================
+        System.out.println("\nNormalized Levenshtein");
         NormalizedLevenshtein l = new NormalizedLevenshtein();
 
         System.out.println(l.distance("My string", "My $tring"));
@@ -162,6 +172,7 @@ public class Examples {
 
         // QGram
         // =====
+        System.out.println("\nQGram");
         QGram dig = new QGram(2);
 
         // AB BC CD CE
@@ -178,6 +189,7 @@ public class Examples {
 
         // Sorensen-Dice
         // =============
+        System.out.println("\nSorensen-Dice");
         SorensenDice sd = new SorensenDice(2);
 
         // AB BC CD DE DF FG
@@ -188,6 +200,7 @@ public class Examples {
 
         // Weighted Levenshtein
         // ====================
+        System.out.println("\nWeighted Levenshtein");
         WeightedLevenshtein wl = new WeightedLevenshtein(
                 new CharacterSubstitutionInterface() {
                     public double cost(char c1, char c2) {
@@ -208,6 +221,7 @@ public class Examples {
         System.out.println(wl.distance("String1", "Srring2"));
         
         // K-Shingling
+        System.out.println("\nK-Shingling");
         s1 = "my string,  \n  my song";
         s2 = "another string, from a song";
         KShingling ks = new KShingling(4);

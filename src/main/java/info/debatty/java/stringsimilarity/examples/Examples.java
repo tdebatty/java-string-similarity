@@ -26,6 +26,7 @@ package info.debatty.java.stringsimilarity.examples;
 import info.debatty.java.stringsimilarity.CharacterSubstitutionInterface;
 import info.debatty.java.stringsimilarity.Cosine;
 import info.debatty.java.stringsimilarity.Damerau;
+import info.debatty.java.stringsimilarity.OptimalStringAlignment;
 import info.debatty.java.stringsimilarity.Jaccard;
 import info.debatty.java.stringsimilarity.JaroWinkler;
 import info.debatty.java.stringsimilarity.KShingling;
@@ -109,6 +110,25 @@ public class Examples {
 
         // All different
         System.out.println(damerau.distance("ABCDEF", "POIU"));
+        
+        // OptimalStringAlignment
+        // =======
+        OptimalStringAlignment osa = new OptimalStringAlignment();
+
+        // 1 substitution
+        System.out.println(osa.distance("ABCDEF", "ABDCEF"));
+
+        // 2 substitutions
+        System.out.println(osa.distance("ABCDEF", "BACDFE"));
+
+        // 1 deletion
+        System.out.println(osa.distance("ABCDEF", "ABCDE"));
+        System.out.println(osa.distance("ABCDEF", "BCDEF"));
+
+        System.out.println(osa.distance("ABCDEF", "ABCGDEF"));
+
+        // All different
+        System.out.println(osa.distance("ABCDEF", "POIU"));
 
         // Longest Common Subsequence
         // ==========================

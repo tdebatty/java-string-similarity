@@ -78,8 +78,8 @@ public final class OptimalStringAlignment implements StringDistance {
 
                 d[i][j] = min(
                         d[i - 1][j - 1] + cost, // substitution
-                        d[i][j - 1] + 1, // insertion
-                        d[i - 1][j] + 1 // deletion
+                        d[i][j - 1] + 1,        // insertion
+                        d[i - 1][j] + 1         // deletion
                 );
 
                 //transposition check

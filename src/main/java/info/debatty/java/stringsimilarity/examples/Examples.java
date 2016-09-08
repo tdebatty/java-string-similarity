@@ -121,7 +121,8 @@ public class Examples {
         // =======
         System.out.println("\nOptimal String Alignment");
         OptimalStringAlignment osa = new OptimalStringAlignment();
-
+        
+        //Will produce 3.0
         System.out.println(osa.distance("CA", "ABC"));
         
         

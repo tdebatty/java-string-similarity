@@ -45,7 +45,7 @@ The main characteristics of each implemented algorithm are presented below. The 
 | [Normalized Levenshtein](#normalized-levenshtein)	|distance<br>similarity	| Yes 			| No 		| 	      | O(m*n) <sup>1</sup> |
 | [Weighted Levenshtein](#weighted-levenshtein)		|distance 				| No 			| No 		| 	      | O(m*n) <sup>1</sup> |
 | [Damerau-Levenshtein](#damerau-levenshtein) <sup>3</sup> 	|distance 				| No 			| Yes 		| 	      | O(m*n) <sup>1</sup> |
-| Optimal String Alignment <sup>3</sup> |not implemented yet | No 			| No 		| 	      | O(m*n) <sup>1</sup> |
+| []Optimal String Alignment](#optimal-string-alignment) <sup>3</sup> |distance | No 			| No 		| 	      | O(m*n) <sup>1</sup> |
 | [Jaro-Winkler](#jaro-winkler) 		|similarity<br>distance	| Yes  			| No 		| 	      | O(m*n) |
 | [Longest Common Subsequence](#longest-common-subsequence) 		|distance 				| No 			| No 		| 	      | O(m*n) <sup>1,2</sup> |
 | [Metric Longest Common Subsequence](#metric-longest-common-subsequence) |distance   			| Yes 			| Yes  		| 	      | O(m*n) <sup>1,2</sup> |
@@ -210,7 +210,30 @@ Will produce:
 6.0
 ```
 
+## Optimal-String-Alignment
+The Optimal String Alignment variant of Damerau–Levenshtein (sometimes called the restricted edit distance) computes the number of edit operations needed to make the strings equal under the condition that no substring is edited more than once, whereas the true Damerau–Levenshtein presents no such restriction.
 
+Note that for the optimal string alignment distance, the triangle inequality does not hold and so it is not a true metric.
+
+```java
+import info.debatty.java.stringsimilarity.*;
+
+public class MyApp {
+
+
+    public static void main(String[] args) {
+        OptimalStringAlignment d = new OptimalStringAlignment();
+        
+         System.out.println(osa.distance("CA", "ABC"));;
+    }
+}
+```
+
+Will produce:
+
+```
+3.0
+```
 
 ## Jaro-Winkler
 Jaro-Winkler is a string edit distance that was developed in the area of record linkage (duplicate detection) (Winkler, 1990). The Jaro–Winkler distance metric is designed and best suited for short strings such as person names, and to detect typos.

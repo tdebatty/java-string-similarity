@@ -25,6 +25,9 @@ package info.debatty.java.stringsimilarity;
 
 import info.debatty.java.stringsimilarity.interfaces.NormalizedStringSimilarity;
 import info.debatty.java.stringsimilarity.interfaces.NormalizedStringDistance;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import net.jcip.annotations.Immutable;
 
 /**
@@ -73,31 +76,22 @@ public class SorensenDice extends ShingleBased implements
      * @return
      */
     public final double similarity(final String s1, final String s2) {
-        KShingling ks = new KShingling(getK());
-        int[] profile1 = ks.getArrayProfile(s1);
-        int[] profile2 = ks.getArrayProfile(s2);
+        Map<String, Integer> profile1 = getProfile(s1);
+        Map<String, Integer> profile2 = getProfile(s2);
 
-        int length = Math.max(profile1.length, profile2.length);
-        profile1 = java.util.Arrays.copyOf(profile1, length);
-        profile2 = java.util.Arrays.copyOf(profile2, length);
+        Set<String> union = new HashSet<String>();
+        union.addAll(profile1.keySet());
+        union.addAll(profile2.keySet());
 
         int inter = 0;
-        int sum = 0;
-        for (int i = 0; i < length; i++) {
-            if (profile1[i] > 0 && profile2[i] > 0) {
+
+        for (String key : union) {
+            if (profile1.containsKey(key) && profile2.containsKey(key)) {
                 inter++;
-            }
-
-            if (profile1[i] > 0) {
-                sum++;
-            }
-
-            if (profile2[i] > 0) {
-                sum++;
             }
         }
 
-        return 2.0 * inter / sum;
+        return 2.0 * inter / (profile1.size() + profile2.size());
     }
 
     public double distance(String s1, String s2) {

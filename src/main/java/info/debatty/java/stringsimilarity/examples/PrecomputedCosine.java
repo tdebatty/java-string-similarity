@@ -23,33 +23,32 @@
  */
 package info.debatty.java.stringsimilarity.examples;
 
-import info.debatty.java.stringsimilarity.KShingling;
-import info.debatty.java.stringsimilarity.StringProfile;
+import info.debatty.java.stringsimilarity.Cosine;
+import java.util.Map;
 
 /**
- * Example of computing cosine similarity with pre-computed profiles
+ * Example of computing cosine similarity with pre-computed profiles.
  *
- * @author tibo
+ * @author Thibault Debatty
  */
 public class PrecomputedCosine {
 
     /**
      * @param args the command line arguments
-     * @throws java.lang.Exception
      */
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         String s1 = "My first string";
         String s2 = "My other string...";
 
         // Let's work with sequences of 2 characters...
-        KShingling ks = new KShingling(2);
+        Cosine cosine = new Cosine(2);
 
         // Pre-compute the profile of strings
-        StringProfile profile1 = ks.getProfile(s1);
-        StringProfile profile2 = ks.getProfile(s2);
+        Map<String, Integer> profile1 = cosine.getProfile(s1);
+        Map<String, Integer> profile2 = cosine.getProfile(s2);
 
         // Prints 0.516185
-        System.out.println(profile1.cosineSimilarity(profile2));
+        System.out.println(cosine.similarity(profile1, profile2));
 
     }
 

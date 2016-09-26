@@ -25,6 +25,7 @@ package info.debatty.java.stringsimilarity;
 
 import info.debatty.java.stringsimilarity.interfaces.NormalizedStringSimilarity;
 import info.debatty.java.stringsimilarity.interfaces.NormalizedStringDistance;
+import java.util.Map;
 import net.jcip.annotations.Immutable;
 
 /**
@@ -72,13 +73,15 @@ public class Cosine extends ShingleBased implements
         if (s1.length() < getK() || s2.length() < getK()) {
             return 0;
         }
-        KShingling ks = new KShingling(getK());
-        int[] profile1 = ks.getArrayProfile(s1);
-        int[] profile2 = ks.getArrayProfile(s2);
+
+        Map<String, Integer> profile1 = getProfile(s1);
+        Map<String, Integer> profile2 = getProfile(s2);
 
         return dotProduct(profile1, profile2)
                 / (norm(profile1) * norm(profile2));
     }
+
+
 
     /**
      * Compute the norm L2 : sqrt(Sum_i( v_i²)).
@@ -86,25 +89,36 @@ public class Cosine extends ShingleBased implements
      * @param profile
      * @return L2 norm
      */
-    private static double norm(final int[] profile) {
+    private static double norm(final Map<String, Integer> profile) {
         double agg = 0;
 
-        for (int v : profile) {
-            agg += 1.0 * v * v;
+        for (Map.Entry<String, Integer> entry : profile.entrySet()) {
+            agg += 1.0 * entry.getValue() * entry.getValue();
         }
 
         return Math.sqrt(agg);
     }
 
     private static double dotProduct(
-            final int[] profile1, final int[] profile2) {
+            final Map<String, Integer> profile1,
+            final Map<String, Integer> profile2) {
 
-        // profiles may not have the same length
-        int length = Math.min(profile1.length, profile2.length);
-        double agg = 0;
-        for (int i = 0; i < length; i++) {
-            agg += 1.0 * profile1[i] * profile2[i];
+        // Loop over the smallest map
+        Map<String, Integer> small_profile = profile2;
+        Map<String, Integer> large_profile = profile1;
+        if (profile1.size() < profile2.size()) {
+            small_profile = profile1;
+            large_profile = profile2;
         }
+
+        double agg = 0;
+        for (Map.Entry<String, Integer> entry : small_profile.entrySet()) {
+            if (!large_profile.containsKey(entry.getKey())) {
+                continue;
+            }
+            agg += 1.0 * entry.getValue() * large_profile.get(entry.getKey());
+        }
+
         return agg;
     }
 
@@ -116,6 +130,14 @@ public class Cosine extends ShingleBased implements
      */
     public final double distance(final String s1, final String s2) {
         return 1.0 - similarity(s1, s2);
+    }
+
+    public double similarity(
+            final Map<String, Integer> profile1,
+            final Map<String, Integer> profile2) {
+
+        return dotProduct(profile1, profile2)
+                / (norm(profile1) * norm(profile2));
     }
 
 }

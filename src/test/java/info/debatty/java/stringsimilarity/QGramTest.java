@@ -24,43 +24,20 @@
 
 package info.debatty.java.stringsimilarity;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  *
  * @author Thibault Debatty
  */
 public class QGramTest {
-    
-    public QGramTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
 
     /**
      * Test of distance method, of class QGram.
      */
     @Test
-    public void testDistance() {
+    public final void testDistance() {
         System.out.println("distance");
         QGram instance = new QGram(2);
         // AB BC CD CE
@@ -70,5 +47,4 @@ public class QGramTest {
         double result = instance.distance("ABCD", "ABCE");
         assertEquals(2.0, result, 0.0);
     }
-    
 }

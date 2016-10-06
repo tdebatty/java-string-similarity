@@ -11,6 +11,7 @@ A library implementing different string similarity and distance measures. A doze
 * [Normalized Levenshtein](#normalized-levenshtein)
 * [Weighted Levenshtein](#weighted-levenshtein)
 * [Damerau-Levenshtein](#damerau-levenshtein)
+* [Optimal String Alignment](#optimal-string-alignment)
 * [Jaro-Winkler](#jaro-winkler)
 * [Longest Common Subsequence](#longest-common-subsequence)
 * [Metric Longest Common Subsequence](#metric-longest-common-subsequence)

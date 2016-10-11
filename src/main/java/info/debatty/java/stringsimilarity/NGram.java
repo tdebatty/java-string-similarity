@@ -48,9 +48,9 @@ public class NGram implements NormalizedStringDistance {
 
         if (sl == 0 || tl == 0) {
             if (sl == tl) {
-                return 1;
-            } else {
                 return 0;
+            } else {
+                return 1;
             }
         }
 
@@ -129,6 +129,6 @@ public class NGram implements NormalizedStringDistance {
 
         // our last action in the above loop was to switch d and p, so p now
         // actually has the most recent cost counts
-        return 1.0 - (p[sl] / Math.max(tl, sl));
+        return p[sl] / Math.max(tl, sl);
     }
 }

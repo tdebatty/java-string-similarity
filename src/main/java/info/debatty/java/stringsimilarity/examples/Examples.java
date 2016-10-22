@@ -32,7 +32,7 @@ import info.debatty.java.stringsimilarity.JaroWinkler;
 import info.debatty.java.stringsimilarity.Levenshtein;
 import info.debatty.java.stringsimilarity.LongestCommonSubsequence;
 import info.debatty.java.stringsimilarity.NGram;
-import info.debatty.java.stringsimilarity.NormalizedLevenshtein;
+import info.debatty.java.stringsimilarity.Normalized;
 import info.debatty.java.stringsimilarity.QGram;
 import info.debatty.java.stringsimilarity.SorensenDice;
 import info.debatty.java.stringsimilarity.WeightedLevenshtein;
@@ -152,7 +152,7 @@ public class Examples {
         // Normalized Levenshtein
         // ======================
         System.out.println("\nNormalized Levenshtein");
-        NormalizedLevenshtein l = new NormalizedLevenshtein();
+        Normalized l = new Normalized(levenshtein);
 
         System.out.println(l.distance("My string", "My $tring"));
         System.out.println(l.distance("My string", "M string2"));

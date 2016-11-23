@@ -62,15 +62,11 @@ public class Damerau implements MetricStringDistance {
         HashMap<Character, Integer> da = new HashMap<Character, Integer>();
 
         for (int d = 0; d < s1.length(); d++) {
-            if (!da.containsKey(s1.charAt(d))) {
-                da.put(s1.charAt(d), 0);
-            }
+            da.put(s1.charAt(d), 0);
         }
 
         for (int d = 0; d < s2.length(); d++) {
-            if (!da.containsKey(s2.charAt(d))) {
-                da.put(s2.charAt(d), 0);
-            }
+            da.put(s2.charAt(d), 0);
         }
 
         // Create the distance matrix H[0 .. s1.length+1][0 .. s2.length+1]

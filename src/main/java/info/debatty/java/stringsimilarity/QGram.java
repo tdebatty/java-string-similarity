@@ -67,13 +67,14 @@ public class QGram extends ShingleBased implements StringDistance {
         for (String key : union) {
             int v1 = 0;
             int v2 = 0;
-            if (profile1.containsKey(key)) {
-                v1 = profile1.get(key);
+            Integer iv1 = profile1.get(key);
+            if (iv1!=null){
+            	v1=iv1.intValue();
             }
 
-
-            if (profile2.containsKey(key)) {
-                v2 = profile2.get(key);
+            Integer iv2=profile2.get(key);
+            if (iv2!=null) {
+                v2 = iv2.intValue();
             }
             agg += Math.abs(v1 - v2);
         }

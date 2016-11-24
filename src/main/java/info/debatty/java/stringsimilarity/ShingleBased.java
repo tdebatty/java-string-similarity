@@ -106,13 +106,11 @@ abstract class ShingleBased {
         String string_no_space = SPACE_REG.matcher(string).replaceAll(" ");
         for (int i = 0; i < (string_no_space.length() - k + 1); i++) {
             String shingle = string_no_space.substring(i, i + k);
-
-            if (shingles.containsKey(shingle)) {
-                shingles.put(shingle, shingles.get(shingle) + 1);
-
+            Integer old = shingles.get(shingle);
+            if (old!=null) {
+                shingles.put(shingle, old + 1);
             } else {
                 shingles.put(shingle, 1);
-
             }
         }
 

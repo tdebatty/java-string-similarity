@@ -113,10 +113,11 @@ public class Cosine extends ShingleBased implements
 
         double agg = 0;
         for (Map.Entry<String, Integer> entry : small_profile.entrySet()) {
-            if (!large_profile.containsKey(entry.getKey())) {
+        	Integer i=large_profile.get(entry.getKey());
+            if (i==null) {
                 continue;
             }
-            agg += 1.0 * entry.getValue() * large_profile.get(entry.getKey());
+            agg += 1.0 * entry.getValue() * i;
         }
 
         return agg;

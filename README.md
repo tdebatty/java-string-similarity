@@ -21,6 +21,8 @@ A library implementing different string similarity and distance measures. A doze
   * [Cosine similarity](#shingle-n-gram-based-algorithms)
   * [Jaccard index](#shingle-n-gram-based-algorithms)
   * [Sorensen-Dice coefficient](#shingle-n-gram-based-algorithms)
+* [Experimental](#experimental)
+  * [SIFT4](#sift4)
 * [Users](#users)
 
 
@@ -441,6 +443,30 @@ Jaccard index is a metric distance.
 Similar to Jaccard index, but this time the similarity is computed as 2 * |V1 inter V2| / (|V1| + |V2|).
 
 Distance is computed as 1 - cosine similarity.
+
+## Experimental
+
+### SIFT4
+SIFT4 is a general purpose string distance algorithm inspired by JaroWinkler and Longest Common Subsequence. It was developped to produce a distance measure that matches as close as possible to the human perception of string distance. Hence it takes into account elements like character substitution, character distance, longest common subsequence etc. It was developped using experimental testing, and without theoretical background.
+
+```
+import info.debatty.java.stringsimilarity.experimental.Sift4;
+
+public class MyApp {
+
+    public static void main(String[] args) {
+        String s1 = "This is the first string";
+        String s2 = "And this is another string";
+        Sift4 sift4 = new Sift4();
+        sift4.setMaxOffset(5);
+        double expResult =  11.0;
+        double result = sift4.distance(s1, s2);
+        assertEquals(expResult, result, 0.0);
+    }
+}
+```
+
+
 
 ## Users
 * [StringSimilarity.NET](https://github.com/feature23/StringSimilarity.NET) a .NET port of java-string-similarity

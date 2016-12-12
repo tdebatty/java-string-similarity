@@ -22,6 +22,7 @@
             <url>http://www.opensource.org/licenses/mit-license.php</url>
         </license>
     </licenses>
+    
     <developers>
         <developer>
             <name>Thibault Debatty</name>
@@ -30,6 +31,7 @@
             <organizationUrl>http://debatty.info</organizationUrl>
         </developer>
     </developers>
+    
     <scm>
         <connection>scm:git:git@github.com:tdebatty/java-string-similarity.git</connection>
         <developerConnection>scm:git:git@github.com:tdebatty/java-string-similarity.git</developerConnection>

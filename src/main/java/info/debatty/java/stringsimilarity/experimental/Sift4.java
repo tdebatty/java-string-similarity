@@ -138,7 +138,7 @@ public class Sift4 implements StringDistance {
                         }
                     }
                 }
-                offset_arr.push(new Offset(c1, c2, is_trans));
+                offset_arr.add(new Offset(c1, c2, is_trans));
 
             } else {
 

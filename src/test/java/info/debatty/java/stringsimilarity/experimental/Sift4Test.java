@@ -46,6 +46,14 @@ public class Sift4Test {
         double expResult =  11.0;
         double result = sift4.distance(s1, s2);
         assertEquals(expResult, result, 0.0);
+
+        sift4.setMaxOffset(10);
+        assertEquals(
+                12.0,
+                sift4.distance(
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                        "Amet Lorm ispum dolor sit amet, consetetur adixxxpiscing elit."),
+                0.0);
     }
 
 }

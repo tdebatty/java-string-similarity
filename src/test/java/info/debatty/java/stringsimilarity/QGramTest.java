@@ -46,5 +46,14 @@ public class QGramTest {
         // Total: 2
         double result = instance.distance("ABCD", "ABCE");
         assertEquals(2.0, result, 0.0);
+
+        assertEquals(
+                0.0,
+                instance.distance("S", "S"),
+                0.0);
+
+        assertEquals(0.0,
+                instance.distance("012345", "012345"),
+                0.0);
     }
 }

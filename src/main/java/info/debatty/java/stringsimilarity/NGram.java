@@ -46,6 +46,10 @@ public class NGram implements NormalizedStringDistance {
         final int sl = s0.length();
         final int tl = s1.length();
 
+        if (s0.equals(s1)) {
+            return 0;
+        }
+
         if (sl == 0 || tl == 0) {
             if (sl == tl) {
                 return 0;

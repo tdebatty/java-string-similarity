@@ -11,13 +11,12 @@ public final class NullEmptyUtil {
      * @return Returns a value if either strings are empty or null, or null if both strings have a value.
      */
     public static Double normalizedSimilarity(String s1, String s2) {
-        if (s1 == null && s2 == null) {
+        boolean s1empty = isNullOrEmpty(s1),
+                s2empty = isNullOrEmpty(s2);
+
+        if (s1empty && s2empty) {
             return 1d;
-        } else if (s1 == null || s2 == null) {
-            return 0d;
-        } else if (s1.equals("") && s2.equals("")) {
-            return 1d;
-        } else if (s1.equals("") || s2.equals("")) {
+        } else if (s1empty || s2empty) {
             return 0d;
         }
 
@@ -43,14 +42,21 @@ public final class NullEmptyUtil {
      * @return Returns a value if either strings are empty or null, or null if both strings have a value.
      */
     public static Double lengthDistance(String s1, String s2) {
-        if (s1 == null && s2 == null) {
+        boolean s1empty = isNullOrEmpty(s1),
+                s2empty = isNullOrEmpty(s2);
+
+        if (s1empty && s2empty) {
             return 0d;
-        } else if (s1 == null || s1.equals("")) {
+        } else if (s1empty) {
             return (double) s2.length();
-        } else if (s2 == null || s2.equals("")) {
+        } else if (s2empty) {
             return (double) s1.length();
         }
 
         return null;
+    }
+
+    public static boolean isNullOrEmpty(String s) {
+        return s == null || s.equals("");
     }
 }

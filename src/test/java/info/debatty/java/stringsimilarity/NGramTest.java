@@ -24,6 +24,7 @@
 
 package info.debatty.java.stringsimilarity;
 
+import info.debatty.java.stringsimilarity.testutil.NullEmptyTests;
 import org.junit.Assert;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
@@ -50,23 +51,7 @@ public class NGramTest {
 
         assertEquals(0.0, ngram.distance("SIJK", "SIJK"), 0.0);
         assertEquals(0.0, ngram.distance("S", "S"), 0.0);
-    }
 
-    @Test
-    public final void testEmptyStrings() {
-        NGram instance = new NGram();
-        assertEquals(0.0, instance.distance("", ""), 0.1);
-        assertEquals(1.0, instance.distance("", "foo"), 0.1);
-        assertEquals(1.0, instance.distance("foo", ""), 0.1);
-        assertEquals(1.0, instance.distance("", "S"), 0.0);
-        assertEquals(1.0, instance.distance("", "SIJK"), 0.0);
-    }
-
-    @Test
-    public final void testNullStrings() {
-        NGram instance = new NGram();
-        assertEquals(0.0, instance.distance(null, null), 0.1);
-        assertEquals(1.0, instance.distance(null, "foo"), 0.1);
-        assertEquals(1.0, instance.distance("foo", null), 0.1);
+        NullEmptyTests.testDistance(ngram);
     }
 }

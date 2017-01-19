@@ -28,6 +28,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+
+import info.debatty.java.stringsimilarity.testutil.NullEmptyTests;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -46,6 +48,8 @@ public class CosineTest {
         Cosine instance = new Cosine();
         double result = instance.similarity("ABC", "ABCE");
         assertEquals(0.71, result, 0.01);
+
+        NullEmptyTests.testSimilarity(instance);
     }
 
     /**
@@ -74,25 +78,11 @@ public class CosineTest {
     }
 
     @Test
-    public final void testEmptyStrings() {
+    public final void testDistance() {
         Cosine instance = new Cosine();
-        assertEquals(1.0, instance.similarity("", ""), 0.1);
-        assertEquals(0.0, instance.distance("", ""), 0.1);
-        assertEquals(0.0, instance.similarity("", "foo"), 0.1);
-        assertEquals(0.0, instance.similarity("foo", ""), 0.1);
-        assertEquals(1.0, instance.distance("", "foo"), 0.1);
-        assertEquals(1.0, instance.distance("foo", ""), 0.1);
-    }
+        NullEmptyTests.testDistance(instance);
 
-    @Test
-    public final void testNullStrings() {
-        Cosine instance = new Cosine();
-        assertEquals(1.0, instance.similarity((String)null, null), 0.1);
-        assertEquals(0.0, instance.distance(null, null), 0.1);
-        assertEquals(0.0, instance.similarity(null, "foo"), 0.1);
-        assertEquals(0.0, instance.similarity("foo", null), 0.1);
-        assertEquals(1.0, instance.distance(null, "foo"), 0.1);
-        assertEquals(1.0, instance.distance("foo", null), 0.1);
+        // TODO: regular (non-null/empty) distance tests
     }
 
     private static String readResourceFile(String file) throws IOException {

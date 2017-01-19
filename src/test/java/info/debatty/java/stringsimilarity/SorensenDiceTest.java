@@ -24,6 +24,7 @@
 
 package info.debatty.java.stringsimilarity;
 
+import info.debatty.java.stringsimilarity.testutil.NullEmptyTests;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -50,27 +51,13 @@ public class SorensenDiceTest {
         // => 2 x 3 / (4 + 5) = 6/9 = 0.6666
         double result = instance.similarity("ABCDE", "ABCDFG");
         assertEquals(0.6666, result, 0.0001);
+
+        NullEmptyTests.testSimilarity(instance);
     }
 
     @Test
-    public final void testEmptyStrings() {
+    public final void testDistance() {
         SorensenDice instance = new SorensenDice();
-        assertEquals(1.0, instance.similarity("", ""), 0.1);
-        assertEquals(0.0, instance.distance("", ""), 0.1);
-        assertEquals(0.0, instance.similarity("", "foo"), 0.1);
-        assertEquals(0.0, instance.similarity("foo", ""), 0.1);
-        assertEquals(1.0, instance.distance("", "foo"), 0.1);
-        assertEquals(1.0, instance.distance("foo", ""), 0.1);
-    }
-
-    @Test
-    public final void testNullStrings() {
-        SorensenDice instance = new SorensenDice();
-        assertEquals(1.0, instance.similarity(null, null), 0.1);
-        assertEquals(0.0, instance.distance(null, null), 0.1);
-        assertEquals(0.0, instance.similarity(null, "foo"), 0.1);
-        assertEquals(0.0, instance.similarity("foo", null), 0.1);
-        assertEquals(1.0, instance.distance(null, "foo"), 0.1);
-        assertEquals(1.0, instance.distance("foo", null), 0.1);
+        NullEmptyTests.testDistance(instance);
     }
 }

@@ -24,12 +24,10 @@
 
 package info.debatty.java.stringsimilarity;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import info.debatty.java.stringsimilarity.testutil.NullEmptyTests;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  *
@@ -51,6 +49,8 @@ public class JaccardTest {
         // => 3 / 5 = 0.6
         double result = instance.similarity("ABCDE", "ABCDF");
         assertEquals(0.6, result, 0.0);
+
+        NullEmptyTests.testSimilarity(instance);
     }
 
     /**
@@ -65,27 +65,7 @@ public class JaccardTest {
         double expResult = 0.4;
         double result = instance.distance("ABCDE", "ABCDF");
         assertEquals(expResult, result, 0.0);
-    }
 
-    @Test
-    public final void testEmptyStrings() {
-        Jaccard instance = new Jaccard();
-        assertEquals(1.0, instance.similarity("", ""), 0.1);
-        assertEquals(0.0, instance.distance("", ""), 0.1);
-        assertEquals(0.0, instance.similarity("", "foo"), 0.1);
-        assertEquals(0.0, instance.similarity("foo", ""), 0.1);
-        assertEquals(1.0, instance.distance("", "foo"), 0.1);
-        assertEquals(1.0, instance.distance("foo", ""), 0.1);
-    }
-
-    @Test
-    public final void testNullStrings() {
-        Jaccard instance = new Jaccard();
-        assertEquals(1.0, instance.similarity(null, null), 0.1);
-        assertEquals(0.0, instance.distance(null, null), 0.1);
-        assertEquals(0.0, instance.similarity(null, "foo"), 0.1);
-        assertEquals(0.0, instance.similarity("foo", null), 0.1);
-        assertEquals(1.0, instance.distance(null, "foo"), 0.1);
-        assertEquals(1.0, instance.distance("foo", null), 0.1);
+        NullEmptyTests.testDistance(instance);
     }
 }

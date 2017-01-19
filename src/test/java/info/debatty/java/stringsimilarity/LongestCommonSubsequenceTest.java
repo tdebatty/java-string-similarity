@@ -23,12 +23,10 @@
  */
 package info.debatty.java.stringsimilarity;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import info.debatty.java.stringsimilarity.testutil.NullEmptyTests;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  *
@@ -47,21 +45,7 @@ public class LongestCommonSubsequenceTest {
         assertEquals(4, instance.distance("AGCAT", "GAC"), 0.0);
 
         assertEquals(1, instance.distance("AGCAT", "AGCT"), 0.0);
-    }
 
-    @Test
-    public final void testEmptyStrings() {
-        LongestCommonSubsequence instance = new LongestCommonSubsequence();
-        assertEquals(0.0, instance.distance("", ""), 0.1);
-        assertEquals(3.0, instance.distance("", "foo"), 0.1);
-        assertEquals(3.0, instance.distance("foo", ""), 0.1);
-    }
-
-    @Test
-    public final void testNullStrings() {
-        LongestCommonSubsequence instance = new LongestCommonSubsequence();
-        assertEquals(0.0, instance.distance(null, null), 0.1);
-        assertEquals(3.0, instance.distance(null, "foo"), 0.1);
-        assertEquals(3.0, instance.distance("foo", null), 0.1);
+        NullEmptyTests.testDistance(instance);
     }
 }

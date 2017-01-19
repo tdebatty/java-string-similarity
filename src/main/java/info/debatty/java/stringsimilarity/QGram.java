@@ -1,9 +1,11 @@
 package info.debatty.java.stringsimilarity;
 
 import info.debatty.java.stringsimilarity.interfaces.StringDistance;
+
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
 import net.jcip.annotations.Immutable;
 
 /**
@@ -51,6 +53,7 @@ public class QGram extends ShingleBased implements StringDistance {
     /**
      * The distance between two strings is defined as the L1 norm of the
      * difference of their profiles (the number of occurence of each k-shingle).
+     *
      * @param s1
      * @param s2
      * @return
@@ -68,13 +71,13 @@ public class QGram extends ShingleBased implements StringDistance {
             int v1 = 0;
             int v2 = 0;
             Integer iv1 = profile1.get(key);
-            if (iv1!=null){
-            	v1=iv1.intValue();
+            if (iv1 != null) {
+                v1 = iv1;
             }
 
-            Integer iv2=profile2.get(key);
-            if (iv2!=null) {
-                v2 = iv2.intValue();
+            Integer iv2 = profile2.get(key);
+            if (iv2 != null) {
+                v2 = iv2;
             }
             agg += Math.abs(v1 - v2);
         }

@@ -32,5 +32,5 @@ import java.io.Serializable;
  */
 public interface StringDistance extends Serializable {
 
-    public double distance(String s1, String s2);
+    double distance(String s1, String s2);
 }

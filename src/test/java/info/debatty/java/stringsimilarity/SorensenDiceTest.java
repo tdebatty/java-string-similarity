@@ -36,25 +36,6 @@ import static org.junit.Assert.*;
  * @author Thibault Debatty
  */
 public class SorensenDiceTest {
-    
-    public SorensenDiceTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
 
     /**
      * Test of similarity method, of class SorensenDice.
@@ -70,5 +51,26 @@ public class SorensenDiceTest {
         double result = instance.similarity("ABCDE", "ABCDFG");
         assertEquals(0.6666, result, 0.0001);
     }
-    
+
+    @Test
+    public final void testEmptyStrings() {
+        SorensenDice instance = new SorensenDice();
+        assertEquals(1.0, instance.similarity("", ""), 0.1);
+        assertEquals(0.0, instance.distance("", ""), 0.1);
+        assertEquals(0.0, instance.similarity("", "foo"), 0.1);
+        assertEquals(0.0, instance.similarity("foo", ""), 0.1);
+        assertEquals(1.0, instance.distance("", "foo"), 0.1);
+        assertEquals(1.0, instance.distance("foo", ""), 0.1);
+    }
+
+    @Test
+    public final void testNullStrings() {
+        SorensenDice instance = new SorensenDice();
+        assertEquals(1.0, instance.similarity(null, null), 0.1);
+        assertEquals(0.0, instance.distance(null, null), 0.1);
+        assertEquals(0.0, instance.similarity(null, "foo"), 0.1);
+        assertEquals(0.0, instance.similarity("foo", null), 0.1);
+        assertEquals(1.0, instance.distance(null, "foo"), 0.1);
+        assertEquals(1.0, instance.distance("foo", null), 0.1);
+    }
 }

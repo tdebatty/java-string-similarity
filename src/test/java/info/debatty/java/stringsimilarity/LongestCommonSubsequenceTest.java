@@ -36,25 +36,6 @@ import static org.junit.Assert.*;
  */
 public class LongestCommonSubsequenceTest {
 
-    public LongestCommonSubsequenceTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
-    }
-
     /**
      * Test of distance method, of class LongestCommonSubsequence.
      */
@@ -68,4 +49,19 @@ public class LongestCommonSubsequenceTest {
         assertEquals(1, instance.distance("AGCAT", "AGCT"), 0.0);
     }
 
+    @Test
+    public final void testEmptyStrings() {
+        LongestCommonSubsequence instance = new LongestCommonSubsequence();
+        assertEquals(0.0, instance.distance("", ""), 0.1);
+        assertEquals(3.0, instance.distance("", "foo"), 0.1);
+        assertEquals(3.0, instance.distance("foo", ""), 0.1);
+    }
+
+    @Test
+    public final void testNullStrings() {
+        LongestCommonSubsequence instance = new LongestCommonSubsequence();
+        assertEquals(0.0, instance.distance(null, null), 0.1);
+        assertEquals(3.0, instance.distance(null, "foo"), 0.1);
+        assertEquals(3.0, instance.distance("foo", null), 0.1);
+    }
 }

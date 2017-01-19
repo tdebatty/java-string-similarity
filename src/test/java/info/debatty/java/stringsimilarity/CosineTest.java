@@ -73,6 +73,28 @@ public class CosineTest {
         assertEquals(0.8115, similarity, 0.001);
     }
 
+    @Test
+    public final void testEmptyStrings() {
+        Cosine instance = new Cosine();
+        assertEquals(1.0, instance.similarity("", ""), 0.1);
+        assertEquals(0.0, instance.distance("", ""), 0.1);
+        assertEquals(0.0, instance.similarity("", "foo"), 0.1);
+        assertEquals(0.0, instance.similarity("foo", ""), 0.1);
+        assertEquals(1.0, instance.distance("", "foo"), 0.1);
+        assertEquals(1.0, instance.distance("foo", ""), 0.1);
+    }
+
+    @Test
+    public final void testNullStrings() {
+        Cosine instance = new Cosine();
+        assertEquals(1.0, instance.similarity((String)null, null), 0.1);
+        assertEquals(0.0, instance.distance(null, null), 0.1);
+        assertEquals(0.0, instance.similarity(null, "foo"), 0.1);
+        assertEquals(0.0, instance.similarity("foo", null), 0.1);
+        assertEquals(1.0, instance.distance(null, "foo"), 0.1);
+        assertEquals(1.0, instance.distance("foo", null), 0.1);
+    }
+
     private static String readResourceFile(String file) throws IOException {
 
         InputStream stream = Thread.currentThread()

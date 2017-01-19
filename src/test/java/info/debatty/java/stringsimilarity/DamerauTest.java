@@ -44,4 +44,20 @@ public class DamerauTest {
         assertEquals(2.0, instance.distance("ABCDEF", "BACDFE"), 0.0);
         assertEquals(1.0, instance.distance("ABCDEF", "ABCDE"), 0.0);
     }
+
+    @Test
+    public final void testEmptyStrings() {
+        Damerau instance = new Damerau();
+        assertEquals(0.0, instance.distance("", ""), 0.1);
+        assertEquals(3.0, instance.distance("", "foo"), 0.1);
+        assertEquals(3.0, instance.distance("foo", ""), 0.1);
+    }
+
+    @Test
+    public final void testNullStrings() {
+        Damerau instance = new Damerau();
+        assertEquals(0.0, instance.distance(null, null), 0.1);
+        assertEquals(3.0, instance.distance(null, "foo"), 0.1);
+        assertEquals(3.0, instance.distance("foo", null), 0.1);
+    }
 }

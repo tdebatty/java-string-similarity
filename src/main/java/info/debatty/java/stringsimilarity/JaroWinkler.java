@@ -3,6 +3,8 @@ package info.debatty.java.stringsimilarity;
 import info.debatty.java.stringsimilarity.interfaces.NormalizedStringSimilarity;
 import info.debatty.java.stringsimilarity.interfaces.NormalizedStringDistance;
 import java.util.Arrays;
+
+import info.debatty.java.utils.NullEmptyUtil;
 import net.jcip.annotations.Immutable;
 
 /**
@@ -60,6 +62,12 @@ public class JaroWinkler
      * @return
      */
     public final double similarity(final String s1, final String s2) {
+        Double nullEmptySimilarity = NullEmptyUtil.normalizedSimilarity(s1, s2);
+
+        if (nullEmptySimilarity != null) {
+            return nullEmptySimilarity;
+        }
+
         int[] mtp = matches(s1, s2);
         float m = mtp[0];
         if (m == 0) {

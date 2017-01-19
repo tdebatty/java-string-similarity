@@ -26,35 +26,43 @@ package info.debatty.java.stringsimilarity;
 
 import info.debatty.java.stringsimilarity.interfaces.MetricStringDistance;
 import info.debatty.java.stringsimilarity.interfaces.NormalizedStringDistance;
+import info.debatty.java.utils.NullEmptyUtil;
 import net.jcip.annotations.Immutable;
 
 /**
  * Distance metric based on Longest Common Subsequence, from the notes "An
  * LCS-based string metric" by Daniel Bakkelund.
+ *
  * @author Thibault Debatty
  */
 @Immutable
 public class MetricLCS
-    implements MetricStringDistance, NormalizedStringDistance {
+        implements MetricStringDistance, NormalizedStringDistance {
 
     private final LongestCommonSubsequence lcs = new LongestCommonSubsequence();
 
     /**
      * Distance metric based on Longest Common Subsequence, computed as
      * 1 - |LCS(s1, s2)| / max(|s1|, |s2|).
+     *
      * @param s1
      * @param s2
      * @return
      */
     public final double distance(final String s1, final String s2) {
-	int mLen = Math.max(s1.length(), s2.length());
-	if (mLen == 0) {
-	    return 0;
-	}
-        return 1.0
-                - (1.0 * lcs.length(s1, s2))
-                / mLen;
+        Double nullEmptyDistance = NullEmptyUtil.normalizedDistance(s1, s2);
 
+        if (nullEmptyDistance != null) {
+            return nullEmptyDistance;
+        }
+
+        int mLen = Math.max(s1.length(), s2.length());
+        if (mLen == 0) {
+            return 0;
+        }
+        return 1.0
+            - (1.0 * lcs.length(s1, s2))
+            / mLen;
     }
 
 }

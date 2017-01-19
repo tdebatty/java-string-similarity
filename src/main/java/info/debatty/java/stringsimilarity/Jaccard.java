@@ -30,6 +30,8 @@ import info.debatty.java.stringsimilarity.interfaces.NormalizedStringDistance;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
+import info.debatty.java.utils.NullEmptyUtil;
 import net.jcip.annotations.Immutable;
 
 /**
@@ -74,6 +76,12 @@ public class Jaccard extends ShingleBased implements
      * @return
      */
     public final double similarity(final String s1, final String s2) {
+        Double nullEmptySimilarity = NullEmptyUtil.normalizedSimilarity(s1, s2);
+
+        if (nullEmptySimilarity != null) {
+            return nullEmptySimilarity;
+        }
+
         Map<String, Integer> profile1 = getProfile(s1);
         Map<String, Integer> profile2 = getProfile(s2);
 

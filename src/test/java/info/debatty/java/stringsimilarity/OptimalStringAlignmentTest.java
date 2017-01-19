@@ -39,12 +39,7 @@ public class OptimalStringAlignmentTest {
     public final void testDistance() {
         System.out.println("distance");
         OptimalStringAlignment instance = new OptimalStringAlignment();
-        
-        //zero length
-        assertEquals(6.0, instance.distance("", "ABDCEF"), 0.0);
-        assertEquals(6.0, instance.distance("ABDCEF", ""), 0.0);
-        assertEquals(0.0, instance.distance("", ""), 0.0);
-        
+
         //equality
         assertEquals(0.0, instance.distance("ABDCEF", "ABDCEF"), 0.0);
         
@@ -60,5 +55,23 @@ public class OptimalStringAlignmentTest {
         assertEquals(4.0, instance.distance("abcde", "awxyz"), 0.0);
         assertEquals(5.0, instance.distance("abcde", "vwxyz"), 0.0);
 
+    }
+
+    @Test
+    public final void testEmptyStrings() {
+        OptimalStringAlignment instance = new OptimalStringAlignment();
+        assertEquals(0.0, instance.distance("", ""), 0.1);
+        assertEquals(3.0, instance.distance("", "foo"), 0.1);
+        assertEquals(3.0, instance.distance("foo", ""), 0.1);
+        assertEquals(6.0, instance.distance("", "ABDCEF"), 0.0);
+        assertEquals(6.0, instance.distance("ABDCEF", ""), 0.0);
+    }
+
+    @Test
+    public final void testNullStrings() {
+        OptimalStringAlignment instance = new OptimalStringAlignment();
+        assertEquals(0.0, instance.distance(null, null), 0.1);
+        assertEquals(3.0, instance.distance(null, "foo"), 0.1);
+        assertEquals(3.0, instance.distance("foo", null), 0.1);
     }
 }

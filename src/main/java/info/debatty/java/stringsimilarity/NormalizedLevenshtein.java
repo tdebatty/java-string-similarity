@@ -25,6 +25,7 @@ package info.debatty.java.stringsimilarity;
 
 import info.debatty.java.stringsimilarity.interfaces.NormalizedStringSimilarity;
 import info.debatty.java.stringsimilarity.interfaces.NormalizedStringDistance;
+import info.debatty.java.utils.NullEmptyUtil;
 import net.jcip.annotations.Immutable;
 
 /**
@@ -48,10 +49,19 @@ public class NormalizedLevenshtein implements
      * @return
      */
     public final double distance(final String s1, final String s2) {
-	int mLen = Math.max(s1.length(), s2.length());
-	if (mLen == 0) {
-	    return 0;
-	}
+
+        Double nullEmptyDistance = NullEmptyUtil.normalizedDistance(s1, s2);
+
+        if (nullEmptyDistance != null) {
+            return nullEmptyDistance;
+        }
+
+        int mLen = Math.max(s1.length(), s2.length());
+
+        if (mLen == 0) {
+            return 0;
+        }
+
         return l.distance(s1, s2) / mLen;
     }
 

@@ -24,6 +24,7 @@
 package info.debatty.java.stringsimilarity;
 
 import info.debatty.java.stringsimilarity.interfaces.StringDistance;
+import info.debatty.java.utils.NullEmptyUtil;
 import net.jcip.annotations.Immutable;
 
 /**
@@ -51,13 +52,16 @@ public final class OptimalStringAlignment implements StringDistance {
      * @return the OSA distance
      */
     public final double distance(final String s1, final String s2) {
+        Double nullEmptyDistance = NullEmptyUtil.lengthDistance(s1, s2);
+
+        if (nullEmptyDistance != null) {
+            return nullEmptyDistance;
+        }
+
         int n = s1.length(), m = s2.length();
-        if (n == 0) return m;
-        if (m == 0) return n;
-        
 
         // Create the distance matrix H[0 .. s1.length+1][0 .. s2.length+1]
-        int[][] d = new int[s1.length() + 2][s2.length() + 2];
+        int[][] d = new int[n + 2][m + 2];
 
         //initialize top row and leftmost column
         for (int i = 0; i <= n; i++) {

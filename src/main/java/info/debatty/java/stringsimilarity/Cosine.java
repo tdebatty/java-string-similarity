@@ -26,6 +26,8 @@ package info.debatty.java.stringsimilarity;
 import info.debatty.java.stringsimilarity.interfaces.NormalizedStringSimilarity;
 import info.debatty.java.stringsimilarity.interfaces.NormalizedStringDistance;
 import java.util.Map;
+
+import info.debatty.java.utils.NullEmptyUtil;
 import net.jcip.annotations.Immutable;
 
 /**
@@ -69,6 +71,11 @@ public class Cosine extends ShingleBased implements
      * @return
      */
     public final double similarity(final String s1, final String s2) {
+        Double nullEmptySimilarity = NullEmptyUtil.normalizedSimilarity(s1, s2);
+
+        if (nullEmptySimilarity != null) {
+            return nullEmptySimilarity;
+        }
 
         if (s1.length() < getK() || s2.length() < getK()) {
             return 0;

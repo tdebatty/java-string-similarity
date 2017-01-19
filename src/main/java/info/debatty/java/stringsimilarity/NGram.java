@@ -1,6 +1,7 @@
 package info.debatty.java.stringsimilarity;
 
 import info.debatty.java.stringsimilarity.interfaces.NormalizedStringDistance;
+import info.debatty.java.utils.NullEmptyUtil;
 import net.jcip.annotations.Immutable;
 
 /**
@@ -42,20 +43,18 @@ public class NGram implements NormalizedStringDistance {
      * @return
      */
     public final double distance(final String s0, final String s1) {
+        Double nullEmptyDistance = NullEmptyUtil.normalizedDistance(s0, s1);
+
+        if (nullEmptyDistance != null) {
+            return nullEmptyDistance;
+        }
+
         final char special = '\n';
         final int sl = s0.length();
         final int tl = s1.length();
 
         if (s0.equals(s1)) {
             return 0;
-        }
-
-        if (sl == 0 || tl == 0) {
-            if (sl == tl) {
-                return 0;
-            } else {
-                return 1;
-            }
         }
 
         int cost = 0;

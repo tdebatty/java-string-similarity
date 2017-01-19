@@ -36,25 +36,6 @@ import static org.junit.Assert.*;
  * @author Thibault Debatty
  */
 public class JaccardTest {
-    
-    public JaccardTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
 
     /**
      * Test of similarity method, of class Jaccard.
@@ -85,5 +66,26 @@ public class JaccardTest {
         double result = instance.distance("ABCDE", "ABCDF");
         assertEquals(expResult, result, 0.0);
     }
-    
+
+    @Test
+    public final void testEmptyStrings() {
+        Jaccard instance = new Jaccard();
+        assertEquals(1.0, instance.similarity("", ""), 0.1);
+        assertEquals(0.0, instance.distance("", ""), 0.1);
+        assertEquals(0.0, instance.similarity("", "foo"), 0.1);
+        assertEquals(0.0, instance.similarity("foo", ""), 0.1);
+        assertEquals(1.0, instance.distance("", "foo"), 0.1);
+        assertEquals(1.0, instance.distance("foo", ""), 0.1);
+    }
+
+    @Test
+    public final void testNullStrings() {
+        Jaccard instance = new Jaccard();
+        assertEquals(1.0, instance.similarity(null, null), 0.1);
+        assertEquals(0.0, instance.distance(null, null), 0.1);
+        assertEquals(0.0, instance.similarity(null, "foo"), 0.1);
+        assertEquals(0.0, instance.similarity("foo", null), 0.1);
+        assertEquals(1.0, instance.distance(null, "foo"), 0.1);
+        assertEquals(1.0, instance.distance("foo", null), 0.1);
+    }
 }

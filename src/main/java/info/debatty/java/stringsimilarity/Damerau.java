@@ -25,6 +25,8 @@ package info.debatty.java.stringsimilarity;
 
 import info.debatty.java.stringsimilarity.interfaces.MetricStringDistance;
 import java.util.HashMap;
+
+import info.debatty.java.utils.NullEmptyUtil;
 import net.jcip.annotations.Immutable;
 
 /**
@@ -54,6 +56,12 @@ public class Damerau implements MetricStringDistance {
      * @return
      */
     public final double distance(final String s1, final String s2) {
+
+        Double nullEmptyDistance = NullEmptyUtil.lengthDistance(s1, s2);
+
+        if (nullEmptyDistance != null) {
+            return nullEmptyDistance;
+        }
 
         // INFinite distance is the max possible distance
         int inf = s1.length() + s2.length();

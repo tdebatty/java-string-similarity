@@ -23,13 +23,12 @@
  */
 package info.debatty.java.stringsimilarity;
 
+import net.jcip.annotations.Immutable;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
-
-import info.debatty.java.utils.NullEmptyUtil;
-import net.jcip.annotations.Immutable;
 
 /**
  * Abstract class for string similarities that rely on set operations (like
@@ -104,10 +103,6 @@ abstract class ShingleBased {
      */
     public final Map<String, Integer> getProfile(final String string) {
         HashMap<String, Integer> shingles = new HashMap<String, Integer>();
-
-        if (NullEmptyUtil.isNullOrEmpty(string)) {
-            return Collections.unmodifiableMap(shingles);
-        }
 
         String string_no_space = SPACE_REG.matcher(string).replaceAll(" ");
         for (int i = 0; i < (string_no_space.length() - k + 1); i++) {

@@ -65,6 +65,14 @@ public final class OptimalStringAlignment implements StringDistance {
 
         int n = s1.length(), m = s2.length();
 
+        if (n == 0) {
+            return m;
+        }
+
+        if (m == 0) {
+            return n;
+        }
+
         // Create the distance matrix H[0 .. s1.length+1][0 .. s2.length+1]
         int[][] d = new int[n + 2][m + 2];
 

@@ -64,6 +64,14 @@ public class WeightedLevenshtein implements StringDistance {
             return 0;
         }
 
+        if (s1.length() == 0) {
+            return s2.length();
+        }
+
+        if (s2.length() == 0) {
+            return s1.length();
+        }
+
         // create two work vectors of integer distances
         double[] v0 = new double[s2.length() + 1];
         double[] v1 = new double[s2.length() + 1];

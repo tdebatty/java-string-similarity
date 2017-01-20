@@ -50,6 +50,14 @@ public class Levenshtein implements MetricStringDistance {
             return 0;
         }
 
+        if (s1.length() == 0) {
+            return s2.length();
+        }
+
+        if (s2.length() == 0) {
+            return s1.length();
+        }
+
         // create two work vectors of integer distances
         int[] v0 = new int[s2.length() + 1];
         int[] v1 = new int[s2.length() + 1];

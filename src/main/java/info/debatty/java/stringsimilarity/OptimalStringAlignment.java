@@ -46,9 +46,10 @@ public final class OptimalStringAlignment implements StringDistance {
      * substitution of a single character, or a transposition of two adjacent
      * characters) while no substring is edited more than once.
      *
-     * @param s1 the first input string
-     * @param s2 the second input string
+     * @param s1 The first string to compare.
+     * @param s2 The second string to compare.
      * @return the OSA distance
+     * @throws NullPointerException if s1 or s2 is null.
      */
     public final double distance(final String s1, final String s2) {
         if (s1 == null) {

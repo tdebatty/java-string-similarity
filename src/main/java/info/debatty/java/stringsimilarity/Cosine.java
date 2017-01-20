@@ -65,9 +65,10 @@ public class Cosine extends ShingleBased implements
 
     /**
      * Compute the cosine similarity between strings.
-     * @param s1
-     * @param s2
-     * @return
+     * @param s1 The first string to compare.
+     * @param s2 The second string to compare.
+     * @return The cosine similarity in the range [0, 1]
+     * @throws NullPointerException if s1 or s2 is null.
      */
     public final double similarity(final String s1, final String s2) {
         if (s1 == null) {
@@ -137,9 +138,10 @@ public class Cosine extends ShingleBased implements
 
     /**
      * Return 1.0 - similarity.
-     * @param s1
-     * @param s2
-     * @return
+     * @param s1 The first string to compare.
+     * @param s2 The second string to compare.
+     * @return 1.0 - the cosine similarity in the range [0, 1]
+     * @throws NullPointerException if s1 or s2 is null.
      */
     public final double distance(final String s1, final String s2) {
         return 1.0 - similarity(s1, s2);

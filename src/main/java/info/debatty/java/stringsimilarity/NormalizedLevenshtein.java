@@ -43,9 +43,10 @@ public class NormalizedLevenshtein implements
 
     /**
      * Compute distance as Levenshtein(s1, s2) / max(|s1|, |s2|).
-     * @param s1
-     * @param s2
-     * @return
+     * @param s1 The first string to compare.
+     * @param s2 The second string to compare.
+     * @return The computed distance in the range [0, 1]
+     * @throws NullPointerException if s1 or s2 is null.
      */
     public final double distance(final String s1, final String s2) {
 
@@ -72,9 +73,10 @@ public class NormalizedLevenshtein implements
 
     /**
      * Return 1 - distance.
-     * @param s1
-     * @param s2
-     * @return
+     * @param s1 The first string to compare.
+     * @param s2 The second string to compare.
+     * @return 1.0 - the computed distance
+     * @throws NullPointerException if s1 or s2 is null.
      */
     public final double similarity(final String s1, final String s2) {
         return 1.0 - distance(s1, s2);

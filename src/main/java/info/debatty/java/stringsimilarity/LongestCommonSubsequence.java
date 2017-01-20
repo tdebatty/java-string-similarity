@@ -30,10 +30,11 @@ public class LongestCommonSubsequence implements StringDistance {
      * Return the LCS distance between strings s1 and s2, computed as |s1| +
      * |s2| - 2 * |LCS(s1, s2)|.
      *
-     * @param s1
-     * @param s2
+     * @param s1 The first string to compare.
+     * @param s2 The second string to compare.
      * @return the LCS distance between strings s1 and s2, computed as |s1| +
      * |s2| - 2 * |LCS(s1, s2)|
+     * @throws NullPointerException if s1 or s2 is null.
      */
     public final double distance(final String s1, final String s2) {
         if (s1 == null) {
@@ -55,11 +56,20 @@ public class LongestCommonSubsequence implements StringDistance {
      * Return the length of Longest Common Subsequence (LCS) between strings s1
      * and s2.
      *
-     * @param s1
-     * @param s2
+     * @param s1 The first string to compare.
+     * @param s2 The second string to compare.
      * @return the length of LCS(s1, s2)
+     * @throws NullPointerException if s1 or s2 is null.
      */
     public final int length(final String s1, final String s2) {
+        if (s1 == null) {
+            throw new NullPointerException("s1 must not be null");
+        }
+
+        if (s2 == null) {
+            throw new NullPointerException("s2 must not be null");
+        }
+
         /* function LCSLength(X[1..m], Y[1..n])
          C = array(0..m, 0..n)
 

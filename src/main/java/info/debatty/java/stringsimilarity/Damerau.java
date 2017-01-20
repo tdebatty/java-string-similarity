@@ -50,9 +50,10 @@ public class Damerau implements MetricStringDistance {
      * needed to transform one string into the other (insertion, deletion,
      * substitution of a single character, or a transposition of two adjacent
      * characters).
-     * @param s1
-     * @param s2
-     * @return
+     * @param s1 The first string to compare.
+     * @param s2 The second string to compare.
+     * @return The computed distance.
+     * @throws NullPointerException if s1 or s2 is null.
      */
     public final double distance(final String s1, final String s2) {
 

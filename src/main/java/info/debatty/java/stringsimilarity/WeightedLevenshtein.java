@@ -39,7 +39,7 @@ public class WeightedLevenshtein implements StringDistance {
 
     /**
      * Instatiate with provided character substitution.
-     * @param charsub
+     * @param charsub The strategy to determine character substitution weights.
      */
     public WeightedLevenshtein(final CharacterSubstitutionInterface charsub) {
         this.charsub = charsub;
@@ -47,9 +47,10 @@ public class WeightedLevenshtein implements StringDistance {
 
     /**
      * Compute Levenshtein distance using provided weights for substitution.
-     * @param s1
-     * @param s2
-     * @return
+     * @param s1 The first string to compare.
+     * @param s2 The second string to compare.
+     * @return The computed weighted Levenshtein distance.
+     * @throws NullPointerException if s1 or s2 is null.
      */
     public final double distance(final String s1, final String s2) {
         if (s1 == null) {

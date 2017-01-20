@@ -65,6 +65,7 @@ abstract class ShingleBased {
     /**
      *
      * @param k
+     * @throws IllegalArgumentException if k is <= 0
      */
     ShingleBased(final int k) {
         if (k <= 0) {
@@ -83,7 +84,7 @@ abstract class ShingleBased {
     /**
      * Return k, the length of k-shingles (aka n-grams).
      *
-     * @return
+     * @return The length of k-shingles.
      */
     public int getK() {
         return k;

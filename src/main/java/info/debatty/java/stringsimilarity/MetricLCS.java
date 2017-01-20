@@ -44,9 +44,10 @@ public class MetricLCS
      * Distance metric based on Longest Common Subsequence, computed as
      * 1 - |LCS(s1, s2)| / max(|s1|, |s2|).
      *
-     * @param s1
-     * @param s2
-     * @return
+     * @param s1 The first string to compare.
+     * @param s2 The second string to compare.
+     * @return The computed distance metric value.
+     * @throws NullPointerException if s1 or s2 is null.
      */
     public final double distance(final String s1, final String s2) {
         if (s1 == null) {
@@ -69,5 +70,4 @@ public class MetricLCS
             - (1.0 * lcs.length(s1, s2))
             / mLen;
     }
-
 }

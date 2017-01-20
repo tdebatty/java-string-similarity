@@ -54,9 +54,10 @@ public class QGram extends ShingleBased implements StringDistance {
      * The distance between two strings is defined as the L1 norm of the
      * difference of their profiles (the number of occurence of each k-shingle).
      *
-     * @param s1
-     * @param s2
-     * @return
+     * @param s1 The first string to compare.
+     * @param s2 The second string to compare.
+     * @return The computed Q-gram distance.
+     * @throws NullPointerException if s1 or s2 is null.
      */
     public final double distance(final String s1, final String s2) {
         if (s1 == null) {

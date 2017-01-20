@@ -37,9 +37,9 @@ package info.debatty.java.stringsimilarity;
 public interface CharacterSubstitutionInterface {
     /**
      * Indicate the cost of substitution c1 and c2.
-     * @param c1
-     * @param c2
-     * @return
+     * @param c1 The first character of the substitution.
+     * @param c2 The second character of the substitution.
+     * @return The cost in the range [0, 1].
      */
     double cost(char c1, char c2);
 }

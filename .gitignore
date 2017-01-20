@@ -2,3 +2,5 @@
 /build/
 /dist/
 /target/
+.idea/
+*.iml

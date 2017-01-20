@@ -24,6 +24,7 @@
 
 package info.debatty.java.stringsimilarity;
 
+import info.debatty.java.stringsimilarity.testutil.NullEmptyTests;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -36,25 +37,6 @@ import static org.junit.Assert.*;
  * @author Thibault Debatty
  */
 public class SorensenDiceTest {
-    
-    public SorensenDiceTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
 
     /**
      * Test of similarity method, of class SorensenDice.
@@ -69,6 +51,13 @@ public class SorensenDiceTest {
         // => 2 x 3 / (4 + 5) = 6/9 = 0.6666
         double result = instance.similarity("ABCDE", "ABCDFG");
         assertEquals(0.6666, result, 0.0001);
+
+        NullEmptyTests.testSimilarity(instance);
     }
-    
+
+    @Test
+    public final void testDistance() {
+        SorensenDice instance = new SorensenDice();
+        NullEmptyTests.testDistance(instance);
+    }
 }

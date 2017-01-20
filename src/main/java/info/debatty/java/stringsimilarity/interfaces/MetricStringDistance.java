@@ -34,5 +34,5 @@ package info.debatty.java.stringsimilarity.interfaces;
  * @author Thibault Debatty
  */
 public interface MetricStringDistance extends StringDistance {
-    public double distance(String s1, String s2);
+    double distance(String s1, String s2);
 }

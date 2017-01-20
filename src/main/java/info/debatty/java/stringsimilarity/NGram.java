@@ -37,25 +37,30 @@ public class NGram implements NormalizedStringDistance {
 
     /**
      * Compute n-gram distance.
-     * @param s0
-     * @param s1
-     * @return
+     * @param s0 The first string to compare.
+     * @param s1 The second string to compare.
+     * @return The computed n-gram distance in the range [0, 1]
+     * @throws NullPointerException if s0 or s1 is null.
      */
     public final double distance(final String s0, final String s1) {
-        final char special = '\n';
-        final int sl = s0.length();
-        final int tl = s1.length();
+        if (s0 == null) {
+            throw new NullPointerException("s0 must not be null");
+        }
+
+        if (s1 == null) {
+            throw new NullPointerException("s1 must not be null");
+        }
 
         if (s0.equals(s1)) {
             return 0;
         }
 
+        final char special = '\n';
+        final int sl = s0.length();
+        final int tl = s1.length();
+
         if (sl == 0 || tl == 0) {
-            if (sl == tl) {
-                return 0;
-            } else {
-                return 1;
-            }
+            return 1;
         }
 
         int cost = 0;

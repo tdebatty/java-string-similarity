@@ -24,6 +24,7 @@
 
 package info.debatty.java.stringsimilarity;
 
+import info.debatty.java.stringsimilarity.testutil.NullEmptyTests;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
@@ -43,6 +44,7 @@ public class LevenshteinTest {
         assertEquals(1.0, instance.distance("My string", "My tring"), 0.0);
         assertEquals(2.0, instance.distance("My string", "M string2"), 0.0);
         assertEquals(1.0, instance.distance("My string", "My $tring"), 0.0);
-    }
 
+        NullEmptyTests.testDistance(instance);
+    }
 }

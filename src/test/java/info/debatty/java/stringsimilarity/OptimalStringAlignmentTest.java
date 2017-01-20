@@ -24,6 +24,8 @@
 package info.debatty.java.stringsimilarity;
 
 import static org.junit.Assert.assertEquals;
+
+import info.debatty.java.stringsimilarity.testutil.NullEmptyTests;
 import org.junit.Test;
 
 /**
@@ -39,12 +41,7 @@ public class OptimalStringAlignmentTest {
     public final void testDistance() {
         System.out.println("distance");
         OptimalStringAlignment instance = new OptimalStringAlignment();
-        
-        //zero length
-        assertEquals(6.0, instance.distance("", "ABDCEF"), 0.0);
-        assertEquals(6.0, instance.distance("ABDCEF", ""), 0.0);
-        assertEquals(0.0, instance.distance("", ""), 0.0);
-        
+
         //equality
         assertEquals(0.0, instance.distance("ABDCEF", "ABDCEF"), 0.0);
         
@@ -60,5 +57,6 @@ public class OptimalStringAlignmentTest {
         assertEquals(4.0, instance.distance("abcde", "awxyz"), 0.0);
         assertEquals(5.0, instance.distance("abcde", "vwxyz"), 0.0);
 
+        NullEmptyTests.testDistance(instance);
     }
 }

@@ -24,7 +24,9 @@
 
 package info.debatty.java.stringsimilarity;
 
+import info.debatty.java.stringsimilarity.testutil.NullEmptyTests;
 import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -55,5 +57,12 @@ public class QGramTest {
         assertEquals(0.0,
                 instance.distance("012345", "012345"),
                 0.0);
+
+        // NOTE: not using null/empty tests in NullEmptyTests because QGram is different
+        assertEquals(0.0, instance.distance("", ""), 0.1);
+        assertEquals(2.0, instance.distance("", "foo"), 0.1);
+        assertEquals(2.0, instance.distance("foo", ""), 0.1);
+
+        NullEmptyTests.assertNullPointerExceptions(instance);
     }
 }

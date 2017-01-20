@@ -24,8 +24,6 @@
 
 package info.debatty.java.stringsimilarity.interfaces;
 
-import info.debatty.java.stringsimilarity.interfaces.StringSimilarity;
-
 /**
  *
  * @author tibo

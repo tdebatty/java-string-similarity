@@ -33,11 +33,20 @@ public class Levenshtein implements MetricStringDistance {
      * only 2 rows of data. The space requirement is thus O(m) and the algorithm
      * runs in O(mn).
      *
-     * @param s1
-     * @param s2
-     * @return
+     * @param s1 The first string to compare.
+     * @param s2 The second string to compare.
+     * @return The computed Levenshtein distance.
+     * @throws NullPointerException if s1 or s2 is null.
      */
     public final double distance(final String s1, final String s2) {
+        if (s1 == null) {
+            throw new NullPointerException("s1 must not be null");
+        }
+
+        if (s2 == null) {
+            throw new NullPointerException("s2 must not be null");
+        }
+
         if (s1.equals(s2)) {
             return 0;
         }

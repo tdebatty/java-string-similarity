@@ -24,37 +24,16 @@
 
 package info.debatty.java.stringsimilarity;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import info.debatty.java.stringsimilarity.testutil.NullEmptyTests;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  *
  * @author Thibault Debatty
  */
 public class JaccardTest {
-    
-    public JaccardTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
 
     /**
      * Test of similarity method, of class Jaccard.
@@ -70,6 +49,8 @@ public class JaccardTest {
         // => 3 / 5 = 0.6
         double result = instance.similarity("ABCDE", "ABCDF");
         assertEquals(0.6, result, 0.0);
+
+        NullEmptyTests.testSimilarity(instance);
     }
 
     /**
@@ -84,6 +65,7 @@ public class JaccardTest {
         double expResult = 0.4;
         double result = instance.distance("ABCDE", "ABCDF");
         assertEquals(expResult, result, 0.0);
+
+        NullEmptyTests.testDistance(instance);
     }
-    
 }

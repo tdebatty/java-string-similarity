@@ -13,6 +13,5 @@ public interface StringSimilarity extends Serializable {
      * @param s2
      * @return similarity (0 means both strings are completely different)
      */
-    public double similarity(String s1, String s2);
-    
+    double similarity(String s1, String s2);
 }

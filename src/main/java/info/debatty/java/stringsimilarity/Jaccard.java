@@ -30,6 +30,7 @@ import info.debatty.java.stringsimilarity.interfaces.NormalizedStringDistance;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
 import net.jcip.annotations.Immutable;
 
 /**
@@ -68,12 +69,25 @@ public class Jaccard extends ShingleBased implements
     }
 
     /**
-     * Compute jaccard index: |A inter B| / |A union B|.
-     * @param s1
-     * @param s2
-     * @return
+     * Compute Jaccard index: |A inter B| / |A union B|.
+     * @param s1 The first string to compare.
+     * @param s2 The second string to compare.
+     * @return The Jaccard index in the range [0, 1]
+     * @throws NullPointerException if s1 or s2 is null.
      */
     public final double similarity(final String s1, final String s2) {
+        if (s1 == null) {
+            throw new NullPointerException("s1 must not be null");
+        }
+
+        if (s2 == null) {
+            throw new NullPointerException("s2 must not be null");
+        }
+
+        if (s1.equals(s2)) {
+            return 1;
+        }
+
         Map<String, Integer> profile1 = getProfile(s1);
         Map<String, Integer> profile2 = getProfile(s2);
 
@@ -95,9 +109,10 @@ public class Jaccard extends ShingleBased implements
 
     /**
      * Distance is computed as 1 - similarity.
-     * @param s1
-     * @param s2
-     * @return
+     * @param s1 The first string to compare.
+     * @param s2 The second string to compare.
+     * @return 1 - the Jaccard similarity.
+     * @throws NullPointerException if s1 or s2 is null.
      */
     public final double distance(final String s1, final String s2) {
         return 1.0 - similarity(s1, s2);

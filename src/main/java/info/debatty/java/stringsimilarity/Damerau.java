@@ -25,6 +25,7 @@ package info.debatty.java.stringsimilarity;
 
 import info.debatty.java.stringsimilarity.interfaces.MetricStringDistance;
 import java.util.HashMap;
+
 import net.jcip.annotations.Immutable;
 
 /**
@@ -49,11 +50,24 @@ public class Damerau implements MetricStringDistance {
      * needed to transform one string into the other (insertion, deletion,
      * substitution of a single character, or a transposition of two adjacent
      * characters).
-     * @param s1
-     * @param s2
-     * @return
+     * @param s1 The first string to compare.
+     * @param s2 The second string to compare.
+     * @return The computed distance.
+     * @throws NullPointerException if s1 or s2 is null.
      */
     public final double distance(final String s1, final String s2) {
+
+        if (s1 == null) {
+            throw new NullPointerException("s1 must not be null");
+        }
+
+        if (s2 == null) {
+            throw new NullPointerException("s2 must not be null");
+        }
+
+        if (s1.equals(s2)) {
+            return 0;
+        }
 
         // INFinite distance is the max possible distance
         int inf = s1.length() + s2.length();

@@ -28,6 +28,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+
+import info.debatty.java.stringsimilarity.testutil.NullEmptyTests;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -46,6 +48,8 @@ public class CosineTest {
         Cosine instance = new Cosine();
         double result = instance.similarity("ABC", "ABCE");
         assertEquals(0.71, result, 0.01);
+
+        NullEmptyTests.testSimilarity(instance);
     }
 
     /**
@@ -71,6 +75,14 @@ public class CosineTest {
         double similarity = cos.similarity(string1, string2);
 
         assertEquals(0.8115, similarity, 0.001);
+    }
+
+    @Test
+    public final void testDistance() {
+        Cosine instance = new Cosine();
+        NullEmptyTests.testDistance(instance);
+
+        // TODO: regular (non-null/empty) distance tests
     }
 
     private static String readResourceFile(String file) throws IOException {

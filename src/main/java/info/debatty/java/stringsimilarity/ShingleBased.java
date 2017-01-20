@@ -23,11 +23,12 @@
  */
 package info.debatty.java.stringsimilarity;
 
+import net.jcip.annotations.Immutable;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
-import net.jcip.annotations.Immutable;
 
 /**
  * Abstract class for string similarities that rely on set operations (like
@@ -64,6 +65,7 @@ abstract class ShingleBased {
     /**
      *
      * @param k
+     * @throws IllegalArgumentException if k is <= 0
      */
     ShingleBased(final int k) {
         if (k <= 0) {
@@ -82,7 +84,7 @@ abstract class ShingleBased {
     /**
      * Return k, the length of k-shingles (aka n-grams).
      *
-     * @return
+     * @return The length of k-shingles.
      */
     public int getK() {
         return k;

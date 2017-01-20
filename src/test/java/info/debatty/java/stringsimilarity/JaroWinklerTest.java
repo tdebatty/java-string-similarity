@@ -24,6 +24,7 @@
 
 package info.debatty.java.stringsimilarity;
 
+import info.debatty.java.stringsimilarity.testutil.NullEmptyTests;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -50,5 +51,15 @@ public class JaroWinklerTest {
                 0.896296,
                 instance.similarity("My string", "My ntrisg"),
                 0.000001);
+
+        NullEmptyTests.testSimilarity(instance);
+    }
+
+    @Test
+    public final void testDistance() {
+        JaroWinkler instance = new JaroWinkler();
+        NullEmptyTests.testDistance(instance);
+
+        // TODO: regular (non-null/empty) distance tests
     }
 }

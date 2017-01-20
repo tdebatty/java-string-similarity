@@ -24,6 +24,7 @@
 
 package info.debatty.java.stringsimilarity;
 
+import info.debatty.java.stringsimilarity.testutil.NullEmptyTests;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
@@ -43,5 +44,6 @@ public class DamerauTest {
         assertEquals(1.0, instance.distance("ABCDEF", "ABDCEF"), 0.0);
         assertEquals(2.0, instance.distance("ABCDEF", "BACDFE"), 0.0);
         assertEquals(1.0, instance.distance("ABCDEF", "ABCDE"), 0.0);
+        NullEmptyTests.testDistance(instance);
     }
 }

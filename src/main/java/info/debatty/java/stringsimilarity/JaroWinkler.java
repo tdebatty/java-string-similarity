@@ -3,6 +3,7 @@ package info.debatty.java.stringsimilarity;
 import info.debatty.java.stringsimilarity.interfaces.NormalizedStringSimilarity;
 import info.debatty.java.stringsimilarity.interfaces.NormalizedStringDistance;
 import java.util.Arrays;
+
 import net.jcip.annotations.Immutable;
 
 /**
@@ -54,12 +55,25 @@ public class JaroWinkler
     }
 
     /**
-     * Compute JW similarity.
-     * @param s1
-     * @param s2
-     * @return
+     * Compute Jaro-Winkler similarity.
+     * @param s1 The first string to compare.
+     * @param s2 The second string to compare.
+     * @return The Jaro-Winkler similarity in the range [0, 1]
+     * @throws NullPointerException if s1 or s2 is null.
      */
     public final double similarity(final String s1, final String s2) {
+        if (s1 == null) {
+            throw new NullPointerException("s1 must not be null");
+        }
+
+        if (s2 == null) {
+            throw new NullPointerException("s2 must not be null");
+        }
+
+        if (s1.equals(s2)) {
+            return 1;
+        }
+
         int[] mtp = matches(s1, s2);
         float m = mtp[0];
         if (m == 0) {
@@ -78,9 +92,10 @@ public class JaroWinkler
 
     /**
      * Return 1 - similarity.
-     * @param s1
-     * @param s2
-     * @return
+     * @param s1 The first string to compare.
+     * @param s2 The second string to compare.
+     * @return 1 - similarity.
+     * @throws NullPointerException if s1 or s2 is null.
      */
     public final double distance(final String s1, final String s2) {
         return 1.0 - similarity(s1, s2);

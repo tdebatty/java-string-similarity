@@ -75,6 +75,20 @@ public class QGram extends ShingleBased implements StringDistance {
         Map<String, Integer> profile1 = getProfile(s1);
         Map<String, Integer> profile2 = getProfile(s2);
 
+        return distance(profile1, profile2);
+    }
+
+    /**
+     * Compute QGram distance using precomputed profiles.
+     *
+     * @param profile1
+     * @param profile2
+     * @return
+     */
+    public final double distance(
+            final Map<String, Integer> profile1,
+            final Map<String, Integer> profile2) {
+
         Set<String> union = new HashSet<String>();
         union.addAll(profile1.keySet());
         union.addAll(profile2.keySet());

@@ -1,5 +1,6 @@
-#java-string-similarity
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/info.debatty/java-string-similarity/badge.svg)](https://maven-badges.herokuapp.com/maven-central/info.debatty/java-string-similarity) [![Build Status](https://travis-ci.org/tdebatty/java-string-similarity.svg?branch=master)](https://travis-ci.org/tdebatty/java-string-similarity) [![Coverage Status](https://coveralls.io/repos/tdebatty/java-string-similarity/badge.svg?branch=master&service=github)](https://coveralls.io/github/tdebatty/java-string-similarity?branch=master) [![API Documentation](http://api123.web-d.be/api123-head.svg)](http://api123.web-d.be/api/java-string-similarity/head/index.html)
+# java-string-similarity
+
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/info.debatty/java-string-similarity/badge.svg)](https://maven-badges.herokuapp.com/maven-central/info.debatty/java-string-similarity) [![Build Status](https://travis-ci.org/tdebatty/java-string-similarity.svg?branch=master)](https://travis-ci.org/tdebatty/java-string-similarity) [![Coverage Status](https://coveralls.io/repos/tdebatty/java-string-similarity/badge.svg?branch=master&service=github)](https://coveralls.io/github/tdebatty/java-string-similarity?branch=master) [![API Documentation](http://api123.web-d.be/api123-head.svg)](http://api123.web-d.be/api/java-string-similarity/head/index.html) [![Reference Status](https://www.versioneye.com/java/info.debatty:java-string-similarity/reference_badge.svg?style=flat-square)](https://www.versioneye.com/java/info.debatty:java-string-similarity/references)
 
 A library implementing different string similarity and distance measures. A dozen of algorithms (including Levenshtein edit distance and sibblings, Jaro-Winkler, Longest Common Subsequence, cosine similarity etc.) are currently implemented. Check the summary table below for the complete list...
 
@@ -447,7 +448,7 @@ Distance is computed as 1 - cosine similarity.
 ## Experimental
 
 ### SIFT4
-SIFT4 is a general purpose string distance algorithm inspired by JaroWinkler and Longest Common Subsequence. It was developped to produce a distance measure that matches as close as possible to the human perception of string distance. Hence it takes into account elements like character substitution, character distance, longest common subsequence etc. It was developped using experimental testing, and without theoretical background.
+SIFT4 is a general purpose string distance algorithm inspired by JaroWinkler and Longest Common Subsequence. It was developed to produce a distance measure that matches as close as possible to the human perception of string distance. Hence it takes into account elements like character substitution, character distance, longest common subsequence etc. It was developed using experimental testing, and without theoretical background.
 
 ```
 import info.debatty.java.stringsimilarity.experimental.Sift4;

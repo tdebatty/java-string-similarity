@@ -94,14 +94,6 @@ public class LongestCommonSubsequence implements StringDistance {
 
         int[][] c = new int[m + 1][n + 1];
 
-        for (int i = 0; i <= m; i++) {
-            c[i][0] = 0;
-        }
-
-        for (int j = 0; j <= n; j++) {
-            c[0][j] = 0;
-        }
-
         for (int i = 1; i <= m; i++) {
             for (int j = 1; j <= n; j++) {
                 if (x[i - 1] == y[j - 1]) {

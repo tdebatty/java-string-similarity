@@ -1,0 +1,3 @@
+- plugin: App\Plugins\RunCmd
+  params:
+    - cmd: echo "Hello"

@@ -51,7 +51,7 @@ public final class OptimalStringAlignment implements StringDistance {
      * @return the OSA distance
      * @throws NullPointerException if s1 or s2 is null.
      */
-    public final double distance(final String s1, final String s2) {
+    public double distance(final String s1, final String s2) {
         if (s1 == null) {
             throw new NullPointerException("s1 must not be null");
         }
@@ -92,19 +92,21 @@ public final class OptimalStringAlignment implements StringDistance {
             for (int j = 1; j <= m; j++) {
 
                 //if s1[i - 1] = s2[j - 1] then cost = 0, else cost = 1
-                cost = (s1.charAt(i - 1) == s2.charAt(j - 1)) ? 0 : 1;
+                cost = 1;
+                if (s1.charAt(i - 1) == s2.charAt(j - 1)) {
+                    cost = 0;
+                }
 
                 d[i][j] = min(
                         d[i - 1][j - 1] + cost, // substitution
-                        d[i][j - 1] + 1,        // insertion
-                        d[i - 1][j] + 1         // deletion
+                        d[i][j - 1] + 1, // insertion
+                        d[i - 1][j] + 1 // deletion
                 );
 
                 //transposition check
-                if (i > 1 && j > 1 
-                        && s1.charAt(i - 1) == s2.charAt(j - 2) 
-                        && s1.charAt(i - 2) == s2.charAt(j - 1)
-                    ){
+                if (i > 1 && j > 1
+                        && s1.charAt(i - 1) == s2.charAt(j - 2)
+                        && s1.charAt(i - 2) == s2.charAt(j - 1)) {
                     d[i][j] = Math.min(d[i][j], d[i - 2][j - 2] + cost);
                 }
             }

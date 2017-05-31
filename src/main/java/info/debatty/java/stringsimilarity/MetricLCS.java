@@ -62,12 +62,12 @@ public class MetricLCS
             return 0;
         }
 
-        int mLen = Math.max(s1.length(), s2.length());
-        if (mLen == 0) {
+        int m_len = Math.max(s1.length(), s2.length());
+        if (m_len == 0) {
             return 0;
         }
         return 1.0
             - (1.0 * lcs.length(s1, s2))
-            / mLen;
+            / m_len;
     }
 }

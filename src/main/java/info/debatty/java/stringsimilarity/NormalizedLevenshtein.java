@@ -62,13 +62,13 @@ public class NormalizedLevenshtein implements
             return 0;
         }
 
-        int mLen = Math.max(s1.length(), s2.length());
+        int m_len = Math.max(s1.length(), s2.length());
 
-        if (mLen == 0) {
+        if (m_len == 0) {
             return 0;
         }
 
-        return l.distance(s1, s2) / mLen;
+        return l.distance(s1, s2) / m_len;
     }
 
     /**

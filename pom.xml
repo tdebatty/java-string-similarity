@@ -22,7 +22,7 @@
             <url>http://www.opensource.org/licenses/mit-license.php</url>
         </license>
     </licenses>
-    
+
     <developers>
         <developer>
             <name>Thibault Debatty</name>
@@ -31,7 +31,7 @@
             <organizationUrl>http://debatty.info</organizationUrl>
         </developer>
     </developers>
-    
+
     <scm>
         <connection>scm:git:git@github.com:tdebatty/java-string-similarity.git</connection>
         <developerConnection>scm:git:git@github.com:tdebatty/java-string-similarity.git</developerConnection>
@@ -155,6 +155,29 @@
                         </excludes>
                     </instrumentation>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.16</version>
+                <executions>
+                    <execution>
+                        <id>validate</id>
+                        <phase>verify</phase>
+                        <configuration>
+                            <configLocation>checkstyle.xml</configLocation>
+                            <cacheFile>target/checkstyle_cache</cacheFile>
+                            <encoding>UTF-8</encoding>
+                            <consoleOutput>true</consoleOutput>
+                            <linkXRef>false</linkXRef>
+                            <excludes>**/examples/**</excludes>
+                        </configuration>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

@@ -56,8 +56,7 @@ public class Cosine extends ShingleBased implements
      * Implements Cosine Similarity between strings. The strings are first
      * transformed in vectors of occurrences of k-shingles (sequences of k
      * characters). In this n-dimensional space, the similarity between the two
-     * strings is the cosine of their respective vectors.
-     * Default k is 3.
+     * strings is the cosine of their respective vectors. Default k is 3.
      */
     public Cosine() {
         super();
@@ -65,6 +64,7 @@ public class Cosine extends ShingleBased implements
 
     /**
      * Compute the cosine similarity between strings.
+     *
      * @param s1 The first string to compare.
      * @param s2 The second string to compare.
      * @return The cosine similarity in the range [0, 1]
@@ -93,8 +93,6 @@ public class Cosine extends ShingleBased implements
         return dotProduct(profile1, profile2)
                 / (norm(profile1) * norm(profile2));
     }
-
-
 
     /**
      * Compute the norm L2 : sqrt(Sum_i( v_i²)).
@@ -126,8 +124,8 @@ public class Cosine extends ShingleBased implements
 
         double agg = 0;
         for (Map.Entry<String, Integer> entry : small_profile.entrySet()) {
-        	Integer i=large_profile.get(entry.getKey());
-            if (i==null) {
+            Integer i = large_profile.get(entry.getKey());
+            if (i == null) {
                 continue;
             }
             agg += 1.0 * entry.getValue() * i;
@@ -138,6 +136,7 @@ public class Cosine extends ShingleBased implements
 
     /**
      * Return 1.0 - similarity.
+     *
      * @param s1 The first string to compare.
      * @param s2 The second string to compare.
      * @return 1.0 - the cosine similarity in the range [0, 1]
@@ -147,7 +146,13 @@ public class Cosine extends ShingleBased implements
         return 1.0 - similarity(s1, s2);
     }
 
-    public double similarity(
+    /**
+     * {@inheritDoc}
+     * @param profile1
+     * @param profile2
+     * @return
+     */
+    public final double similarity(
             final Map<String, Integer> profile1,
             final Map<String, Integer> profile2) {
 

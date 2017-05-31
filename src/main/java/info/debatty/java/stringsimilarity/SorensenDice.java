@@ -63,8 +63,7 @@ public class SorensenDice extends ShingleBased implements
      * The strings are first converted to boolean sets of k-shingles (sequences
      * of k characters), then the similarity is computed as 2 * |A inter B| /
      * (|A| + |B|). Attention: Sorensen-Dice distance (and similarity) does not
-     * satisfy triangle inequality.
-     * Default k is 3.
+     * satisfy triangle inequality. Default k is 3.
      */
     public SorensenDice() {
         super();
@@ -72,6 +71,7 @@ public class SorensenDice extends ShingleBased implements
 
     /**
      * Similarity is computed as 2 * |A inter B| / (|A| + |B|).
+     *
      * @param s1 The first string to compare.
      * @param s2 The second string to compare.
      * @return The computed Sorensen-Dice similarity.
@@ -108,15 +108,15 @@ public class SorensenDice extends ShingleBased implements
         return 2.0 * inter / (profile1.size() + profile2.size());
     }
 
-
     /**
      * Returns 1 - similarity.
+     *
      * @param s1 The first string to compare.
      * @param s2 The second string to compare.
      * @return 1.0 - the computed similarity
      * @throws NullPointerException if s1 or s2 is null.
      */
-    public double distance(String s1, String s2) {
+    public final double distance(final String s1, final String s2) {
         return 1 - similarity(s1, s2);
     }
 }

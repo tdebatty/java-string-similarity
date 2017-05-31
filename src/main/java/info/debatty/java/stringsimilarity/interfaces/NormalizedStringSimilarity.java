@@ -21,7 +21,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package info.debatty.java.stringsimilarity.interfaces;
 
 /**
@@ -29,5 +28,5 @@ package info.debatty.java.stringsimilarity.interfaces;
  * @author tibo
  */
 public interface NormalizedStringSimilarity extends StringSimilarity {
-    
+
 }

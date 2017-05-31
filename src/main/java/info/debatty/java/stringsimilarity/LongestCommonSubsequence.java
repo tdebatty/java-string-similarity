@@ -87,15 +87,15 @@ public class LongestCommonSubsequence implements StringDistance {
          C[i,j] := max(C[i,j-1], C[i-1,j])
          return C[m,n]
          */
-        int m = s1.length();
-        int n = s2.length();
+        int s1_length = s1.length();
+        int s2_length = s2.length();
         char[] x = s1.toCharArray();
         char[] y = s2.toCharArray();
 
-        int[][] c = new int[m + 1][n + 1];
+        int[][] c = new int[s1_length + 1][s2_length + 1];
 
-        for (int i = 1; i <= m; i++) {
-            for (int j = 1; j <= n; j++) {
+        for (int i = 1; i <= s1_length; i++) {
+            for (int j = 1; j <= s2_length; j++) {
                 if (x[i - 1] == y[j - 1]) {
                     c[i][j] = c[i - 1][j - 1] + 1;
 
@@ -105,6 +105,6 @@ public class LongestCommonSubsequence implements StringDistance {
             }
         }
 
-        return c[m][n];
+        return c[s1_length][s2_length];
     }
 }

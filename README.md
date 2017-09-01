@@ -89,7 +89,7 @@ A lot of nearest-neighbor search algorithms and indexing structures rely on the 
 ## Shingles (n-gram) based similarity and distance
 A few algorithms work by converting strings into sets of n-grams (sequences of n characters, also sometimes called k-shingles). The similarity or distance between the strings is then the similarity or distance between the sets.
 
-Some ot them, like jaccard, consider strings as sets of shingles, and don't consider the number of occurences of each shingle. Others, like cosine similarity, work using what is sometimes called the profile of the strings, which takes into account the number of occurences of each shingle.
+Some of them, like jaccard, consider strings as sets of shingles, and don't consider the number of occurences of each shingle. Others, like cosine similarity, work using what is sometimes called the profile of the strings, which takes into account the number of occurences of each shingle.
 
 For these algorithms, another use case is possible when dealing with large datasets:
 1. compute the set or profile representation of all the strings

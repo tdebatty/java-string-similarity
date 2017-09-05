@@ -1,6 +1,6 @@
 # java-string-similarity
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/info.debatty/java-string-similarity/badge.svg)](https://maven-badges.herokuapp.com/maven-central/info.debatty/java-string-similarity) [![Build Status](https://travis-ci.org/tdebatty/java-string-similarity.svg?branch=master)](https://travis-ci.org/tdebatty/java-string-similarity) [![Coverage Status](https://coveralls.io/repos/tdebatty/java-string-similarity/badge.svg?branch=master&service=github)](https://coveralls.io/github/tdebatty/java-string-similarity?branch=master) [![API Documentation](http://api123.web-d.be/api123-head.svg)](http://api123.web-d.be/api/java-string-similarity/head/index.html) [![Reference Status](https://www.versioneye.com/java/info.debatty:java-string-similarity/reference_badge.svg?style=flat-square)](https://www.versioneye.com/java/info.debatty:java-string-similarity/references)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/info.debatty/java-string-similarity/badge.svg)](https://maven-badges.herokuapp.com/maven-central/info.debatty/java-string-similarity) [![Build Status](https://travis-ci.org/tdebatty/java-string-similarity.svg?branch=master)](https://travis-ci.org/tdebatty/java-string-similarity) [![Coverage Status](https://coveralls.io/repos/tdebatty/java-string-similarity/badge.svg?branch=master&service=github)](https://coveralls.io/github/tdebatty/java-string-similarity?branch=master) [![Javadocs](http://www.javadoc.io/badge/info.debatty/java-string-similarity.svg)](http://www.javadoc.io/doc/info.debatty/java-string-similarity) [![Reference Status](https://www.versioneye.com/java/info.debatty:java-string-similarity/reference_badge.svg?style=flat-square)](https://www.versioneye.com/java/info.debatty:java-string-similarity/references)
 
 A library implementing different string similarity and distance measures. A dozen of algorithms (including Levenshtein edit distance and sibblings, Jaro-Winkler, Longest Common Subsequence, cosine similarity etc.) are currently implemented. Check the summary table below for the complete list...
 
@@ -84,7 +84,7 @@ The MetricStringDistance interface : A few of the distances are actually metric 
 
 A lot of nearest-neighbor search algorithms and indexing structures rely on the triangle inequality. You can check "Similarity Search, The Metric Space Approach" by Zezula et al. for a survey. These cannot be used with non metric similarity measures.
 
-[Read Javadoc for a detailed description](http://api123.web-d.be/api/java-string-similarity/head/index.html)
+[Read Javadoc for a detailed description](http://www.javadoc.io/doc/info.debatty/java-string-similarity)
 
 ## Shingles (n-gram) based similarity and distance
 A few algorithms work by converting strings into sets of n-grams (sequences of n characters, also sometimes called k-shingles). The similarity or distance between the strings is then the similarity or distance between the sets.

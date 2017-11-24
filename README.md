@@ -437,13 +437,13 @@ Distance is computed as 1 - cosine similarity.
 ### Jaccard index
 Like Q-Gram distance, the input strings are first converted into sets of n-grams (sequences of n characters, also called k-shingles), but this time the cardinality of each n-gram is not taken into account. Each input string is simply a set of n-grams. The Jaccard index is then computed as |V1 inter V2| / |V1 union V2|.
 
-Distance is computed as 1 - cosine similarity.
+Distance is computed as 1 - similarity.
 Jaccard index is a metric distance.
 
 ### Sorensen-Dice coefficient
 Similar to Jaccard index, but this time the similarity is computed as 2 * |V1 inter V2| / (|V1| + |V2|).
 
-Distance is computed as 1 - cosine similarity.
+Distance is computed as 1 - similarity.
 
 ## Experimental
 

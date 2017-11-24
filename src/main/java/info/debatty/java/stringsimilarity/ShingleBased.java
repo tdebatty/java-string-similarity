@@ -51,7 +51,7 @@ import java.util.regex.Pattern;
  * @author Thibault Debatty
  */
 @Immutable
-abstract class ShingleBased {
+public abstract class ShingleBased {
 
     private static final int DEFAULT_K = 3;
 
@@ -67,7 +67,7 @@ abstract class ShingleBased {
      * @param k
      * @throws IllegalArgumentException if k is <= 0
      */
-    ShingleBased(final int k) {
+    public ShingleBased(final int k) {
         if (k <= 0) {
             throw new IllegalArgumentException("k should be positive!");
         }
@@ -86,7 +86,7 @@ abstract class ShingleBased {
      *
      * @return The length of k-shingles.
      */
-    public int getK() {
+    public final int getK() {
         return k;
     }
 
@@ -117,5 +117,4 @@ abstract class ShingleBased {
 
         return Collections.unmodifiableMap(shingles);
     }
-
 }

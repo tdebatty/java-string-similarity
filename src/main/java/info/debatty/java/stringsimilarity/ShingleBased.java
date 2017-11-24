@@ -51,7 +51,7 @@ import java.util.regex.Pattern;
  * @author Thibault Debatty
  */
 @Immutable
-abstract class ShingleBased {
+public abstract class ShingleBased {
 
     private static final int DEFAULT_K = 3;
 

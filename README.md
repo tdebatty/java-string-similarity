@@ -388,34 +388,32 @@ public class MyApp {
 }
 ```
 
-Or, for large datasets, pre-compute the profile or set representation of all strings. The similarity can then be computed between profiles or sets:
+Or, for large datasets, pre-compute the profile of all strings. The similarity can then be computed between profiles:
 
 ```java
 import info.debatty.java.stringsimilarity.KShingling;
 import info.debatty.java.stringsimilarity.StringProfile;
 
 
+/**
+ * Example of computing cosine similarity with pre-computed profiles.
+ */
 public class PrecomputedCosine {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) throws Exception {
         String s1 = "My first string";
         String s2 = "My other string...";
-        
+
         // Let's work with sequences of 2 characters...
-        KShingling ks = new KShingling(2);
-        
-        // For cosine similarity I need the profile of strings
-        StringProfile profile1 = ks.getProfile(s1);
-        StringProfile profile2 = ks.getProfile(s2);
-        
+        Cosine cosine = new Cosine(2);
+
+        // Pre-compute the profile of strings
+        Map<String, Integer> profile1 = cosine.getProfile(s1);
+        Map<String, Integer> profile2 = cosine.getProfile(s2);
+
         // Prints 0.516185
-        System.out.println(profile1.cosineSimilarity(profile2));
-        
+        System.out.println(cosine.similarity(profile1, profile2));
     }
-    
 }
 ```
 

@@ -43,21 +43,21 @@ Or check the [releases](https://github.com/tdebatty/java-string-similarity/relea
 
 The main characteristics of each implemented algorithm are presented below. The "cost" column gives an estimation of the computational cost to compute the similarity between two strings of length m and n respectively.
 
-|  									|  						| Normalized? 	| Metric?	| Type    | Cost |
-|--------							|-------				|-------------	|----------	| ------  | ---- |
-| [Levenshtein](#levenshtein)		|distance 				| No 			| Yes 		|         | O(m*n) <sup>1</sup> |
-| [Normalized Levenshtein](#normalized-levenshtein)	|distance<br>similarity	| Yes 			| No 		| 	      | O(m*n) <sup>1</sup> |
-| [Weighted Levenshtein](#weighted-levenshtein)		|distance 				| No 			| No 		| 	      | O(m*n) <sup>1</sup> |
-| [Damerau-Levenshtein](#damerau-levenshtein) <sup>3</sup> 	|distance 				| No 			| Yes 		| 	      | O(m*n) <sup>1</sup> |
-| [Optimal String Alignment](#optimal-string-alignment) <sup>3</sup> |distance | No 			| No 		| 	      | O(m*n) <sup>1</sup> |
-| [Jaro-Winkler](#jaro-winkler) 		|similarity<br>distance	| Yes  			| No 		| 	      | O(m*n) |
-| [Longest Common Subsequence](#longest-common-subsequence) 		|distance 				| No 			| No 		| 	      | O(m*n) <sup>1,2</sup> |
-| [Metric Longest Common Subsequence](#metric-longest-common-subsequence) |distance   			| Yes 			| Yes  		| 	      | O(m*n) <sup>1,2</sup> |
-| [N-Gram](#n-gram)	 				|distance				| Yes  			| No 		| 	      | O(m*n) |
-| [Q-Gram](#q-gram) 				|distance  			 	| No  			| No 		| Profile | O(m+n) |
-| [Cosine similarity](#cosine-similarity) 				|similarity<br>distance | Yes  			| No  		| Profile | O(m+n) |
-| [Jaccard index](#jaccard-index)				|similarity<br>distance | Yes  			| Yes  		| Set	  | O(m+n) |
-| [Sorensen-Dice coefficient](#sorensen-dice-coefficient) 	|similarity<br>distance | Yes 			| No 		| Set	  | O(m+n) |
+|  									|  						| Normalized? 	| Metric?	| Type    | Cost | Typical usage |
+| --------					|-------			|-------------	|-------- | ------  | ---- | ---   |
+| [Levenshtein](#levenshtein)		|distance 				| No 			| Yes 		|         | O(m*n) <sup>1</sup> |  |
+| [Normalized Levenshtein](#normalized-levenshtein)	|distance<br>similarity	| Yes 			| No 		| 	      | O(m*n) <sup>1</sup> |  |
+| [Weighted Levenshtein](#weighted-levenshtein)		|distance 				| No 			| No 		| 	      | O(m*n) <sup>1</sup> | OCR |
+| [Damerau-Levenshtein](#damerau-levenshtein) <sup>3</sup> 	|distance 				| No 			| Yes 		| 	      | O(m*n) <sup>1</sup> |  |
+| [Optimal String Alignment](#optimal-string-alignment) <sup>3</sup> |distance | No 			| No 		| 	      | O(m*n) <sup>1</sup> |  |
+| [Jaro-Winkler](#jaro-winkler) 		|similarity<br>distance	| Yes  			| No 		| 	      | O(m*n) | typo correction |
+| [Longest Common Subsequence](#longest-common-subsequence) 		|distance 				| No 			| No 		| 	      | O(m*n) <sup>1,2</sup> | diff utility, GIT reconciliation |
+| [Metric Longest Common Subsequence](#metric-longest-common-subsequence) |distance   			| Yes 			| Yes  		| 	      | O(m*n) <sup>1,2</sup> |  |
+| [N-Gram](#n-gram)	 				|distance				| Yes  			| No 		| 	      | O(m*n) |  |
+| [Q-Gram](#q-gram) 				|distance  			 	| No  			| No 		| Profile | O(m+n) |  |
+| [Cosine similarity](#cosine-similarity) 				|similarity<br>distance | Yes  			| No  		| Profile | O(m+n) |  |
+| [Jaccard index](#jaccard-index)				|similarity<br>distance | Yes  			| Yes  		| Set	  | O(m+n) |  |
+| [Sorensen-Dice coefficient](#sorensen-dice-coefficient) 	|similarity<br>distance | Yes 			| No 		| Set	  | O(m+n) |  |
 
 [1] In this library, Levenshtein edit distance, LCS distance and their sibblings are computed using the **dynamic programming** method, which has a cost O(m.n). For Levenshtein distance, the algorithm is sometimes called **Wagner-Fischer algorithm** ("The string-to-string correction problem", 1974). The original algorithm uses a matrix of size m x n to store the Levenshtein distance between string prefixes.
 

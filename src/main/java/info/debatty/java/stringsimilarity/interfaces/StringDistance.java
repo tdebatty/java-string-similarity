@@ -33,7 +33,7 @@ public interface StringDistance extends Serializable {
 
     /**
      * Compute and return a measure of distance.
-     * Must be >= 0.
+     * Must be &gt;= 0.
      * @param s1
      * @param s2
      * @return

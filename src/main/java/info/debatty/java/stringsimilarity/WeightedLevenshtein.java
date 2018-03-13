@@ -36,13 +36,27 @@ import net.jcip.annotations.Immutable;
 public class WeightedLevenshtein implements StringDistance {
 
     private final CharacterSubstitutionInterface charsub;
+    private final CharacterInsDelInterface charchange;
 
     /**
-     * Instatiate with provided character substitution.
+     * Instantiate with provided character substitution.
      * @param charsub The strategy to determine character substitution weights.
      */
     public WeightedLevenshtein(final CharacterSubstitutionInterface charsub) {
+        this(charsub, null);
+    }
+
+    /**
+     * Instantiate with provided character substitution, insertion, and
+     * deletion weights.
+     * @param charsub The strategy to determine character substitution weights.
+     * @param charchange The strategy to determine character insertion /
+     *                   deletion weights.
+     */
+    public WeightedLevenshtein(final CharacterSubstitutionInterface charsub,
+                               final CharacterInsDelInterface charchange) {
         this.charsub = charsub;
+        this.charchange = charchange;
     }
 
     /**
@@ -79,28 +93,35 @@ public class WeightedLevenshtein implements StringDistance {
         double[] vtemp;
 
         // initialize v0 (the previous row of distances)
-        // this row is A[0][i]: edit distance for an empty s
-        // the distance is just the number of characters to delete from t
-        for (int i = 0; i < v0.length; i++) {
-            v0[i] = i;
+        // this row is A[0][i]: edit distance for an empty s1
+        // the distance is the cost of inserting each character of s2
+        v0[0] = 0;
+        for (int i = 1; i < v0.length; i++) {
+            v0[i] = v0[i - 1] + insertionCost(s2.charAt(i - 1));
         }
 
         for (int i = 0; i < s1.length(); i++) {
+            char s1i = s1.charAt(i);
+            double deletion_cost = deletionCost(s1i);
+
             // calculate v1 (current row distances) from the previous row v0
             // first element of v1 is A[i+1][0]
-            //   edit distance is delete (i+1) chars from s to match empty t
-            v1[0] = i + 1;
+            // Edit distance is the cost of deleting characters from s1
+            // to match empty t.
+            v1[0] = v0[0] + deletion_cost;
 
             // use formula to fill in the rest of the row
             for (int j = 0; j < s2.length(); j++) {
+                char s2j = s2.charAt(j);
                 double cost = 0;
-                if (s1.charAt(i) != s2.charAt(j)) {
-                    cost = charsub.cost(s1.charAt(i), s2.charAt(j));
+                if (s1i != s2j) {
+                    cost = charsub.cost(s1i, s2j);
                 }
+                double insertion_cost = insertionCost(s2j);
                 v1[j + 1] = Math.min(
-                        v1[j] + 1, // Cost of insertion
+                        v1[j] + insertion_cost, // Cost of insertion
                         Math.min(
-                                v0[j + 1] + 1, // Cost of remove
+                                v0[j + 1] + deletion_cost, // Cost of deletion
                                 v0[j] + cost)); // Cost of substitution
             }
 
@@ -114,5 +135,22 @@ public class WeightedLevenshtein implements StringDistance {
         }
 
         return v0[s2.length()];
+    }
+
+
+    private double insertionCost(final char c) {
+        if (charchange == null) {
+            return 1.0;
+        } else {
+            return charchange.insertionCost(c);
+        }
+    }
+
+    private double deletionCost(final char c) {
+        if (charchange == null) {
+            return 1.0;
+        } else {
+            return charchange.deletionCost(c);
+        }
     }
 }

@@ -39,7 +39,7 @@ import java.util.regex.Pattern;
  * strings or documents.
  *
  * Generally speaking, a k-gram is any sequence of k tokens. We use here the
- * definition from Leskovec, Rajaraman & Ullman (2014), "Mining of Massive
+ * definition from Leskovec, Rajaraman &amp; Ullman (2014), "Mining of Massive
  * Datasets", Cambridge University Press: Multiple subsequent spaces are
  * replaced by a single space, and a k-gram is a sequence of k characters.
  *
@@ -65,7 +65,7 @@ public abstract class ShingleBased {
     /**
      *
      * @param k
-     * @throws IllegalArgumentException if k is <= 0
+     * @throws IllegalArgumentException if k is &lt;= 0
      */
     public ShingleBased(final int k) {
         if (k <= 0) {

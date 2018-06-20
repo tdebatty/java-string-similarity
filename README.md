@@ -469,5 +469,6 @@ public class MyApp {
 
 ## Users
 * [StringSimilarity.NET](https://github.com/feature23/StringSimilarity.NET) a .NET port of java-string-similarity
+* [OrientDB string-metrics](https://github.com/orientechnologies/extra-functions/tree/master/string-metrics) wraps java-string-similarity to provide different string similarity and distance measures as SQL functions in [OrientDB](https://github.com/orientechnologies/orientdb)
 
 Use java-string-similarity in your project and want it to be mentioned here? Don't hesitate to drop me a line!

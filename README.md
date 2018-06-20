@@ -472,3 +472,7 @@ public class MyApp {
 * [OrientDB string-metrics](https://github.com/orientechnologies/extra-functions/tree/master/string-metrics) wraps java-string-similarity to provide different string similarity and distance measures as SQL functions in [OrientDB](https://github.com/orientechnologies/orientdb)
 
 Use java-string-similarity in your project and want it to be mentioned here? Don't hesitate to drop me a line!
+
+## Security & stability
+[![security status](https://www.meterian.io/badge/gh/tdebatty/java-string-similarity/security)](https://www.meterian.io/report/gh/tdebatty/java-string-similarity)
+[![stability status](https://www.meterian.io/badge/gh/tdebatty/java-string-similarity/stability)](https://www.meterian.io/report/gh/tdebatty/java-string-similarity)

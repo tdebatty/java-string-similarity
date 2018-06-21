@@ -31,6 +31,15 @@ public class WeightedLevenshteinTest {
         assertEquals(1.0, instance.distance("Strng", "String"), 0.1);
         assertEquals(1.0, instance.distance("String", "Strng"), 0.1);
 
+        // With limits.
+        assertEquals(0.0, instance.distance("String1", "String1", Double.MAX_VALUE), 0.1);
+        assertEquals(0.0, instance.distance("String1", "String1", 2.0), 0.1);
+        assertEquals(1.5, instance.distance("String1", "Srring2", Double.MAX_VALUE), 0.1);
+        assertEquals(1.5, instance.distance("String1", "Srring2", 2.0), 0.1);
+        assertEquals(1.5, instance.distance("String1", "Srring2", 1.5), 0.1);
+        assertEquals(1.0, instance.distance("String1", "Srring2", 1.0), 0.1);
+        assertEquals(4.0, instance.distance("String1", "Potato", 4.0), 0.1);
+
         NullEmptyTests.testDistance(instance);
     }
 
@@ -74,6 +83,16 @@ public class WeightedLevenshteinTest {
         assertEquals(0.8, instance.distance("String", "Strng"), 0.1);
         assertEquals(1.0, instance.distance("Strig", "String"), 0.1);
         assertEquals(1.0, instance.distance("String", "Strig"), 0.1);
+
+        // Same as above with limits.
+        assertEquals(0.0, instance.distance("String1", "String1", Double.MAX_VALUE), 0.1);
+        assertEquals(0.0, instance.distance("String1", "String1", 2.0), 0.1);
+        assertEquals(0.5, instance.distance("String1", "Srring1", Double.MAX_VALUE), 0.1);
+        assertEquals(0.5, instance.distance("String1", "Srring1", 2.0), 0.1);
+        assertEquals(1.5, instance.distance("String1", "Srring2", 2.0), 0.1);
+        assertEquals(1.5, instance.distance("String1", "Srring2", 1.5), 0.1);
+        assertEquals(1.0, instance.distance("String1", "Srring2", 1.0), 0.1);
+        assertEquals(4.0, instance.distance("String1", "Potato", 4.0), 0.1);
 
         NullEmptyTests.testDistance(instance);
     }

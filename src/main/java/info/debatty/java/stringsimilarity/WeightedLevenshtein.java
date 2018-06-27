@@ -60,13 +60,26 @@ public class WeightedLevenshtein implements StringDistance {
     }
 
     /**
+     * Equivalent to distance(s1, s2, Double.MAX_VALUE).
+     */
+    public final double distance(final String s1, final String s2) {
+        return distance(s1, s2, Double.MAX_VALUE);
+    }
+
+    /**
      * Compute Levenshtein distance using provided weights for substitution.
      * @param s1 The first string to compare.
      * @param s2 The second string to compare.
+     * @param limit The maximum result to compute before stopping. This
+     *              means that the calculation can terminate early if you
+     *              only care about strings with a certain similarity.
+     *              Set this to Double.MAX_VALUE if you want to run the
+     *              calculation to completion in every case.
      * @return The computed weighted Levenshtein distance.
      * @throws NullPointerException if s1 or s2 is null.
      */
-    public final double distance(final String s1, final String s2) {
+    public final double distance(final String s1, final String s2,
+                                 final double limit) {
         if (s1 == null) {
             throw new NullPointerException("s1 must not be null");
         }
@@ -87,7 +100,7 @@ public class WeightedLevenshtein implements StringDistance {
             return s1.length();
         }
 
-        // create two work vectors of integer distances
+        // create two work vectors of floating point (i.e. weighted) distances
         double[] v0 = new double[s2.length() + 1];
         double[] v1 = new double[s2.length() + 1];
         double[] vtemp;
@@ -110,6 +123,8 @@ public class WeightedLevenshtein implements StringDistance {
             // to match empty t.
             v1[0] = v0[0] + deletion_cost;
 
+            double minv1 = v1[0];
+
             // use formula to fill in the rest of the row
             for (int j = 0; j < s2.length(); j++) {
                 char s2j = s2.charAt(j);
@@ -123,6 +138,12 @@ public class WeightedLevenshtein implements StringDistance {
                         Math.min(
                                 v0[j + 1] + deletion_cost, // Cost of deletion
                                 v0[j] + cost)); // Cost of substitution
+
+                minv1 = Math.min(minv1, v1[j + 1]);
+            }
+
+            if (minv1 >= limit) {
+                return limit;
             }
 
             // copy v1 (current row) to v0 (previous row) for next iteration

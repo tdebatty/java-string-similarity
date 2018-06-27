@@ -45,6 +45,11 @@ public class LevenshteinTest {
         assertEquals(2.0, instance.distance("My string", "M string2"), 0.0);
         assertEquals(1.0, instance.distance("My string", "My $tring"), 0.0);
 
+        // With limits.
+        assertEquals(2.0, instance.distance("My string", "M string2", 4), 0.0);
+        assertEquals(2.0, instance.distance("My string", "M string2", 2), 0.0);
+        assertEquals(1.0, instance.distance("My string", "M string2", 1), 0.0);
+
         NullEmptyTests.testDistance(instance);
     }
 }

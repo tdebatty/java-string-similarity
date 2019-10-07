@@ -350,7 +350,7 @@ public class MyApp {
 
     public static void main(String[] args) {
         
-        // produces 0.416666
+        // produces 0.583333
         NGram twogram = new NGram(2);
         System.out.println(twogram.distance("ABCD", "ABTUIO"));
         

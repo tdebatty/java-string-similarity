@@ -30,8 +30,8 @@ import java.util.LinkedList;
  * Sift4 - a general purpose string distance algorithm inspired by JaroWinkler
  * and Longest Common Subsequence.
  * Original JavaScript algorithm by siderite, java port by Nathan Fischer 2016.
- * https://siderite.blogspot.com/2014/11/super-fast-and-accurate-string-
- * distance.html
+ * https://siderite.dev/blog/super-fast-and-accurate-string-distance.html
+ * https://blackdoor.github.io/blog/sift4-java/
  *
  * @author Thibault Debatty
  */
@@ -55,8 +55,8 @@ public class Sift4 implements StringDistance {
      * JaroWinkler and Longest Common Subsequence.
      * Original JavaScript algorithm by siderite, java port by Nathan Fischer
      * 2016.
-     * https://siderite.blogspot.com/2014/11/super-fast-and-accurate-string-
-     * distance.html
+     * https://siderite.dev/blog/super-fast-and-accurate-string-distance.html
+     * https://blackdoor.github.io/blog/sift4-java/
      *
      * @param s1
      * @param s2

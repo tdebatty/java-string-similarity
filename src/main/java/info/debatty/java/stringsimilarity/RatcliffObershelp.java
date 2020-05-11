@@ -25,7 +25,9 @@ package info.debatty.java.stringsimilarity;
 
 import info.debatty.java.stringsimilarity.interfaces.NormalizedStringSimilarity;
 import info.debatty.java.stringsimilarity.interfaces.NormalizedStringDistance;
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import net.jcip.annotations.Immutable;
 
@@ -36,7 +38,8 @@ import net.jcip.annotations.Immutable;
  * characters in the two strings. Matching characters are those in the longest
  * common subsequence plus, recursively, matching characters in the unmatched
  * region on either side of the longest common subsequence.
- * The Ratcliff/Obershelp distance is computed as 1 - Ratcliff/Obershelp similarity.
+ * The Ratcliff/Obershelp distance is computed as 1 - Ratcliff/Obershelp
+ * similarity.
  *
  * @author Ligi https://github.com/dxpux (as a patch for fuzzystring)
  * Ported to java from .net by denmase
@@ -53,32 +56,29 @@ public class RatcliffObershelp implements
      * @return The RatcliffObershelp similarity in the range [0, 1]
      * @throws NullPointerException if s1 or s2 is null.
      */
-    public final double similarity(String source, String target) {
-        if (source == null) {
-            throw new NullPointerException("source must not be null");
+    public final double similarity(final String s1, final String s2) {
+        if (s1 == null) {
+            throw new NullPointerException("s1 must not be null");
         }
 
-        if (target == null) {
-            throw new NullPointerException("target must not be null");
+        if (s2 == null) {
+            throw new NullPointerException("s2 must not be null");
         }
 
-        if (source.equals(target)) {
-            return 1;
+        if (s1.equals(s2)) {
+            return 1.0d;
         }
 
-        List<String> matches; // = new ArrayList<>();
-        matches = getMatchQueue(source, target);
-        int sumOfMatches = 0;
-        Iterator it;
-        it = matches.iterator();
+        List<String> matches = getMatchList(s1, s2);
+        int sumofmatches = 0;
+        Iterator it = matches.iterator();
 
-        // Display element by element using Iterator 
         while (it.hasNext()) {
             String element = it.next().toString();
-            //System.out.println(element);
-            sumOfMatches += element.length();
+            sumofmatches += element.length();
         }
-        return 2.0d * sumOfMatches / (source.length() + target.length());
+
+        return 2.0d * sumofmatches / (s1.length() + s2.length());
     }
 
     /**
@@ -90,41 +90,44 @@ public class RatcliffObershelp implements
      * @throws NullPointerException if s1 or s2 is null.
      */
     public final double distance(final String s1, final String s2) {
-        return 1.0 - similarity(s1, s2);
+        return 1.0d - similarity(s1, s2);
     }
 
-    private static List<String> getMatchQueue(String source, String target) {
+    private static List<String> getMatchList(final String s1, final String s2) {
         List<String> list = new ArrayList<>();
-        String match = frontMaxMatch(source, target);
-        if (match.length() > 0) {
-            String frontSource = source.substring(0, source.indexOf(match));
-            String frontTarget = target.substring(0, target.indexOf(match));
-            List<String> frontQueue = getMatchQueue(frontSource, frontTarget);
+        String match = frontMaxMatch(s1, s2);
 
-            String endSource = source.substring(source.indexOf(match) + match.length());
-            String endTarget = target.substring(target.indexOf(match) + match.length());
-            List<String> endQueue = getMatchQueue(endSource, endTarget);
+        if (match.length() > 0) {
+            String frontsource = s1.substring(0, s1.indexOf(match));
+            String fronttarget = s2.substring(0, s2.indexOf(match));
+            List<String> frontqueue = getMatchList(frontsource, fronttarget);
+
+            String endsource = s1.substring(s1.indexOf(match) + match.length());
+            String endtarget = s2.substring(s2.indexOf(match) + match.length());
+            List<String> endqueue = getMatchList(endsource, endtarget);
 
             list.add(match);
-            list.addAll(frontQueue);
-            list.addAll(endQueue);
+            list.addAll(frontqueue);
+            list.addAll(endqueue);
         }
+
         return list;
     }
 
-    private static String frontMaxMatch(String firstString, String secondString) {
+    private static String frontMaxMatch(final String s1, final String s2) {
         int longest = 0;
-        String longestSubstring = "";
+        String longestsubstring = "";
 
-        for (int i = 0; i < firstString.length(); ++i) {
-            for (int j = i + 1; j <= firstString.length(); ++j) {
-                String substring = firstString.substring(i, j);
-                if (secondString.contains(substring) && substring.length() > longest) {
+        for (int i = 0; i < s1.length(); ++i) {
+            for (int j = i + 1; j <= s1.length(); ++j) {
+                String substring = s1.substring(i, j);
+                if (s2.contains(substring) && substring.length() > longest) {
                     longest = substring.length();
-                    longestSubstring = substring;
+                    longestsubstring = substring;
                 }
             }
         }
-        return longestSubstring;
+
+        return longestsubstring;
     }
 }

@@ -22,9 +22,9 @@ A library implementing different string similarity and distance measures. A doze
   * [Cosine similarity](#shingle-n-gram-based-algorithms)
   * [Jaccard index](#shingle-n-gram-based-algorithms)
   * [Sorensen-Dice coefficient](#shingle-n-gram-based-algorithms)
+* [Ratcliff-Obershelp](#ratcliff-obershelp)
 * [Experimental](#experimental)
   * [SIFT4](#sift4)
-* [Ratcliff-Obershelp](#ratcliff-obershelp)
 * [Users](#users)
 
 
@@ -445,29 +445,8 @@ Similar to Jaccard index, but this time the similarity is computed as 2 * |V1 in
 
 Distance is computed as 1 - similarity.
 
-## Experimental
-
-### SIFT4
-SIFT4 is a general purpose string distance algorithm inspired by JaroWinkler and Longest Common Subsequence. It was developed to produce a distance measure that matches as close as possible to the human perception of string distance. Hence it takes into account elements like character substitution, character distance, longest common subsequence etc. It was developed using experimental testing, and without theoretical background.
-
-```
-import info.debatty.java.stringsimilarity.experimental.Sift4;
-
-public class MyApp {
-
-    public static void main(String[] args) {
-        String s1 = "This is the first string";
-        String s2 = "And this is another string";
-        Sift4 sift4 = new Sift4();
-        sift4.setMaxOffset(5);
-        double expResult =  11.0;
-        double result = sift4.distance(s1, s2);
-        assertEquals(expResult, result, 0.0);
-    }
-}
-```
 ## Ratcliff-Obershelp
-Gestalt Pattern Matching, also Ratcliff/Obershelp Pattern Recognition, is a string-matching algorithm for determining the similarity of two strings. It was developed in 1983 by John W. Ratcliff and John A. Obershelp and published in the Dr. Dobb's Journal in July 1988
+Ratcliff/Obershelp Pattern Recognition, also known as Gestalt Pattern Matching, is a string-matching algorithm for determining the similarity of two strings. It was developed in 1983 by John W. Ratcliff and John A. Obershelp and published in the Dr. Dobb's Journal in July 1988
 
 Ratcliff/Obershelp computes the similarity between 2 strings, and the returned value lies in the interval [0.0, 1.0].
 
@@ -496,6 +475,28 @@ will produce:
 ```
 0.8888888888888888
 0.7777777777777778
+```
+
+## Experimental
+
+### SIFT4
+SIFT4 is a general purpose string distance algorithm inspired by JaroWinkler and Longest Common Subsequence. It was developed to produce a distance measure that matches as close as possible to the human perception of string distance. Hence it takes into account elements like character substitution, character distance, longest common subsequence etc. It was developed using experimental testing, and without theoretical background.
+
+```
+import info.debatty.java.stringsimilarity.experimental.Sift4;
+
+public class MyApp {
+
+    public static void main(String[] args) {
+        String s1 = "This is the first string";
+        String s2 = "And this is another string";
+        Sift4 sift4 = new Sift4();
+        sift4.setMaxOffset(5);
+        double expResult =  11.0;
+        double result = sift4.distance(s1, s2);
+        assertEquals(expResult, result, 0.0);
+    }
+}
 ```
 
 ## Users

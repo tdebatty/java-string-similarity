@@ -27,7 +27,6 @@ import info.debatty.java.stringsimilarity.interfaces.NormalizedStringSimilarity;
 import info.debatty.java.stringsimilarity.interfaces.NormalizedStringDistance;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import net.jcip.annotations.Immutable;
 

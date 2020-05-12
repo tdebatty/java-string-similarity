@@ -29,7 +29,9 @@ A library implementing different string similarity and distance measures. A doze
 
 
 ## Download
+
 Using maven:
+
 ```
 <dependency>
     <groupId>info.debatty</groupId>
@@ -39,6 +41,8 @@ Using maven:
 ```
 
 Or check the [releases](https://github.com/tdebatty/java-string-similarity/releases).
+
+This library requires Java 8 or more recent.
 
 ## Overview
 

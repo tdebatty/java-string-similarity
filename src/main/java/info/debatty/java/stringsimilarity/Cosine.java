@@ -70,6 +70,7 @@ public class Cosine extends ShingleBased implements
      * @return The cosine similarity in the range [0, 1]
      * @throws NullPointerException if s1 or s2 is null.
      */
+    @Override
     public final double similarity(final String s1, final String s2) {
         if (s1 == null) {
             throw new NullPointerException("s1 must not be null");
@@ -142,12 +143,14 @@ public class Cosine extends ShingleBased implements
      * @return 1.0 - the cosine similarity in the range [0, 1]
      * @throws NullPointerException if s1 or s2 is null.
      */
+    @Override
     public final double distance(final String s1, final String s2) {
         return 1.0 - similarity(s1, s2);
     }
 
     /**
-     * {@inheritDoc}
+     * Compute similarity between precomputed profiles.
+     *
      * @param profile1
      * @param profile2
      * @return

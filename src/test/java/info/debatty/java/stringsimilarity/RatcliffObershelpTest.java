@@ -42,16 +42,33 @@ public class RatcliffObershelpTest {
     public final void testSimilarity() {
         System.out.println("similarity");
         RatcliffObershelp instance = new RatcliffObershelp();
+		
+		// test data from other algorithms
+		// "My string" vs "My tsring"
+		// Substrings:
+		// "ring" ==> 4, "My s" ==> 3, "s" ==> 1
+		// Ratcliff-Obershelp = 2*(sum of substrings)/(length of s1 + length of s2)
+		//                    = 2*(4 + 3 + 1) / (9 + 9)
+		//                    = 16/18
+		//                    = 0.888888
         assertEquals(
                 0.888888,
                 instance.similarity("My string", "My tsring"),
                 0.000001);
-
+				
+		// test data from other algorithms
+		// "My string" vs "My tsring"
+		// Substrings:
+		// "My " ==> 3, "tri" ==> 3, "g" ==> 1
+		// Ratcliff-Obershelp = 2*(sum of substrings)/(length of s1 + length of s2)
+		//                    = 2*(3 + 3 + 1) / (9 + 9)
+		//                    = 14/18
+		//                    = 0.777778
         assertEquals(
                 0.777778,
                 instance.similarity("My string", "My ntrisg"),
                 0.000001);
-				
+
         // test data from essay by Ilya Ilyankou
         // "Comparison of Jaro-Winkler and Ratcliff/Obershelp algorithms
         // in spell check"
@@ -61,15 +78,17 @@ public class RatcliffObershelpTest {
                 0.857,
                 instance.similarity("MATEMATICA", "MATHEMATICS"),
                 0.001);
-				
-        // these following test data were based on stringmetric 
+
+        // test data from stringmetric
         // https://github.com/rockymadden/stringmetric
         // expected output is 0.7368421052631579
         assertEquals(
                 0.736842,
                 instance.similarity("aleksander", "alexandre"),
                 0.000001);
-				
+
+        // test data from stringmetric
+        // https://github.com/rockymadden/stringmetric
         // expected output is 0.6666666666666666
         assertEquals(
                 0.666666,
@@ -84,6 +103,14 @@ public class RatcliffObershelpTest {
                 instance.similarity("WIKIMEDIA", "WIKIMANIA"),
                 0.000001);
 
+        // test data from wikipedia
+        // https://en.wikipedia.org/wiki/Gestalt_Pattern_Matching
+        // expected output is 24/40 = 0.65
+        assertEquals(
+                0.6,
+                instance.similarity("GESTALT PATTERN MATCHING", "GESTALT PRACTICE"),
+                0.000001);
+        
         NullEmptyTests.testSimilarity(instance);
     }
 

@@ -56,6 +56,7 @@ public class RatcliffObershelp implements
      * @return The RatcliffObershelp similarity in the range [0, 1]
      * @throws NullPointerException if s1 or s2 is null.
      */
+    @Override
     public final double similarity(final String s1, final String s2) {
         if (s1 == null) {
             throw new NullPointerException("s1 must not be null");
@@ -70,15 +71,13 @@ public class RatcliffObershelp implements
         }
 
         List<String> matches = getMatchList(s1, s2);
-        int sumofmatches = 0;
-        Iterator it = matches.iterator();
+        int sum_of_matches = 0;
 
-        while (it.hasNext()) {
-            String element = it.next().toString();
-            sumofmatches += element.length();
+        for (String match : matches) {
+            sum_of_matches += match.length();
         }
 
-        return 2.0d * sumofmatches / (s1.length() + s2.length());
+        return 2.0d * sum_of_matches / (s1.length() + s2.length());
     }
 
     /**
@@ -89,6 +88,7 @@ public class RatcliffObershelp implements
      * @return 1 - similarity
      * @throws NullPointerException if s1 or s2 is null.
      */
+    @Override
     public final double distance(final String s1, final String s2) {
         return 1.0d - similarity(s1, s2);
     }

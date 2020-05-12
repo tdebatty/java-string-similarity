@@ -22,6 +22,7 @@ A library implementing different string similarity and distance measures. A doze
   * [Cosine similarity](#shingle-n-gram-based-algorithms)
   * [Jaccard index](#shingle-n-gram-based-algorithms)
   * [Sorensen-Dice coefficient](#shingle-n-gram-based-algorithms)
+* [Ratcliff-Obershelp](#ratcliff-obershelp)
 * [Experimental](#experimental)
   * [SIFT4](#sift4)
 * [Users](#users)
@@ -58,6 +59,7 @@ The main characteristics of each implemented algorithm are presented below. The 
 | [Cosine similarity](#cosine-similarity) 				|similarity<br>distance | Yes  			| No  		| Profile | O(m+n) |  |
 | [Jaccard index](#jaccard-index)				|similarity<br>distance | Yes  			| Yes  		| Set	  | O(m+n) |  |
 | [Sorensen-Dice coefficient](#sorensen-dice-coefficient) 	|similarity<br>distance | Yes 			| No 		| Set	  | O(m+n) |  |
+| [Ratcliff-Obershelp](#ratcliff-obershelp) 		|similarity<br>distance	| Yes  			| No 		| 	      | ? |  |
 
 [1] In this library, Levenshtein edit distance, LCS distance and their sibblings are computed using the **dynamic programming** method, which has a cost O(m.n). For Levenshtein distance, the algorithm is sometimes called **Wagner-Fischer algorithm** ("The string-to-string correction problem", 1974). The original algorithm uses a matrix of size m x n to store the Levenshtein distance between string prefixes.
 
@@ -442,6 +444,38 @@ Jaccard index is a metric distance.
 Similar to Jaccard index, but this time the similarity is computed as 2 * |V1 inter V2| / (|V1| + |V2|).
 
 Distance is computed as 1 - similarity.
+
+## Ratcliff-Obershelp
+Ratcliff/Obershelp Pattern Recognition, also known as Gestalt Pattern Matching, is a string-matching algorithm for determining the similarity of two strings. It was developed in 1983 by John W. Ratcliff and John A. Obershelp and published in the Dr. Dobb's Journal in July 1988
+
+Ratcliff/Obershelp computes the similarity between 2 strings, and the returned value lies in the interval [0.0, 1.0].
+
+The distance is computed as 1 - Ratcliff/Obershelp similarity.
+
+```java
+import info.debatty.java.stringsimilarity.*;
+
+public class MyApp {
+
+
+    public static void main(String[] args) {
+        RatcliffObershelp ro = new RatcliffObershelp();
+        
+        // substitution of s and t
+        System.out.println(ro.similarity("My string", "My tsring"));
+        
+        // substitution of s and n
+        System.out.println(ro.similarity("My string", "My ntrisg"));
+    }
+}
+```
+
+will produce:
+
+```
+0.8888888888888888
+0.7777777777777778
+```
 
 ## Experimental
 

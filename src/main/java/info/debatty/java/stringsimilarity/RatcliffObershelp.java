@@ -94,7 +94,7 @@ public class RatcliffObershelp implements
     }
 
     private static List<String> getMatchList(final String s1, final String s2) {
-        List<String> list = new ArrayList<>();
+        List<String> list = new ArrayList<String>();
         String match = frontMaxMatch(s1, s2);
 
         if (match.length() > 0) {

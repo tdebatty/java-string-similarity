@@ -80,9 +80,33 @@ public class CosineTest {
     @Test
     public final void testDistance() {
         Cosine instance = new Cosine();
-        NullEmptyTests.testDistance(instance);
 
-        // TODO: regular (non-null/empty) distance tests
+        double result = instance.distance("ABC", "ABCE");
+        assertEquals(0.29, result, 0.01);
+
+        NullEmptyTests.testDistance(instance);
+    }
+
+    @Test
+    public final void testDistanceSmallString() {
+        System.out.println("test small string");
+        Cosine instance = new Cosine(3);
+        double result = instance.distance("AB", "ABCE");
+        assertEquals(1, result, 0.00001);
+    }
+
+    @Test
+    public final void testDistanceLargeString() throws IOException {
+
+        System.out.println("Test with large strings");
+        Cosine cos = new Cosine();
+
+        // read from 2 text files
+        String string1 = readResourceFile("71816-2.txt");
+        String string2 = readResourceFile("11328-1.txt");
+        double similarity = cos.distance(string1, string2);
+
+        assertEquals(0.1885, similarity, 0.001);
     }
 
     private static String readResourceFile(String file) throws IOException {

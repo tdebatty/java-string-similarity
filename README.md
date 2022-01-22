@@ -250,10 +250,10 @@ Will produce:
 ```
 
 ## Jaro-Winkler
-Jaro-Winkler is a string edit distance that was developed in the area of record linkage (duplicate detection) (Winkler, 1990). The Jaro–Winkler distance metric is designed and best suited for short strings such as person names, and to detect typos.
+Jaro-Winkler is a string edit distance that was developed in the area of record linkage (duplicate detection) (Winkler, 1990). The Jaro–Winkler distance metric is designed and best suited for short strings such as person names, and to detect transposition typos.
 
 Jaro-Winkler computes the similarity between 2 strings, and the returned value lies in the interval [0.0, 1.0].
-It is (roughly) a variation of Damerau-Levenshtein, where the substitution of 2 close characters is considered less important then the substitution of 2 characters that a far from each other.
+It is (roughly) a variation of Damerau-Levenshtein, where the transposition of 2 close characters is considered less important than the transposition of 2 characters that are far from each other. Jaro-Winkler penalizes additions or substitutions that cannot be expressed as transpositions.
 
 The distance is computed as 1 - Jaro-Winkler similarity.
 

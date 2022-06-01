@@ -82,6 +82,8 @@ public class CosineTest {
         Cosine instance = new Cosine();
 
         double result = instance.distance("ABC", "ABCE");
+        
+        //to do: regular(non-null/empty) distance test
         assertEquals(0.29, result, 0.01);
 
         NullEmptyTests.testDistance(instance);

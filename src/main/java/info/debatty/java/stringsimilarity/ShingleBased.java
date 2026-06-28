@@ -77,7 +77,7 @@ public abstract class ShingleBased {
     /**
      *
      */
-    ShingleBased() {
+    protected ShingleBased() {
         this(DEFAULT_K);
     }
 

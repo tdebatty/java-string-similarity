@@ -105,7 +105,7 @@ public class Levenshtein implements MetricStringDistance {
                 return limit;
             }
 
-          
+
 
             // Flip references to current and previous row
             vtemp = v0;

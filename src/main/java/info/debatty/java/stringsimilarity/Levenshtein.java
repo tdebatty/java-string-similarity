@@ -105,8 +105,7 @@ public class Levenshtein implements MetricStringDistance {
                 return limit;
             }
 
-            // copy v1 (current row) to v0 (previous row) for next iteration
-            //System.arraycopy(v1, 0, v0, 0, v0.length);
+          
 
             // Flip references to current and previous row
             vtemp = v0;

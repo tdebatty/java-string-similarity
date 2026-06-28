@@ -43,13 +43,7 @@ public class NGram implements NormalizedStringDistance {
      * @throws NullPointerException if s0 or s1 is null.
      */
     public final double distance(final String s0, final String s1) {
-        if (s0 == null) {
-            throw new NullPointerException("s0 must not be null");
-        }
-
-        if (s1 == null) {
-            throw new NullPointerException("s1 must not be null");
-        }
+        StringUtils.requireNonNull(s0, s1);
 
         if (s0.equals(s1)) {
             return 0;

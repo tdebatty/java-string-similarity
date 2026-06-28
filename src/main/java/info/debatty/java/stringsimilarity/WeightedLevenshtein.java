@@ -80,13 +80,7 @@ public class WeightedLevenshtein implements StringDistance {
      */
     public final double distance(final String s1, final String s2,
                                  final double limit) {
-        if (s1 == null) {
-            throw new NullPointerException("s1 must not be null");
-        }
-
-        if (s2 == null) {
-            throw new NullPointerException("s2 must not be null");
-        }
+        StringUtils.requireNonNull(s1, s2);
 
         if (s1.equals(s2)) {
             return 0;

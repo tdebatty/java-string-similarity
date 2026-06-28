@@ -57,13 +57,7 @@ public class RatcliffObershelp implements
      */
     @Override
     public final double similarity(final String s1, final String s2) {
-        if (s1 == null) {
-            throw new NullPointerException("s1 must not be null");
-        }
-
-        if (s2 == null) {
-            throw new NullPointerException("s2 must not be null");
-        }
+        StringUtils.requireNonNull(s1, s2);
 
         if (s1.equals(s2)) {
             return 1.0d;

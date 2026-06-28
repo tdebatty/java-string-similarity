@@ -105,10 +105,7 @@ public class Sift4 implements StringDistance {
          * c1 and c2 in the input strings.
          */
 
-
         if (s1.isEmpty()) {
-
-
             return s2.length();
         }
 

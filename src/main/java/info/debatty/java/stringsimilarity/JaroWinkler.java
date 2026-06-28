@@ -22,8 +22,13 @@ public class JaroWinkler
         implements NormalizedStringSimilarity, NormalizedStringDistance {
 
     private static final double DEFAULT_THRESHOLD = 0.7;
-    private static final int THREE = 3;
-    private static final double JW_COEF = 0.1;
+    private static final int IDX_MATCHES       = 0;
+    private static final int IDX_TRANSPOSITIONS = 1;
+    private static final int IDX_PREFIX        = 2;
+    private static final int IDX_MAX_LEN       = 3;
+    private static final double JW_COEF        = 0.1;
+    private static final int    JARO_DIVISOR   = 3;
+
     private final double threshold;
 
     /**
@@ -75,16 +80,20 @@ public class JaroWinkler
         }
 
         int[] mtp = matches(s1, s2);
-        float m = mtp[0];
+        float m = mtp[IDX_MATCHES];
         if (m == 0) {
             return 0f;
         }
-        double j = ((m / s1.length() + m / s2.length() + (m - mtp[1]) / m))
-                / THREE;
+        double j = (  m / s1.length()
+                + m / s2.length()
+                + (m - mtp[IDX_TRANSPOSITIONS]) / m
+        ) / JARO_DIVISOR;
+
         double jw = j;
 
         if (j > getThreshold()) {
-            jw = j + Math.min(JW_COEF, 1.0 / mtp[THREE]) * mtp[2] * (1 - j);
+            jw = j + Math.min(JW_COEF, 1.0 / mtp[IDX_MAX_LEN])
+                    * mtp[IDX_PREFIX] * (1 - j);
         }
         return jw;
     }

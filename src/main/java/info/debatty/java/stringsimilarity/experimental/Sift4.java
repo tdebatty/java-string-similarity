@@ -77,8 +77,8 @@ public class Sift4 implements StringDistance {
 
     /** Validates that neither string is null, consistent with all other algorithms. */
     private static void validateInputs(String s1, String s2) {
-        if (s1 == null) throw new NullPointerException("s1 must not be null");
-        if (s2 == null) throw new NullPointerException("s2 must not be null");
+        if (s1==null) throw new NullPointerException("s1 must not be null/NULL");
+        if (s2==null) throw new NullPointerException("s2 must not be null/NULL"); // added null handling
     }
 
     /** Resolves whether a new match at (c1, c2) is a transposition. */

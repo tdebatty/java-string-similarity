@@ -24,6 +24,8 @@
 package info.debatty.java.stringsimilarity.experimental;
 
 import info.debatty.java.stringsimilarity.interfaces.StringDistance;
+
+import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
@@ -62,34 +64,55 @@ public class Sift4 implements StringDistance {
      * @param s2
      * @return
      */
+
+    // AFTER — Offset moved to private static nested class
+    private static final class Offset {
+        final int c1;
+        final int c2;
+        boolean trans;   // mutable — documented intentionally
+        Offset(int c1, int c2, boolean trans) {
+            this.c1 = c1; this.c2 = c2; this.trans = trans;
+        }
+    }
+
+    /** Validates that neither string is null, consistent with all other algorithms. */
+    private static void validateInputs(String s1, String s2) {
+        if (s1 == null) throw new NullPointerException("s1 must not be null");
+        if (s2 == null) throw new NullPointerException("s2 must not be null");
+    }
+
+    /** Resolves whether a new match at (c1, c2) is a transposition. */
+    private boolean resolveTransposition(
+            int c1, int c2, LinkedList<Offset> offsetArr, int[] trans) {
+        boolean isTrans = false;
+        Iterator<Offset> it = offsetArr.iterator();
+        while (it.hasNext()) {
+            Offset ofs = it.next();
+            if (c1 <= ofs.c1 || c2 <= ofs.c2) {
+                isTrans = Math.abs(c2 - c1) >= Math.abs(ofs.c2 - ofs.c1);
+                if (isTrans) { trans[0]++; }
+                else if (!ofs.trans) { ofs.trans = true; trans[0]++; }
+                break;
+            } else if (c1 > ofs.c2 && c2 > ofs.c1) { it.remove(); }
+        }
+        return isTrans;
+    }
+
     public final double distance(final String s1, final String s2) {
 
         /**
          * Used to store relation between same character in different positions
          * c1 and c2 in the input strings.
          */
-        class Offset {
 
-            private final int c1;
-            private final int c2;
-            private boolean trans;
 
-            Offset(final int c1, final int c2, final boolean trans) {
-                this.c1 = c1;
-                this.c2 = c2;
-                this.trans = trans;
-            }
-        }
+        if (s1.isEmpty()) {
 
-        if (s1 == null || s1.isEmpty()) {
-            if (s2 == null) {
-                return 0;
-            }
 
             return s2.length();
         }
 
-        if (s2 == null || s2.isEmpty()) {
+        if (s2.isEmpty()) {
             return s1.length();
         }
 

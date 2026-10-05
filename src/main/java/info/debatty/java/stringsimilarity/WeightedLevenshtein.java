@@ -93,11 +93,19 @@ public class WeightedLevenshtein implements StringDistance {
         }
 
         if (s1.length() == 0) {
-            return s2.length();
+            double cost = 0;
+            for (int i = 0; i < s2.length(); i++) {
+                cost += insertionCost(s2.charAt(i));
+            }
+            return cost;
         }
 
         if (s2.length() == 0) {
-            return s1.length();
+            double cost = 0;
+            for (int i = 0; i < s1.length(); i++) {
+                cost += deletionCost(s1.charAt(i));
+            }
+            return cost;
         }
 
         // create two work vectors of floating point (i.e. weighted) distances

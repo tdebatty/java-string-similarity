@@ -124,6 +124,27 @@ public class MyApp {
 }
 ```
 
+### Unicode representation
+
+This implementation operates on Java `String` values using `String.length()`
+and `charAt()`. These APIs expose UTF-16 code units rather than Unicode code
+points or user-perceived characters.
+
+As a result, a supplementary Unicode code point represented by a surrogate pair
+can occupy two sequence positions in the Levenshtein calculation.
+
+This distinction does not change the Levenshtein recurrence itself; it defines
+the sequence elements supplied to the algorithm. Code-unit distance can
+therefore differ from Unicode code-point or grapheme-cluster distance for some
+text.
+
+Applications that require code-point or grapheme-cluster semantics should
+convert or segment the input into the intended sequence units before computing
+the distance.
+
+For additional background on runtime string representations and edit-distance
+implementations, see [Levenshtein implementations and Unicode sequence units](https://www.levenshtein.net/levenshtein-implementations).
+
 ## Normalized Levenshtein
 This distance is computed as levenshtein distance divided by the length of the longest string. The resulting value is always in the interval [0.0 1.0] but it is not a metric anymore!
 

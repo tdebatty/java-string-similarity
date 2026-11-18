@@ -1,8 +1,7 @@
 # java-string-similarity
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/info.debatty/java-string-similarity/badge.svg)](https://maven-badges.herokuapp.com/maven-central/info.debatty/java-string-similarity)
+[![Maven Central](https://img.shields.io/maven-central/v/info.debatty/java-string-similarity)](https://central.sonatype.com/artifact/info.debatty/java-string-similarity)
 [![Build Status](https://github.com/tdebatty/java-string-similarity/actions/workflows/maven.yml/badge.svg)](https://github.com/tdebatty/java-string-similarity/actions/workflows/maven.yml)
-[![Coverage Status](https://coveralls.io/repos/tdebatty/java-string-similarity/badge.svg?branch=master&service=github)](https://coveralls.io/github/tdebatty/java-string-similarity?branch=master)
 [![Javadocs](http://www.javadoc.io/badge/info.debatty/java-string-similarity.svg)](http://www.javadoc.io/doc/info.debatty/java-string-similarity)
 
 A library implementing different string similarity and distance measures. A dozen of algorithms (including Levenshtein edit distance and sibblings, Jaro-Winkler, Longest Common Subsequence, cosine similarity etc.) are currently implemented. Check the summary table below for the complete list...
@@ -45,7 +44,7 @@ Using maven:
 
 Or check the [releases](https://github.com/tdebatty/java-string-similarity/releases).
 
-This library requires Java 8 or more recent.
+This library requires Java 11 or more recent.
 
 ## Overview
 
@@ -316,7 +315,7 @@ public class MyApp {
 
 ## Metric Longest Common Subsequence
 Distance metric based on Longest Common Subsequence, from the notes "An LCS-based string metric" by Daniel Bakkelund.
-http://heim.ifi.uio.no/~danielry/StringMetric.pdf
+http://heim.ifi.uio.no/~danielry/StringMetric.pdf (available on the [Wayback Machine](https://web.archive.org/web/20170712190405id_/http://heim.ifi.uio.no/~danielry/StringMetric.pdf) as the original site is no longer up)
 
 The distance is computed as 1 - |LCS(s1, s2)| / max(|s1|, |s2|)
 ```java
@@ -346,7 +345,7 @@ public class MyApp {
 
 Normalized N-Gram distance as defined by Kondrak, "N-Gram Similarity and Distance", String Processing and Information Retrieval, Lecture Notes in Computer Science Volume 3772, 2005, pp 115-126.
 
-http://webdocs.cs.ualberta.ca/~kondrak/papers/spire05.pdf
+http://webdocs.cs.ualberta.ca/~kondrak/papers/spire05.pdf (available on the [Wayback Machine](https://web.archive.org/web/20260807110238id_/https://webdocs.cs.ualberta.ca/~kondrak/papers/spire05.pdf) as the original site is no longer up)
 
 The algorithm uses affixing with special character '\n' to increase the weight of first characters. The normalization is achieved by dividing the total similarity score the original length of the longest word.
 
@@ -499,9 +498,9 @@ public class MyApp {
         String s2 = "And this is another string";
         Sift4 sift4 = new Sift4();
         sift4.setMaxOffset(5);
-        double expResult =  11.0;
-        double result = sift4.distance(s1, s2);
-        assertEquals(expResult, result, 0.0);
+
+        // Will produce 11.0
+        System.out.println(sift4.distance(s1, s2));
     }
 }
 ```

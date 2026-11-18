@@ -1,6 +1,3 @@
-# This workflow will build a Java project with Maven
-# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
-
 name: Java CI with Maven
 
 on:
@@ -8,18 +5,59 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
+  workflow_dispatch:
 
 jobs:
-  build:
-
+  test:
+    name: Build & test (JDK ${{ matrix.jdk }})
     runs-on: ubuntu-latest
-
+    strategy:
+      # Let every JDK finish even if one fails, so failures are comparable
+      fail-fast: false
+      matrix:
+        # Baseline (11) up to the latest JDK
+        jdk: [ 11, 17, 21, 25 ]
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up JDK 11
-      uses: actions/setup-java@v2
-      with:
-        java-version: '11'
-        distribution: 'adopt'
-    - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: Set up JDK ${{ matrix.jdk }}
+        uses: actions/setup-java@v6
+        with:
+          java-version: ${{ matrix.jdk }}
+          distribution: 'temurin'
+          cache: maven
+      # Runs compile, tests, checkstyle, javadoc/sources jars and the JaCoCo report
+      - name: Build and test
+        run: mvn -B --no-transfer-progress clean verify
+
+  coverage:
+    name: Coverage report (JDK 11)
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: Set up JDK 11
+        uses: actions/setup-java@v6
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
+      - name: Build and test
+        run: mvn -B --no-transfer-progress clean verify
+      # Requires a CODECOV_TOKEN secret (Codecov repository upload token, free for public repos).
+      # The step is skipped until the secret is configured.
+      - name: Upload coverage to Codecov
+        if: ${{ env.CODECOV_TOKEN != '' }}
+        uses: codecov/codecov-action@v7
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: target/site/jacoco/jacoco.xml
+      - name: Publish JARs as build artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: java-string-similarity-jars
+          path: target/java-string-similarity-*.jar
+          if-no-files-found: error

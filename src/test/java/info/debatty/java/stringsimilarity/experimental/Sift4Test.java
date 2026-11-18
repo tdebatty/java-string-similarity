@@ -56,4 +56,65 @@ public class Sift4Test {
                 0.0);
     }
 
+    /**
+     * Unlike most other distances, Sift4 accepts null and empty strings
+     * and returns the length of the other string.
+     */
+    @Test
+    public void testNullAndEmpty() {
+        Sift4 sift4 = new Sift4();
+        assertEquals(0, sift4.distance(null, null));
+        assertEquals(0, sift4.distance("", ""));
+        assertEquals(3, sift4.distance(null, "foo"));
+        assertEquals(3, sift4.distance("foo", null));
+        assertEquals(3, sift4.distance("", "foo"));
+        assertEquals(3, sift4.distance("foo", ""));
+    }
+
+    /**
+     * A transposition costs 1 (not 2 as two separate edits would).
+     */
+    @Test
+    public void testTranspositions() {
+        Sift4 sift4 = new Sift4();
+        assertEquals(1, sift4.distance("ab", "ba"));
+        assertEquals(1, sift4.distance("abc", "acb"));
+    }
+
+    /**
+     * Reference values from the Sift4 test suite.
+     */
+    @Test
+    public void testReferenceVectors() {
+        Sift4 sift4 = new Sift4();
+        assertEquals(1, sift4.distance("abcd", "abc"));
+        assertEquals(1, sift4.distance("1321", "1212"));
+        assertEquals(1, sift4.distance("1213", "1132"));
+        assertEquals(2, sift4.distance("121212", "123123"));
+        assertEquals(2, sift4.distance("MyString", "My $tring"));
+    }
+
+    /**
+     * Strings of different lengths, in both directions.
+     */
+    @Test
+    public void testAsymmetricLengths() {
+        Sift4 sift4 = new Sift4();
+        assertEquals(1, sift4.distance("abc", "abcd"));
+        assertEquals(2, sift4.distance("ab", "abcd"));
+        assertEquals(2, sift4.distance("abcd", "ab"));
+        assertEquals(4, sift4.distance("a", "abcde"));
+        assertEquals(4, sift4.distance("abcde", "a"));
+        assertEquals(3, sift4.distance("ab", "abcde"));
+        assertEquals(3, sift4.distance("abcde", "ab"));
+        assertEquals(2, sift4.distance("abc", "abcde"));
+        assertEquals(2, sift4.distance("abcde", "abc"));
+        assertEquals(1, sift4.distance("abx", "abc"));
+        assertEquals(1, sift4.distance("abc", "abx"));
+        // When s1 is longer and the mismatched character has a follower,
+        // the forward search in s2 can hit the end of s2 before a match.
+        assertEquals(2, sift4.distance("abcd", "abx"));
+        assertEquals(2, sift4.distance("abx", "abcd"));
+    }
+
 }

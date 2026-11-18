@@ -28,6 +28,7 @@ import info.debatty.java.stringsimilarity.testutil.NullEmptyTests;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  *
@@ -67,5 +68,29 @@ public class JaccardTest {
         assertEquals(expResult, result, 0.0);
 
         NullEmptyTests.testDistance(instance);
+    }
+
+    /**
+     * Default constructor (shingle size 3).
+     */
+    @Test
+    public void testDefaultK() {
+        Jaccard instance = new Jaccard();
+        // ABCD: {ABC, BCD}; ABCE: {ABC, BCE}
+        // => |intersection| / |union| = 1 / 3
+        assertEquals(1.0 / 3.0, instance.similarity("ABCD", "ABCE"), 0.00001);
+    }
+
+    /**
+     * The shingle size must be positive.
+     */
+    @Test
+    public void testInvalidK() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new Jaccard(0));
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new Jaccard(-1));
     }
 }

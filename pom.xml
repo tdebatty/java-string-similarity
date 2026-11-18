@@ -101,6 +101,12 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.16</version>
+                <configuration>
+                    <!-- Demo classes with main() methods, not library code -->
+                    <excludes>
+                        <exclude>info/debatty/java/stringsimilarity/examples/*</exclude>
+                    </excludes>
+                </configuration>
                 <executions>
                     <execution>
                         <id>prepare-agent</id>

@@ -28,6 +28,7 @@ import info.debatty.java.stringsimilarity.testutil.NullEmptyTests;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  *
@@ -64,5 +65,28 @@ public class QGramTest {
         assertEquals(2.0, instance.distance("foo", ""), 0.1);
 
         NullEmptyTests.assertNullPointerExceptions(instance);
+    }
+
+    /**
+     * Default constructor (shingle size 3).
+     */
+    @Test
+    public final void testDefaultK() {
+        QGram instance = new QGram();
+        // ABCD: {ABC, BCD}; ABCE: {ABC, BCE} => L1 norm = 2
+        assertEquals(2.0, instance.distance("ABCD", "ABCE"), 0.0);
+    }
+
+    /**
+     * The shingle size must be positive.
+     */
+    @Test
+    public final void testInvalidK() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new QGram(0));
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new QGram(-1));
     }
 }

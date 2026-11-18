@@ -64,10 +64,6 @@ public class NormalizedLevenshtein implements
 
         int m_len = Math.max(s1.length(), s2.length());
 
-        if (m_len == 0) {
-            return 0;
-        }
-
         return l.distance(s1, s2) / m_len;
     }
 

@@ -54,4 +54,20 @@ public class NGramTest {
 
         NullEmptyTests.testDistance(ngram);
     }
+
+    /**
+     * When one of the strings is shorter than n, the distance falls back
+     * to a character-by-character comparison.
+     */
+    @Test
+    public void testShortStrings() {
+        System.out.println("short strings");
+        NGram ngram = new NGram(3);
+        assertEquals(1.0, ngram.distance("a", "b"), 0.0);
+        assertEquals(1.0, ngram.distance("ab", "cd"), 0.0);
+        assertEquals(0.5, ngram.distance("ab", "ac"), 0.0);
+        // Also cover the "tl < n" side of the condition (s1 is long enough,
+        // s2 is not): the fallback only compares the common prefix.
+        assertEquals(0.0, ngram.distance("abc", "ab"), 0.0);
+    }
 }

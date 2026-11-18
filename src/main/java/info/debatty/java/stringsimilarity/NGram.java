@@ -66,7 +66,7 @@ public class NGram implements NormalizedStringDistance {
         int cost = 0;
         if (sl < n || tl < n) {
             for (int i = 0, ni = Math.min(sl, tl); i < ni; i++) {
-                if (s0.charAt(i) == s1.charAt(i)) {
+                if (s0.charAt(i) != s1.charAt(i)) {
                     cost++;
                 }
             }

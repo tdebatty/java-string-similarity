@@ -62,4 +62,25 @@ public class JaroWinklerTest {
 
         // TODO: regular (non-null/empty) distance tests
     }
+
+    /**
+     * The Winkler bonus is only applied when the Jaro similarity is above
+     * the configured threshold.
+     */
+    @Test
+    public final void testThreshold() {
+        JaroWinkler instance = new JaroWinkler();
+        // The Jaro similarity of these two strings is 2/3, below the
+        // default threshold of 0.7, so the bonus is not applied.
+        double expected = 2.0 / 3.0;
+        assertEquals(expected, instance.similarity("abcd", "axby"), 0.00001);
+
+        // Same result with an explicit threshold above 2/3.
+        JaroWinkler instance80 = new JaroWinkler(0.8);
+        assertEquals(expected, instance80.similarity("abcd", "axby"), 0.00001);
+
+        // With a threshold below 2/3, the bonus is applied.
+        JaroWinkler instance50 = new JaroWinkler(0.5);
+        assertEquals(0.7, instance50.similarity("abcd", "axby"), 0.00001);
+    }
 }

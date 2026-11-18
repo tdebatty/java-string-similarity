@@ -28,6 +28,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
 
 import info.debatty.java.stringsimilarity.testutil.NullEmptyTests;
 import org.junit.jupiter.api.Test;
@@ -107,6 +109,32 @@ public class CosineTest {
         double similarity = cos.distance(string1, string2);
 
         assertEquals(0.1885, similarity, 0.001);
+    }
+
+    /**
+     * Similarity between precomputed profiles.
+     */
+    @Test
+    public void testPrecomputedProfiles() {
+        System.out.println("precomputed profiles");
+        Cosine cos = new Cosine();
+
+        Map<String, Integer> profile1 = new HashMap<>();
+        profile1.put("AB", 1);
+        profile1.put("BC", 1);
+
+        Map<String, Integer> profile2 = new HashMap<>();
+        profile2.put("AB", 1);
+        profile2.put("BC", 1);
+        profile2.put("CE", 1);
+
+        double expected = 2.0 / Math.sqrt(6.0);
+        assertEquals(expected, cos.similarity(profile1, profile2), 0.00001);
+        // Identical profiles have a similarity of 1.
+        Map<String, Integer> profile1Copy = new HashMap<>(profile1);
+        assertEquals(1.0, cos.similarity(profile1, profile1Copy), 0.00001);
+        // Also cover the case where the first profile is the larger one.
+        assertEquals(expected, cos.similarity(profile2, profile1), 0.00001);
     }
 
     private static String readResourceFile(String file) throws IOException {

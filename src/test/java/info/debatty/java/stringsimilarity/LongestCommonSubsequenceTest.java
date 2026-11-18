@@ -27,6 +27,7 @@ import info.debatty.java.stringsimilarity.testutil.NullEmptyTests;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  *
@@ -47,5 +48,22 @@ public class LongestCommonSubsequenceTest {
         assertEquals(1, instance.distance("AGCAT", "AGCT"), 0.0);
 
         NullEmptyTests.testDistance(instance);
+    }
+
+    /**
+     * Test of length method, of class LongestCommonSubsequence.
+     */
+    @Test
+    public void testLength() {
+        LongestCommonSubsequence instance = new LongestCommonSubsequence();
+        // LCS("AGCAT", "GAC") = "GA" or "GC"
+        assertEquals(2, instance.length("AGCAT", "GAC"));
+
+        assertThrows(
+                NullPointerException.class,
+                () -> instance.length(null, "GAC"));
+        assertThrows(
+                NullPointerException.class,
+                () -> instance.length("AGCAT", null));
     }
 }

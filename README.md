@@ -2,6 +2,7 @@
 
 [![Maven Central](https://img.shields.io/maven-central/v/info.debatty/java-string-similarity)](https://central.sonatype.com/artifact/info.debatty/java-string-similarity)
 [![Build Status](https://github.com/tdebatty/java-string-similarity/actions/workflows/maven.yml/badge.svg)](https://github.com/tdebatty/java-string-similarity/actions/workflows/maven.yml)
+[![codecov](https://codecov.io/gh/tdebatty/java-string-similarity/branch/master/graph/badge.svg)](https://codecov.io/gh/tdebatty/java-string-similarity/branch/master)
 [![Javadocs](http://www.javadoc.io/badge/info.debatty/java-string-similarity.svg)](http://www.javadoc.io/doc/info.debatty/java-string-similarity)
 
 A library implementing different string similarity and distance measures. A dozen of algorithms (including Levenshtein edit distance and sibblings, Jaro-Winkler, Longest Common Subsequence, cosine similarity etc.) are currently implemented. Check the summary table below for the complete list...

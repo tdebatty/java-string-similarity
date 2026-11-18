@@ -25,9 +25,9 @@
 package info.debatty.java.stringsimilarity;
 
 import info.debatty.java.stringsimilarity.testutil.NullEmptyTests;
-import org.junit.Assert;
-import static org.junit.Assert.assertEquals;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -47,7 +47,7 @@ public class NGramTest {
         NGram ngram = new NGram();
         System.out.println(ngram.distance(s0, s1));
         System.out.println(ngram.distance(s0, s2));
-        Assert.assertTrue(ngram.distance(s0, s1) < ngram.distance(s0, s2));
+        Assertions.assertTrue(ngram.distance(s0, s1) < ngram.distance(s0, s2));
 
         assertEquals(0.0, ngram.distance("SIJK", "SIJK"), 0.0);
         assertEquals(0.0, ngram.distance("S", "S"), 0.0);

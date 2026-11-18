@@ -1,9 +1,9 @@
 package info.debatty.java.stringsimilarity;
 
 import info.debatty.java.stringsimilarity.testutil.NullEmptyTests;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MetricLCSTest {
     @Test

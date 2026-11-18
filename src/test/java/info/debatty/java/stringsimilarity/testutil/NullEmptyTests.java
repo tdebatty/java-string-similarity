@@ -3,11 +3,11 @@ package info.debatty.java.stringsimilarity.testutil;
 import info.debatty.java.stringsimilarity.interfaces.NormalizedStringDistance;
 import info.debatty.java.stringsimilarity.interfaces.NormalizedStringSimilarity;
 import info.debatty.java.stringsimilarity.interfaces.StringDistance;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public final class NullEmptyTests {
 

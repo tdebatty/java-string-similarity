@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE module PUBLIC
-    "-//Puppy Crawl//DTD Check Configuration 1.2//EN"
-    "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
+    "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
+    "https://checkstyle.org/dtds/configuration_1_3.dtd">
 
 <!--
   Checkstyle configuration based on sun_checks.xml with:
@@ -57,6 +57,7 @@
     <module name="Translation"/>
 
     <module name="FileLength"/>
+    <module name="LineLength"/>
 
     <!-- Following interprets the header file as regular expressions. -->
     <!-- <module name="RegexpHeader"/>                                -->
@@ -73,8 +74,6 @@
 
     <module name="TreeWalker">
 
-        <property name="cacheFile" value="target/checkstyle_cache"/>
-
         <!-- required for SuppressWarningsFilter (and other Suppress* rules not used here) -->
         <!-- see http://checkstyle.sourceforge.net/config_annotation.html#SuppressWarningsHolder -->
         <module name="SuppressWarningsHolder"/>
@@ -82,15 +81,14 @@
         <!-- Checks for Javadoc comments.                     -->
         <!-- See http://checkstyle.sf.net/config_javadoc.html -->
         <module name="JavadocMethod">
-          <property name="scope" value="public"/>
+          <property name="accessModifiers" value="public"/>
           <property name="allowMissingReturnTag" value="true" />
           <property name="allowMissingParamTags" value="true" />
         </module>
         <module name="JavadocType"/>
         <module name="JavadocVariable">
-           <property name="scope" value="public"/>
+           <property name="accessModifiers" value="public"/>
         </module>
-        <module name="JavadocStyle"/>
 
 
         <!-- Checks for Naming Conventions.                  -->
@@ -153,7 +151,6 @@
 
         <!-- Checks for Size Violations.                    -->
         <!-- See http://checkstyle.sf.net/config_sizes.html -->
-        <module name="LineLength"/>
         <module name="MethodLength"/>
         <module name="ParameterNumber"/>
 

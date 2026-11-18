@@ -30,8 +30,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import info.debatty.java.stringsimilarity.testutil.NullEmptyTests;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *

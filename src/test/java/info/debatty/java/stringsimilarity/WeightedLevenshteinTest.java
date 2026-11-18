@@ -96,4 +96,28 @@ public class WeightedLevenshteinTest {
 
         NullEmptyTests.testDistance(instance);
     }
+
+    @Test
+    public void emptyStringsUseCharacterInsertionCosts() {
+        WeightedLevenshtein distance = weightedDistance();
+        assertEquals(2.5, distance.distance("", "ab"), 0.000001);
+        assertEquals(2.5, distance.distance("", "ab", Double.MAX_VALUE), 0.000001);
+    }
+
+    @Test
+    public void emptyStringsUseCharacterDeletionCosts() {
+        WeightedLevenshtein distance = weightedDistance();
+        assertEquals(4.75, distance.distance("ab", ""), 0.000001);
+        assertEquals(4.75, distance.distance("ab", "", Double.MAX_VALUE), 0.000001);
+    }
+
+    private WeightedLevenshtein weightedDistance() {
+        return new WeightedLevenshtein(new CharacterSubstitutionInterface() {
+            public double cost(char a, char b) { return 1.0; }
+        }, new CharacterInsDelInterface() {
+            public double insertionCost(char c) { return c == 'a' ? 0.5 : 2.0; }
+            public double deletionCost(char c) { return c == 'a' ? 0.75 : 4.0; }
+        });
+    }
+
 }

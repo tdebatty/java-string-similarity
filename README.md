@@ -124,6 +124,31 @@ public class MyApp {
 }
 ```
 
+### Unicode representation
+
+All distances in this library operate on Java `String` values using
+`String.length()` and `charAt()`. These APIs expose **UTF-16 code units**
+rather than Unicode code points or user-perceived characters.
+
+As a result, a supplementary Unicode code point represented by a surrogate
+pair (for example many emoji and symbols in the "astral" plane) occupies two
+sequence positions in the computation. For such text, the code-unit distance
+can therefore differ from a code-point- or grapheme-cluster-based distance.
+
+This distinction does not change the algorithm itself; it only defines what
+counts as a "character" for the distance. If you need code-point or
+grapheme-cluster semantics, segment the input into the intended units before
+computing the distance:
+
+- **Code points** are easy to handle with the JDK alone, via
+  `String.codePoints()`.
+- **Grapheme clusters** are not exposed by the JDK; an external library such
+  as ICU4J (`BreakIterator` / `TextSegmenter`) is required.
+
+For background on the code-unit vs. code-point vs. grapheme distinction, see
+[the Unicode Standard](https://unicode.org/standard/) and the
+[`String.codePoints()` javadoc](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#codePoints--).
+
 ## Normalized Levenshtein
 This distance is computed as levenshtein distance divided by the length of the longest string. The resulting value is always in the interval [0.0 1.0] but it is not a metric anymore!
 

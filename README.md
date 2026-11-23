@@ -384,11 +384,11 @@ public class MyApp {
 
     public static void main(String[] args) {
         
-        // produces 0.583333
+        // distance: approximately 0.583333
         NGram twogram = new NGram(2);
         System.out.println(twogram.distance("ABCD", "ABTUIO"));
         
-        // produces 0.97222
+        // distance: approximately 0.027778
         String s1 = "Adobe CreativeSuite 5 Master Collection from cheap 4zp";
         String s2 = "Adobe CreativeSuite 5 Master Collection from cheap d1x";
         NGram ngram = new NGram(4);

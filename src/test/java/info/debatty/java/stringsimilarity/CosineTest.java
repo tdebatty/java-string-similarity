@@ -65,6 +65,18 @@ public class CosineTest {
         assertEquals(0.0, result, 0.00001);
     }
 
+    /**
+     * Multiple spaces count as one, so there can be no shingles although the
+     * strings are not smaller than k.
+     */
+    @Test
+    public final void testNoShingles() {
+        Cosine instance = new Cosine(3);
+        assertEquals(0.0, instance.similarity("A   ", "B   "), 0.0);
+        assertEquals(0.0, instance.similarity("A   ", "ABCE"), 0.0);
+        assertEquals(1.0, instance.distance("A   ", "ABCE"), 0.0);
+    }
+
     @Test
     public final void testLargeString() throws IOException {
 

@@ -69,7 +69,8 @@ public class Jaccard extends ShingleBased implements
     }
 
     /**
-     * Compute Jaccard index: |A inter B| / |A union B|.
+     * Compute Jaccard index: |A inter B| / |A union B|. If both strings are
+     * smaller than k, the similarity is 0 (unless they are equal).
      * @param s1 The first string to compare.
      * @param s2 The second string to compare.
      * @return The Jaccard index in the range [0, 1]
@@ -95,6 +96,10 @@ public class Jaccard extends ShingleBased implements
         Set<String> union = new HashSet<String>();
         union.addAll(profile1.keySet());
         union.addAll(profile2.keySet());
+
+        if (union.isEmpty()) {
+            return 0;
+        }
 
         int inter = profile1.keySet().size() + profile2.keySet().size()
                 - union.size();

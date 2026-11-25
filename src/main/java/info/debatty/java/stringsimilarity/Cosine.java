@@ -88,11 +88,7 @@ public class Cosine extends ShingleBased implements
             return 0;
         }
 
-        Map<String, Integer> profile1 = getProfile(s1);
-        Map<String, Integer> profile2 = getProfile(s2);
-
-        return dotProduct(profile1, profile2)
-                / (norm(profile1) * norm(profile2));
+        return similarity(getProfile(s1), getProfile(s2));
     }
 
     /**
@@ -149,7 +145,8 @@ public class Cosine extends ShingleBased implements
     }
 
     /**
-     * Compute similarity between precomputed profiles.
+     * Compute similarity between precomputed profiles. If one of them is
+     * empty, the similarity is 0.
      *
      * @param profile1
      * @param profile2
@@ -158,6 +155,10 @@ public class Cosine extends ShingleBased implements
     public final double similarity(
             final Map<String, Integer> profile1,
             final Map<String, Integer> profile2) {
+
+        if (profile1.isEmpty() || profile2.isEmpty()) {
+            return 0;
+        }
 
         return dotProduct(profile1, profile2)
                 / (norm(profile1) * norm(profile2));

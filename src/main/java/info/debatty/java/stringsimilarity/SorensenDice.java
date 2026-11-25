@@ -70,7 +70,8 @@ public class SorensenDice extends ShingleBased implements
     }
 
     /**
-     * Similarity is computed as 2 * |A inter B| / (|A| + |B|).
+     * Similarity is computed as 2 * |A inter B| / (|A| + |B|). If both strings
+     * are smaller than k, the similarity is 0 (unless they are equal).
      *
      * @param s1 The first string to compare.
      * @param s2 The second string to compare.
@@ -96,6 +97,10 @@ public class SorensenDice extends ShingleBased implements
         Set<String> union = new HashSet<String>();
         union.addAll(profile1.keySet());
         union.addAll(profile2.keySet());
+
+        if (union.isEmpty()) {
+            return 0;
+        }
 
         int inter = 0;
 

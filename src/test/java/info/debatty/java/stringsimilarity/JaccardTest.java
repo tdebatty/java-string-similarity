@@ -71,6 +71,19 @@ public class JaccardTest {
     }
 
     /**
+     * If both strings are smaller than k, there are no shingles.
+     */
+    @Test
+    public void testSmallStrings() {
+        Jaccard instance = new Jaccard(3);
+        assertEquals(0.0, instance.similarity("AB", "CD"), 0.0);
+        assertEquals(1.0, instance.distance("AB", "CD"), 0.0);
+        assertEquals(0.0, instance.similarity("", "AB"), 0.0);
+        assertEquals(0.0, instance.similarity("AB", "ABCE"), 0.0);
+        assertEquals(1.0, instance.similarity("AB", "AB"), 0.0);
+    }
+
+    /**
      * Default constructor (shingle size 3).
      */
     @Test
